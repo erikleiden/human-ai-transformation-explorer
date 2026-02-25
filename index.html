@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human + AI Transformation Explorer</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --navy:#0a1628;--navy-mid:#1a2e4a;
+  --blue:#1d5fc0;--blue-lt:#2d7dd2;--blue-bg:#EFF6FF;
+  --teal:#0d9488;--teal-lt:#14b8a6;
+  --purple:#7c3aed;--purple-lt:#a78bfa;--purple-bg:#F5F3FF;
+  --amber:#d97706;--amber-bg:#FFFBEB;
+  --green:#059669;--green-bg:#F0FDF4;
+  --rose:#dc2626;--rose-bg:#FEF2F2;
+  --slate-50:#f8fafc;--slate-100:#f1f5f9;--slate-200:#e2e8f0;
+  --slate-300:#cbd5e1;--slate-400:#94a3b8;--slate-500:#64748b;
+  --slate-600:#475569;--slate-700:#334155;--slate-800:#1e293b;
+  --white:#ffffff;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+}
+
+body{font-family:var(--font);background:var(--slate-50);color:var(--slate-800);min-height:100vh;display:flex;flex-direction:column}
+
+/* NAV */
+nav{background:var(--navy);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.nav-brand{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none}
+.nav-logo{width:30px;height:30px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:800;flex-shrink:0}
+.nav-title{color:#fff;font-size:14px;font-weight:700;letter-spacing:-.01em}
+.nav-sub{color:var(--teal-lt);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.nav-badge{background:rgba(20,184,166,.15);border:1px solid rgba(20,184,166,.3);color:var(--teal-lt);font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px}
+
+/* STEPPER */
+.stepper-wrap{background:#fff;border-bottom:1px solid var(--slate-200);padding:0 2rem}
+.stepper{max-width:1060px;margin:0 auto;display:flex;align-items:center;padding:.85rem 0}
+.step-btn{display:flex;align-items:center;gap:8px;cursor:pointer;background:none;border:none;padding:0}
+.step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;transition:all .25s;flex-shrink:0;border:2px solid var(--slate-200);background:#fff;color:var(--slate-400)}
+.step-num.active{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 0 0 4px rgba(29,95,192,.12)}
+.step-num.done{background:var(--teal);border-color:var(--teal);color:#fff}
+.step-label{text-align:left}
+.step-name{font-size:12px;font-weight:600;color:var(--slate-500);white-space:nowrap;transition:color .25s}
+.step-name.active{color:var(--blue)}
+.step-name.done{color:var(--teal)}
+.step-sel{font-size:11px;color:var(--slate-400);max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step-line{flex:1;height:2px;background:var(--slate-200);margin:0 6px;transition:background .35s}
+.step-line.done{background:var(--teal)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 55%,#0f2d40 100%);color:#fff;padding:2.5rem 2rem 2.25rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(20,184,166,.1) 0%,transparent 50%),radial-gradient(circle at 10% 80%,rgba(29,95,192,.12) 0%,transparent 50%)}
+.hero-inner{max-width:1060px;margin:0 auto;position:relative}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(20,184,166,.12);border:1px solid rgba(20,184,166,.28);color:var(--teal-lt);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:4px 11px;border-radius:20px;margin-bottom:.85rem}
+.hero h1{font-size:clamp(1.45rem,2.8vw,2.1rem);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:.6rem}
+.hero h1 em{color:var(--teal-lt);font-style:normal}
+.hero p{font-size:.92rem;color:rgba(255,255,255,.68);max-width:540px;line-height:1.65}
+
+/* MAIN */
+main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
+
+.section-hd{margin-bottom:1.25rem}
+.section-hd h2{font-size:1.15rem;font-weight:800;color:var(--slate-800);letter-spacing:-.02em;margin-bottom:.25rem}
+.section-hd p{font-size:.875rem;color:var(--slate-500)}
+
+.back-btn{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--blue);background:none;border:none;cursor:pointer;padding:0;margin-bottom:.85rem;transition:color .2s}
+.back-btn:hover{color:var(--navy)}
+.back-btn svg{width:14px;height:14px}
+
+/* SCREENS */
+.screen{display:none;animation:fadeUp .28s ease}
+.screen.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* CATEGORY GRID */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.cat-card{background:#fff;border:2px solid var(--slate-200);border-radius:14px;padding:1.35rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.cat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--c,var(--blue));opacity:0;transition:opacity .2s}
+.cat-card:hover,.cat-card.sel{border-color:var(--c,var(--blue));transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.cat-card:hover::after,.cat-card.sel::after{opacity:1}
+.cat-icon{width:44px;height:44px;border-radius:10px;background:var(--cb,#EFF6FF);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:.85rem}
+.cat-name{font-size:14px;font-weight:700;color:var(--slate-800);margin-bottom:.35rem;line-height:1.25}
+.cat-desc{font-size:12px;color:var(--slate-500);line-height:1.55;margin-bottom:.75rem}
+.cat-count{font-size:11px;font-weight:600;color:var(--slate-400)}
+.cat-count span{background:var(--cb,#EFF6FF);color:var(--c,var(--blue));padding:2px 6px;border-radius:8px;font-weight:700}
+
+/* USE-CASE GRID */
+.uc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.uc-card{background:#fff;border:2px solid var(--slate-200);border-radius:14px;padding:1.35rem;cursor:pointer;transition:all .2s}
+.uc-card:hover,.uc-card.sel{border-color:var(--purple);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.uc-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:.7rem}
+.uc-icon{width:40px;height:40px;border-radius:10px;background:var(--purple-bg);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.uc-name{font-size:14px;font-weight:700;color:var(--slate-800);line-height:1.3;margin-bottom:.3rem}
+.uc-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:8px;text-transform:uppercase;letter-spacing:.04em}
+.uc-badge.high{background:#FEF3C7;color:#92400E}
+.uc-badge.transform{background:#F3E8FF;color:#5B21B6}
+.uc-badge.medium{background:#DBEAFE;color:#1E40AF}
+.uc-desc{font-size:12px;color:var(--slate-500);line-height:1.6;margin-bottom:.6rem}
+.uc-tags{display:flex;flex-wrap:wrap;gap:5px}
+.uc-tag{font-size:11px;padding:2px 7px;background:var(--slate-100);color:var(--slate-600);border-radius:7px}
+
+/* ROLE GRID */
+.role-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.role-card{background:#fff;border:1.5px solid var(--slate-200);border-radius:11px;padding:1rem 1.1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px}
+.role-card:hover{border-color:var(--blue);box-shadow:0 3px 14px rgba(0,0,0,.07);transform:translateY(-1px)}
+.role-icon{width:38px;height:38px;border-radius:9px;background:var(--blue-bg);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.role-info{flex:1}
+.role-name{font-size:13px;font-weight:700;color:var(--slate-800);line-height:1.25}
+.role-meta{font-size:11px;color:var(--slate-400);margin-top:2px}
+.role-arr{color:var(--slate-300);font-size:16px;transition:all .2s}
+.role-card:hover .role-arr{color:var(--blue);transform:translateX(2px)}
+
+/* ── TRANSFORMATION VIEW ── */
+.tx-header{background:#fff;border:1px solid var(--slate-200);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.25rem;display:flex;gap:1.25rem;flex-wrap:wrap;align-items:flex-start}
+.tx-main{flex:1;min-width:230px}
+.tx-role{font-size:1.3rem;font-weight:800;letter-spacing:-.025em;margin-bottom:.25rem}
+.tx-sub{font-size:12px;color:var(--slate-400);margin-bottom:.75rem}
+.tx-chips{display:flex;flex-wrap:wrap;gap:7px}
+.tx-chip{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;display:flex;align-items:center;gap:4px}
+.tx-chip.add{background:#F3E8FF;color:#5B21B6}
+.tx-chip.drop{background:#FEF2F2;color:#991B1B}
+.tx-chip.keep{background:#F0FDF4;color:#166534}
+
+.tx-ai-box{background:linear-gradient(135deg,#F3E8FF,#EFF6FF);border:1px solid #E9D5FF;border-radius:11px;padding:.9rem 1.1rem;min-width:220px;flex-shrink:0}
+.tx-ai-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:3px}
+.tx-ai-name{font-size:13px;font-weight:700;color:var(--slate-800);margin-bottom:4px}
+.tx-ai-desc{font-size:11px;color:var(--slate-600);line-height:1.5}
+
+/* SKILL PANELS LAYOUT */
+.tx-panels{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:1.25rem}
+
+@media(max-width:680px){.tx-panels{grid-template-columns:1fr}}
+
+.panel{background:#fff;border:1px solid var(--slate-200);border-radius:12px;overflow:hidden}
+.panel-head{padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--slate-100)}
+.panel-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--slate-500)}
+.panel-count{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px}
+.panel-body{padding:.6rem .75rem;display:flex;flex-direction:column;gap:5px}
+
+/* SKILL ROWS */
+.cat-group{margin-bottom:.5rem}
+.cat-group:last-child{margin-bottom:0}
+.cat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--slate-400);padding:.4rem .25rem .3rem;display:flex;align-items:center;gap:6px}
+.cat-label::after{content:'';flex:1;height:1px;background:var(--slate-100)}
+
+.sk{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;border:1.5px solid transparent;transition:all .18s;background:var(--slate-50)}
+.sk:hover{box-shadow:0 1px 8px rgba(0,0,0,.06)}
+
+/* current skill states on left panel */
+.sk.dropping{background:var(--rose-bg);border-color:#FECACA}
+.sk.kept{background:#FFFBEB;border-color:#FDE68A}
+
+/* right panel states */
+.sk.new-skill{background:var(--purple-bg);border-color:#C4B5FD}
+.sk.kept-r{background:#FFFBEB;border-color:#FDE68A}
+
+.sk-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sk-dot.dropping{background:var(--rose)}
+.sk-dot.kept{background:var(--amber)}
+.sk-dot.new-skill{background:var(--purple)}
+.sk-dot.kept-r{background:var(--amber)}
+
+.sk-name{font-size:12.5px;font-weight:500;color:var(--slate-700);flex:1;line-height:1.3}
+.sk-badge{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:6px;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;flex-shrink:0}
+.sk-badge.dropping{background:var(--rose);color:#fff}
+.sk-badge.kept{background:var(--amber);color:#fff}
+.sk-badge.new-skill{background:var(--purple);color:#fff}
+.sk-badge.kept-r{background:var(--amber);color:#fff}
+
+/* labels inside the left panel */
+.trend-badge{font-size:9px;font-weight:600;padding:1px 5px;border-radius:5px;margin-left:2px}
+.trend-badge.durable{background:#FEF3C7;color:#92400E}
+.trend-badge.high-growth{background:#DCFCE7;color:#14532D}
+.trend-badge.high-value{background:#EDE9FE;color:#4C1D95}
+.trend-badge.declining{background:#FEE2E2;color:#991B1B}
+
+/* LEGEND */
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1.1rem}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--slate-600);font-weight:500}
+.leg-dot{width:9px;height:9px;border-radius:50%}
+
+/* INSIGHT */
+.insight{background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:13px;padding:1.4rem 1.75rem;margin-top:1.25rem;color:#fff;display:flex;gap:1.25rem;align-items:flex-start;flex-wrap:wrap}
+.insight-icon{font-size:1.75rem;flex-shrink:0}
+.insight-body{flex:1}
+.insight-title{font-size:14px;font-weight:700;margin-bottom:.5rem}
+.insight-text{font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.65}
+.insight-pills{display:flex;gap:7px;margin-top:.9rem;flex-wrap:wrap}
+.insight-pill{background:rgba(20,184,166,.14);border:1px solid rgba(20,184,166,.28);color:var(--teal-lt);font-size:11px;font-weight:600;padding:4px 10px;border-radius:16px}
+
+/* no-skills empty state */
+.empty-note{font-size:12px;color:var(--slate-400);padding:.5rem .25rem;font-style:italic}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" onclick="goHome()">
+    <div class="nav-logo">H+</div>
+    <div>
+      <div class="nav-title">Human + AI Transformation Explorer</div>
+      <div class="nav-sub">Skills-First Initiative</div>
+    </div>
+  </a>
+  <div class="nav-badge">Prototype · v0.2</div>
+</nav>
+
+<!-- STEPPER -->
+<div class="stepper-wrap">
+  <div class="stepper">
+    <button class="step-btn" onclick="goToStep(1)">
+      <div class="step-num active" id="sn1">1</div>
+      <div class="step-label"><div class="step-name active" id="st1">Job Category</div><div class="step-sel" id="ss1">Select a domain</div></div>
+    </button>
+    <div class="step-line" id="sl1"></div>
+    <button class="step-btn" onclick="goToStep(2)">
+      <div class="step-num" id="sn2">2</div>
+      <div class="step-label"><div class="step-name" id="st2">AI Use Case</div><div class="step-sel" id="ss2">Pick an approach</div></div>
+    </button>
+    <div class="step-line" id="sl2"></div>
+    <button class="step-btn" onclick="goToStep(3)">
+      <div class="step-num" id="sn3">3</div>
+      <div class="step-label"><div class="step-name" id="st3">Specific Role</div><div class="step-sel" id="ss3">Choose a role</div></div>
+    </button>
+    <div class="step-line" id="sl3"></div>
+    <button class="step-btn">
+      <div class="step-num" id="sn4">4</div>
+      <div class="step-label"><div class="step-name" id="st4">Skill Transformation</div><div class="step-sel" id="ss4">See what changes</div></div>
+    </button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">🤝 Skills-First × AI Transformation</div>
+    <h1>See how <em>AI transforms</em> the skills workers need</h1>
+    <p>Walk four steps to understand how specific AI use cases add, remove, and reshape skill requirements — using real skill taxonomies from the Skills-First Workforce Initiative.</p>
+  </div>
+</div>
+
+<main>
+
+<!-- SCREEN 1: CATEGORY -->
+<div class="screen active" id="sc1">
+  <div class="section-hd"><h2>Select a Job Category</h2><p>Four segments covering 30 workforce roles representing 35M+ U.S. workers.</p></div>
+  <div class="cat-grid">
+    <div class="cat-card" style="--c:#1d5fc0;--cb:#EFF6FF" onclick="selectCat(this,'tech')">
+      <div class="cat-icon">💻</div>
+      <div class="cat-name">Technology &amp; Knowledge Work</div>
+      <div class="cat-desc">Software development, data science, cybersecurity, and product management roles driving digital transformation.</div>
+      <div class="cat-count"><span>4</span> roles · Highest AI exposure</div>
+    </div>
+    <div class="cat-card" style="--c:#0d9488;--cb:#F0FDFA" onclick="selectCat(this,'ops')">
+      <div class="cat-icon">🏭</div>
+      <div class="cat-name">Operations &amp; Logistics</div>
+      <div class="cat-desc">Warehousing, transportation, manufacturing, and supply chain roles keeping the economy moving.</div>
+      <div class="cat-count"><span>11</span> roles · Growing automation</div>
+    </div>
+    <div class="cat-card" style="--c:#7c3aed;--cb:#F5F3FF" onclick="selectCat(this,'retail')">
+      <div class="cat-icon">🛍️</div>
+      <div class="cat-name">Retail &amp; Customer Service</div>
+      <div class="cat-desc">Front-line customer-facing roles in retail, cashiering, service, and reception.</div>
+      <div class="cat-count"><span>7</span> roles · AI augmenting human touch</div>
+    </div>
+    <div class="cat-card" style="--c:#d97706;--cb:#FFFBEB" onclick="selectCat(this,'biz')">
+      <div class="cat-icon">📊</div>
+      <div class="cat-name">Business &amp; Management</div>
+      <div class="cat-desc">Finance, HR, project management, sales, and purchasing roles coordinating organizational resources.</div>
+      <div class="cat-count"><span>8</span> roles · AI co-pilot potential</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 2: USE CASE -->
+<div class="screen" id="sc2">
+  <button class="back-btn" onclick="goToStep(1)">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11L5 7l4-4"/></svg>
+    Back to Categories
+  </button>
+  <div class="section-hd"><h2>Choose an AI Use Case</h2><p>Select the primary way AI will be introduced. This determines which skills are added, which remain, and which decline.</p></div>
+  <div class="uc-grid" id="uc-grid"></div>
+</div>
+
+<!-- SCREEN 3: ROLE -->
+<div class="screen" id="sc3">
+  <button class="back-btn" onclick="goToStep(2)">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11L5 7l4-4"/></svg>
+    Back to AI Use Cases
+  </button>
+  <div class="section-hd"><h2 id="role-hd">Select a Specific Role</h2><p id="role-sub">Choose a role to see how its skills transform.</p></div>
+  <div class="role-grid" id="role-grid"></div>
+</div>
+
+<!-- SCREEN 4: TRANSFORMATION -->
+<div class="screen" id="sc4">
+  <button class="back-btn" onclick="goToStep(3)">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11L5 7l4-4"/></svg>
+    Back to Roles
+  </button>
+  <div id="tx-header-area"></div>
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:var(--purple)"></div>New AI Skill Added</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--amber)"></div>Existing Skill Remains</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--rose)"></div>Skill Likely to Decline</div>
+  </div>
+  <div class="tx-panels" id="tx-panels"></div>
+  <div id="tx-insight"></div>
+</div>
+
+</main>
+
+<script>
+/* ═══════════════════════════════ DATA ═══════════════════════════════ */
+
+// Real skills from skills-first.org CSV, keyed by occupation name
+const ROLES_DB = {
+"Assemblers and Fabricators":{icon:"🔩",workers:"~3.2M workers",cat:"ops",skills:[
+  {skill:"Lifting Ability",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Operations",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Warehousing",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Packaging And Labeling",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Construction",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Computer Literacy",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"General Mathematics",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Inventory Control",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Inventory Management",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Ethical Standards And Conduct",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Data Entry",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Blueprinting",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Production Line",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Machining",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Material Handling",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Inventory Staging",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+]},
+"Cashiers":{icon:"💳",workers:"~3.3M workers",cat:"retail",skills:[
+  {skill:"Customer Service",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Merchandising",cat:"Specializations",label:"Declining Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Cash Handling",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Point Of Sale",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"General Mathematics",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Product Knowledge",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Bagging Merchandise",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Issuing Receipts",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Balancing (Ledger/Billing)",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Customer Complaint Resolution",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Retail Sales",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Retail Operations",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Loss Prevention",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Assisted Self Checkout",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Issuing Refunds",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Price Checks",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+]},
+"Cybersecurity Analysts":{icon:"🔒",workers:"~170K workers",cat:"tech",skills:[
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Auditing",cat:"Specializations",label:"Declining Skill"},
+  {skill:"Problem Solving",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Risk Analysis",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Security Controls",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Incident Response",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Security Policies",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Project Management",cat:"Foundational & Leadership Skills",label:"Declining Skill"},
+  {skill:"Operating Systems",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Linux",cat:"Specializations",label:"Declining Skill"},
+  {skill:"Governance",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Security Information And Event Management (SIEM)",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Cloud Security",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Cyber Threat Intelligence",cat:"Specializations",label:"High Value Skill"},
+  {skill:"IT Security Architecture",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Penetration Testing",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Information Assurance",cat:"Specializations",label:"Declining Skill"},
+  {skill:"Vulnerability Management",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Information Systems Security",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Application Security",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Agile Methodology",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Identity And Access Management",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Risk Management Framework",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Encryption",cat:"Specializations",label:"Declining Skill"},
+  {skill:"Endpoint Security",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Digital Forensics",cat:"Specializations",label:"High Growth Skill"},
+]},
+"Data Scientists":{icon:"📊",workers:"~200K workers",cat:"tech",skills:[
+  {skill:"Machine Learning",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Python (Programming Language)",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Data Analysis",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Statistics",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Algorithms",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"SQL (Programming Language)",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Research",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Artificial Intelligence",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Data Visualization",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Predictive Modeling",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Problem Solving",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Data Mining",cat:"Specializations",label:"Durable Skill"},
+  {skill:"TensorFlow",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Big Data",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Data Modeling",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Deep Learning",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Decision Making",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Natural Language Processing (NLP)",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Data Engineering",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Applied Mathematics",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Artificial Neural Networks",cat:"Specializations",label:"High Value Skill"},
+  {skill:"MLOps (Machine Learning Operations)",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Cloud Computing",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Computer Vision",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Relational Databases",cat:"Specializations",label:"Declining Skill"},
+  {skill:"Technical Documentation",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+]},
+"Financial Managers":{icon:"🏦",workers:"~700K workers",cat:"biz",skills:[
+  {skill:"Accounting",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Operations",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Financial Statements",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Budgeting",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Problem Solving",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Forecasting",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Microsoft Excel",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Financial Analysis",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Decision Making",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Internal Controls",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Process Improvement",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Tax Management",cat:"Specializations",label:"High Value Skill"},
+  {skill:"General Ledger",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Loans",cat:"Specializations",label:"Declining Skill"},
+  {skill:"Accounts Receivable",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Accounts Payable",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Investments",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Supervision",cat:"Foundational & Leadership Skills",label:"Declining Skill"},
+  {skill:"Month-End Closing",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Financial Modeling",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Account Reconciliation",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+]},
+"Human Resources Specialists":{icon:"🧑‍🤝‍🧑",workers:"~900K workers",cat:"biz",skills:[
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Writing",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Microsoft Excel",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Problem Solving",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Human Resources Information System (HRIS)",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Organizational Skills",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Employee Relations",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Applicant Tracking Systems",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Project Management",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Performance Management",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Business Administration",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Employee Onboarding",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Human Resource Management",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Full-Cycle Recruitment",cat:"Specializations",label:"Declining Skill"},
+  {skill:"Training And Development",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Labor Law",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Data Analysis",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Employee Engagement",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Change Management",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Payroll Processing",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Workforce Planning",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Benefits Enrollment Processes",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Benefits Administration",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+]},
+"Industrial Machinery Mechanics":{icon:"⚙️",workers:"~400K workers",cat:"ops",skills:[
+  {skill:"Troubleshooting (Problem Solving)",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Preventive Maintenance",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Operations",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Blueprinting",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"HVAC",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Electrical Systems",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Computer Literacy",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Production Equipment",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Equipment Maintenance",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Mechanical Systems",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Machining",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Lock Out / Tag Out",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Electrical Diagnostics And Repairs",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Computerized Maintenance Management Systems",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Schematic Reading",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Electrical/Electronic Troubleshooting",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Systems Controls",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Equipment Efficiency",cat:"Specializations",label:"High Value Skill"},
+]},
+"Inspectors, Testers, and Samplers":{icon:"🔬",workers:"~460K workers",cat:"ops",skills:[
+  {skill:"Quality Control",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Quality Assurance",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Auditing",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Computer Literacy",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Microsoft Excel",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Quality Management Systems",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Product Inspection",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Manufacturing Processes",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Product Testing",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Corrective And Preventive Action (CAPA)",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Root Cause Analysis",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Statistical Process Controls",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Calibration",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Food Safety And Sanitation",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Mechanical Inspection",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+]},
+"Laborers and Material Movers":{icon:"🦺",workers:"~5.9M workers",cat:"ops",skills:[
+  {skill:"Warehousing",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Forklift Truck",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Loading And Unloading",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Lifting Ability",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Palletizing",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Declining Skill"},
+  {skill:"Pallet Jacks",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Packaging And Labeling",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Sorting",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Cycle Counting",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Material Handling",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Inventory Management",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Order Picking",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Inventory Staging",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Teamwork",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Order Fulfillment",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Mobile Devices",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Safety Standards",cat:"Specializations",label:"Durable Skill"},
+]},
+"Maintenance and Repair Workers":{icon:"🔧",workers:"~1.5M workers",cat:"ops",skills:[
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Customer Service",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Troubleshooting (Problem Solving)",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"HVAC",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Painting",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Lifting Ability",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Preventive Maintenance",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Electrical Systems",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Safety Standards",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Electronics",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Property Maintenance",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Mechanical Systems",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Electrical Diagnostics And Repairs",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Computerized Maintenance Management Systems",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Lock Out / Tag Out",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Corrective Maintenance",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+]},
+"Packers and Packagers":{icon:"📦",workers:"~700K workers",cat:"ops",skills:[
+  {skill:"Warehousing",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Packaging And Labeling",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Palletizing",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Lifting Ability",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Sorting",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Declining Skill"},
+  {skill:"Order Picking",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Order Fulfillment",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Food Safety And Sanitation",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Product Inspection",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Troubleshooting (Problem Solving)",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Inventory Management",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Material Handling",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Order Processing",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+]},
+"Production and Expediting Clerks":{icon:"📋",workers:"~320K workers",cat:"biz",skills:[
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Scheduling",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Operations",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Customer Service",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Microsoft Excel",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Problem Solving",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Warehousing",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Multitasking",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Supply Chain",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Organizational Skills",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Logistics",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Purchasing",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Data Entry",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Inventory Control",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Procurement",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Cycle Counting",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Forecasting",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Enterprise Resource Planning",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Order Fulfillment",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+]},
+"Project Management Specialists":{icon:"🗂️",workers:"~900K workers",cat:"biz",skills:[
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Operations",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Problem Solving",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Microsoft Excel",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Scheduling",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Project Schedules",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Project Planning",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Budgeting",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Timelines",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Project Scoping",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Procurement",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Project Implementation",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Change Management",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Risk Management",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Project Documentation",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Agile Methodology",cat:"Specializations",label:"Declining Skill"},
+  {skill:"Governance",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Project Performance",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Project Closure",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Project Controls",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Project Management Software",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Strategic Planning",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Data Analysis",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Stakeholder Management",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+]},
+"Purchasing Agents":{icon:"🛒",workers:"~310K workers",cat:"biz",skills:[
+  {skill:"Procurement",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Microsoft Excel",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Customer Service",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Contract Management",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Supply Chain",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Inventory Management",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Supplier Performance Management",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Supply Chain Management",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Price Negotiation",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Request For Quotation (RFQ)",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Strategic Sourcing",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Supplier Relationship Management",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Contract Review",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Supplier Identification And Selection",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Category Management",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Negotiation Strategies",cat:"Specializations",label:"High Value Skill"},
+]},
+"Receptionists and Information Clerks":{icon:"🪟",workers:"~1M workers",cat:"retail",skills:[
+  {skill:"Customer Service",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Multitasking",cat:"Foundational & Leadership Skills",label:"Declining Skill"},
+  {skill:"Telephone Skills",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Organizational Skills",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Scheduling",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Data Entry",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Administrative Support",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Microsoft Excel",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Front Office",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Office Management",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Medical Records",cat:"Specializations",label:"High Growth Skill"},
+]},
+"Sales Representatives":{icon:"📞",workers:"~1.5M workers",cat:"biz",skills:[
+  {skill:"Customer Service",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Selling Techniques",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Sales Prospecting",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Marketing",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Outside Sales",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Customer Relationship Management",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Problem Solving",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Business Development",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Cold Calling",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Product Knowledge",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Business To Business",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Account Management",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Sales Territory Management",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Relationship Building",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Lead Generation",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Cross-Selling",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+]},
+"Security Guards":{icon:"🛡️",workers:"~1.1M workers",cat:"retail",skills:[
+  {skill:"Customer Service",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Emergency Response",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Problem Solving",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Declining Skill"},
+  {skill:"Site Security",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Patrolling",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Access Controls",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Incident Reporting",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Investigation",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Physical Security",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"De-escalation Techniques",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"First Aid",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Security Systems",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Security Management",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Crowd Control",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+]},
+"Shipping & Receiving Clerks":{icon:"📬",workers:"~700K workers",cat:"ops",skills:[
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Customer Service",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Lifting Ability",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Packaging And Labeling",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Computer Literacy",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"General Mathematics",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Sorting",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Multitasking",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Invoicing",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Inventory Management",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Bill Of Lading",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Inventory Control",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Cycle Counting",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Loss Prevention",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Data Entry",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Order Picking",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Inventory Staging",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Physical Inventory",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Order Fulfillment",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Warehouse Operations",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Material Handling",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Freight Handling",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+]},
+"Stockers and Order Fillers":{icon:"📦",workers:"~3M workers",cat:"ops",skills:[
+  {skill:"Customer Service",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Warehousing",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Merchandising",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Lifting Ability",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Pallet Jacks",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Loading And Unloading",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Inventory Control",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Stocking Merchandise",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Sanitation",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Product Knowledge",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Multitasking",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Organizational Skills",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Teamwork",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Order Picking",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Planogram",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Safety Standards",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Order Fulfillment",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Data Entry",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Mobile Devices",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Warehouse Operations",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+]},
+"Transportation Supervisors":{icon:"🚚",workers:"~100K workers",cat:"ops",skills:[
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Warehousing",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Customer Service",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Planning",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Scheduling",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Microsoft Excel",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Inventory Management",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Process Improvement",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Operations Management",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Supply Chain",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Performance Management",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Safety Standards",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Bill Of Lading",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Defensive Driving",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Pre-Trip And Post-Trip Vehicle Inspections",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Data Analysis",cat:"Baseline Applied Skills",label:"High Value Skill"},
+]},
+"Truck Drivers":{icon:"🚛",workers:"~2M workers",cat:"ops",skills:[
+  {skill:"Customer Service",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Lifting Ability",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Pre-Trip And Post-Trip Vehicle Inspections",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Vehicle Maintenance",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Dry Van Truck Operation",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Package Delivery",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Safety Standards",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"General Mathematics",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Smartphone Operation",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Defensive Driving",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Physical Stamina",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Map Reading",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Bill Of Lading",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Dangerous Goods/Hazmat Transport",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Doubles Endorsement",cat:"Specializations",label:"High Value Skill"},
+]},
+"Customer Service Managers":{icon:"👔",workers:"~400K workers",cat:"retail",skills:[
+  {skill:"Account Management",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Call Center Experience",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Cash Handling",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Coaching",cat:"Foundational & Leadership Skills",label:"Declining Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Customer Relationship Management",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Customer Service",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Customer Support",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Influencing Skills",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Invoicing",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Leadership",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Management",cat:"Foundational & Leadership Skills",label:"Declining Skill"},
+  {skill:"Operations",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Performance Management",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Project Management",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Sales",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Selling Techniques",cat:"Specializations",label:"Durable Skill"},
+]},
+"Customer Service Representatives":{icon:"🎧",workers:"~2.9M workers",cat:"retail",skills:[
+  {skill:"Billing",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Call Center Experience",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Cash Handling",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Clerical Works",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Customer Inquiries",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Customer Relationship Management",cat:"Specializations",label:"Declining Skill"},
+  {skill:"Customer Success Management",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Customer Support",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Data Entry",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Inbound Calls",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Invoicing",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Issuing Refunds",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Merchandise Exchanges",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Multilingualism",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Order Delivery",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Order Entry",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Order Fulfillment",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Prioritization",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Scheduling",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+]},
+"Financial Analysts":{icon:"📉",workers:"~330K workers",cat:"biz",skills:[
+  {skill:"Accounting",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Ad Hoc Analysis",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Analytical Skills",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Auditing",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Budgeting",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Corporate Finance",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Economics",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Financial Data",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Financial Forecasting",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Financial Management",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Financial Modeling",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Financial Planning",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Financial Statements",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Forecasting",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Leadership",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Microsoft Excel",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Month-End Closing",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Power BI",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Presentations",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Research",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Variance Analysis",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Portfolio Management",cat:"Specializations",label:"High Value Skill"},
+]},
+"First-Line Supervisors of Retail Sales Workers":{icon:"🗂️",workers:"~1.3M workers",cat:"retail",skills:[
+  {skill:"Accountability",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Cash Handling",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Cash Register",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Coaching",cat:"Foundational & Leadership Skills",label:"Declining Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Customer Service",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Leadership",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Mentorship",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Merchandising",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Organizational Skills",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Performance Management",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Problem Solving",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Retail Management",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Scheduling",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Stocking Merchandise",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Supervision",cat:"Foundational & Leadership Skills",label:"Declining Skill"},
+]},
+"Product Managers":{icon:"🧭",workers:"~500K workers",cat:"tech",skills:[
+  {skill:"Agile Methodology",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Computer Science",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Decision Making",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Go-to-Market Strategy",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Influencing Skills",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Innovation",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Management",cat:"Foundational & Leadership Skills",label:"Declining Skill"},
+  {skill:"Market Research",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Marketing",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Operations",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Planning",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Presentations",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Prioritization",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Problem Solving",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Product Lifecycle Management",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Product Marketing",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Product Requirements",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Product Strategy",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Project Management",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Research",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Strategic Planning",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"User Experience (UX)",cat:"Specializations",label:"High Value Skill"},
+  {skill:"User Story",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Workflow Management",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+]},
+"Retail Salespersons":{icon:"🏷️",workers:"~4.5M workers",cat:"retail",skills:[
+  {skill:"Bagging Merchandise",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Cash Handling",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Cash Register",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Customer Engagement",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Customer Service",cat:"Baseline Applied Skills",label:"Declining Skill"},
+  {skill:"Demonstration Skills",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Greeting Customers",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Inventory Management",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Leadership",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Lifting Ability",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Loss Prevention",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Merchandise Displays",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Merchandising",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Planogram",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Problem Solving",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Retail Operations",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Stocking Merchandise",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Teamwork",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+]},
+"Sales Managers":{icon:"🎯",workers:"~400K workers",cat:"biz",skills:[
+  {skill:"Account Management",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Budgeting",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Business Development",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Coaching",cat:"Foundational & Leadership Skills",label:"Declining Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Customer Relationship Management",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Customer Service",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Finance",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Forecasting",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Influencing Skills",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Leadership",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Marketing",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Negotiation",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Planning",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Presentations",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Sales Prospecting",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Selling Techniques",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Strategic Planning",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+]},
+"Software Developers":{icon:"👨‍💻",workers:"~4.4M workers",cat:"tech",skills:[
+  {skill:"Agile Methodology",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Application Programming Interface (API)",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Automation",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Business Process",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"Business Requirements",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"CI/CD",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Debugging",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"DevOps",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Docker (Software)",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Full Stack Development",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Git (Version Control System)",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Innovation",cat:"Foundational & Leadership Skills",label:"High Growth Skill"},
+  {skill:"Kubernetes",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Microservices",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Microsoft Azure",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Python (Programming Language)",cat:"Specializations",label:"Durable Skill"},
+  {skill:"RESTful API",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Scalability",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Scripting",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Technical Documentation",cat:"Core Role-Specific Skills",label:"High Growth Skill"},
+  {skill:"Troubleshooting (Problem Solving)",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Unit Testing",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"User Interface (UI)",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Artificial Intelligence",cat:"Specializations",label:"High Growth Skill"},
+  {skill:"Amazon Web Services",cat:"Specializations",label:"High Growth Skill"},
+]},
+"Transportation, Storage, and Distribution Managers":{icon:"🏗️",workers:"~165K workers",cat:"ops",skills:[
+  {skill:"Communication",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Cycle Counting",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Forklift Truck",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Inventory Management",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Leadership",cat:"Foundational & Leadership Skills",label:"High Value Skill"},
+  {skill:"Logistics",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+  {skill:"Logistics Management",cat:"Core Role-Specific Skills",label:"Declining Skill"},
+  {skill:"Microsoft Office",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Operations",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Order Fulfillment",cat:"Specializations",label:"Durable Skill"},
+  {skill:"Process Improvement",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Profit And Loss (P&L) Management",cat:"Foundational & Leadership Skills",label:"Durable Skill"},
+  {skill:"Project Management",cat:"Baseline Applied Skills",label:"High Value Skill"},
+  {skill:"Safety Standards",cat:"Baseline Applied Skills",label:"High Growth Skill"},
+  {skill:"SAP Applications",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Supply Chain Management",cat:"Baseline Applied Skills",label:"Durable Skill"},
+  {skill:"Third-Party Logistics",cat:"Specializations",label:"High Value Skill"},
+  {skill:"Warehouse Management",cat:"Core Role-Specific Skills",label:"High Value Skill"},
+  {skill:"Warehousing",cat:"Core Role-Specific Skills",label:"Durable Skill"},
+]},
+};
+
+const CATS = {
+  tech: {label:"Technology & Knowledge Work", roles:["Software Developers","Data Scientists","Cybersecurity Analysts","Product Managers"]},
+  ops:  {label:"Operations & Logistics",       roles:["Transportation, Storage, and Distribution Managers","Truck Drivers","Stockers and Order Fillers","Shipping & Receiving Clerks","Laborers and Material Movers","Industrial Machinery Mechanics","Inspectors, Testers, and Samplers","Assemblers and Fabricators","Packers and Packagers","Maintenance and Repair Workers","Transportation Supervisors"]},
+  retail:{label:"Retail & Customer Service",   roles:["Customer Service Representatives","Customer Service Managers","Retail Salespersons","First-Line Supervisors of Retail Sales Workers","Cashiers","Receptionists and Information Clerks","Security Guards"]},
+  biz:  {label:"Business & Management",        roles:["Financial Analysts","Financial Managers","Human Resources Specialists","Project Management Specialists","Sales Managers","Sales Representatives","Purchasing Agents","Production and Expediting Clerks"]},
+};
+
+// AI use-cases: each defines which skills get added, and optional override of which existing skills to mark "dropping"
+const USE_CASES = [
+  {
+    id:"ai-copilot", icon:"🤖", name:"AI Co-Pilot for Daily Work",
+    badge:"high", badgeLabel:"High Augmentation",
+    desc:"AI assists workers in real-time — drafting communications, summarizing content, and generating options — while humans retain decision authority.",
+    tags:["Generative AI","Workflow Automation","LLMs"],
+    for:["tech","biz","retail"],
+    addedSkills:{
+      "Software Developers":[
+        {skill:"Prompt Engineering",cat:"Core Role-Specific Skills"},
+        {skill:"LLM API Integration",cat:"Specializations"},
+        {skill:"AI Code Review & Validation",cat:"Core Role-Specific Skills"},
+        {skill:"Responsible AI / Ethics",cat:"Foundational & Leadership Skills"},
+      ],
+      "Data Scientists":[
+        {skill:"LLM Fine-Tuning & RAG",cat:"Specializations"},
+        {skill:"AI Model Evaluation",cat:"Core Role-Specific Skills"},
+        {skill:"Foundation Model Orchestration",cat:"Specializations"},
+        {skill:"Data Ethics & Governance",cat:"Foundational & Leadership Skills"},
+      ],
+      "Product Managers":[
+        {skill:"AI Feature Strategy",cat:"Core Role-Specific Skills"},
+        {skill:"Ethical AI Product Design",cat:"Foundational & Leadership Skills"},
+        {skill:"AI Metrics & Evaluation Frameworks",cat:"Core Role-Specific Skills"},
+      ],
+      "Cybersecurity Analysts":[
+        {skill:"AI-Powered Threat Detection",cat:"Specializations"},
+        {skill:"AI Adversarial Attack Defense",cat:"Specializations"},
+        {skill:"AI Tool Governance",cat:"Foundational & Leadership Skills"},
+      ],
+      "Financial Analysts":[
+        {skill:"AI-Assisted Financial Modeling",cat:"Specializations"},
+        {skill:"AI-Powered Data Retrieval (Prompt-Based)",cat:"Baseline Applied Skills"},
+        {skill:"AI Audit & Accuracy Validation",cat:"Core Role-Specific Skills"},
+      ],
+      "Financial Managers":[
+        {skill:"AI Compliance Monitoring",cat:"Specializations"},
+        {skill:"AI-Powered Budget Optimization",cat:"Core Role-Specific Skills"},
+        {skill:"AI Risk & Scenario Modeling",cat:"Specializations"},
+      ],
+      "Human Resources Specialists":[
+        {skill:"AI-Adaptive Learning Curation",cat:"Core Role-Specific Skills"},
+        {skill:"AI Compliance Monitoring",cat:"Specializations"},
+        {skill:"AI-Assisted Communication Drafting",cat:"Foundational & Leadership Skills"},
+      ],
+      "Project Management Specialists":[
+        {skill:"AI Predictive Risk Detection",cat:"Core Role-Specific Skills"},
+        {skill:"AI PM Platform Navigation",cat:"Specializations"},
+        {skill:"AI-Generated Status Reporting",cat:"Core Role-Specific Skills"},
+      ],
+      "Sales Managers":[
+        {skill:"AI Sales Intelligence & Analytics",cat:"Specializations"},
+        {skill:"AI Conversation Intelligence",cat:"Core Role-Specific Skills"},
+        {skill:"AI Pipeline Forecasting",cat:"Core Role-Specific Skills"},
+      ],
+      "Sales Representatives":[
+        {skill:"AI-Powered Lead Intelligence",cat:"Core Role-Specific Skills"},
+        {skill:"AI CRM Auto-Logging",cat:"Baseline Applied Skills"},
+        {skill:"AI-Driven Pipeline & Next Best Actions",cat:"Core Role-Specific Skills"},
+      ],
+      "Purchasing Agents":[
+        {skill:"AI Vendor Intelligence & Risk Scoring",cat:"Core Role-Specific Skills"},
+        {skill:"AI Cost Optimization Analytics",cat:"Specializations"},
+      ],
+      "Production and Expediting Clerks":[
+        {skill:"Real-Time AI Order Intelligence",cat:"Core Role-Specific Skills"},
+        {skill:"AI Bottleneck & Risk Detection",cat:"Core Role-Specific Skills"},
+      ],
+      "Customer Service Representatives":[
+        {skill:"AI Chat Tool Oversight & Escalation",cat:"Core Role-Specific Skills"},
+        {skill:"AI Knowledge Base Curation",cat:"Core Role-Specific Skills"},
+        {skill:"AI-Drafted Response Editing",cat:"Baseline Applied Skills"},
+      ],
+      "Customer Service Managers":[
+        {skill:"AI Sentiment Analytics",cat:"Specializations"},
+        {skill:"AI-Driven CSAT & Insight Loop",cat:"Core Role-Specific Skills"},
+        {skill:"AI Workforce Scheduling",cat:"Core Role-Specific Skills"},
+      ],
+      "First-Line Supervisors of Retail Sales Workers":[
+        {skill:"AI-Powered Performance Analytics",cat:"Specializations"},
+        {skill:"AI Planogram Optimization",cat:"Core Role-Specific Skills"},
+      ],
+      "Retail Salespersons":[
+        {skill:"AI-Powered Product Recommendation",cat:"Core Role-Specific Skills"},
+        {skill:"AI-Assisted Upselling Tools",cat:"Specializations"},
+      ],
+      "Receptionists and Information Clerks":[
+        {skill:"AI Virtual Assistant Oversight",cat:"Core Role-Specific Skills"},
+        {skill:"AI Workplace Platform Navigation",cat:"Specializations"},
+      ],
+      "Security Guards":[
+        {skill:"AI Video Analytics Oversight",cat:"Specializations"},
+        {skill:"Smart Security Systems Operation",cat:"Core Role-Specific Skills"},
+      ],
+    },
+    dropOverride:{},
+  },
+  {
+    id:"predictive-analytics", icon:"📈", name:"Predictive Analytics & Decision Intelligence",
+    badge:"medium", badgeLabel:"Data-Led Augmentation",
+    desc:"AI surfaces predictions from large datasets, enabling workers to make faster, data-driven decisions with real-time intelligence.",
+    tags:["Machine Learning","Data Analysis","Forecasting"],
+    for:["tech","biz","ops"],
+    addedSkills:{
+      "Data Scientists":[
+        {skill:"MLOps & Model Deployment",cat:"Specializations"},
+        {skill:"Automated Feature Engineering",cat:"Specializations"},
+        {skill:"Real-Time Inference Architecture",cat:"Specializations"},
+      ],
+      "Financial Analysts":[
+        {skill:"AI-Driven Forecasting & Scenario Planning",cat:"Core Role-Specific Skills"},
+        {skill:"Power BI / AI Dashboard Interpretation",cat:"Baseline Applied Skills"},
+        {skill:"Predictive Financial Modeling",cat:"Specializations"},
+      ],
+      "Financial Managers":[
+        {skill:"Predictive Risk Modeling",cat:"Specializations"},
+        {skill:"AI Capital Allocation Intelligence",cat:"Core Role-Specific Skills"},
+      ],
+      "Project Management Specialists":[
+        {skill:"Predictive Project Risk Analytics",cat:"Core Role-Specific Skills"},
+        {skill:"AI-Powered Resource Optimization",cat:"Specializations"},
+      ],
+      "Purchasing Agents":[
+        {skill:"AI Demand Forecasting & Inventory",cat:"Core Role-Specific Skills"},
+        {skill:"AI Supply Chain Disruption Alerts",cat:"Specializations"},
+      ],
+      "Sales Managers":[
+        {skill:"AI-Driven Win/Loss Analytics",cat:"Specializations"},
+        {skill:"Predictive Territory Planning",cat:"Core Role-Specific Skills"},
+      ],
+      "Sales Representatives":[
+        {skill:"AI Propensity-to-Buy Scoring",cat:"Specializations"},
+        {skill:"Predictive Outreach Sequencing",cat:"Core Role-Specific Skills"},
+      ],
+      "Transportation, Storage, and Distribution Managers":[
+        {skill:"Predictive Inventory Optimization",cat:"Core Role-Specific Skills"},
+        {skill:"AI Demand Sensing",cat:"Specializations"},
+        {skill:"AI Route & Network Optimization",cat:"Specializations"},
+      ],
+      "Transportation Supervisors":[
+        {skill:"AI Route Optimization Tools",cat:"Core Role-Specific Skills"},
+        {skill:"Predictive Driver Performance Analytics",cat:"Specializations"},
+      ],
+      "Industrial Machinery Mechanics":[
+        {skill:"Predictive Maintenance AI Tools",cat:"Core Role-Specific Skills"},
+        {skill:"IoT Sensor Monitoring",cat:"Specializations"},
+      ],
+      "Inspectors, Testers, and Samplers":[
+        {skill:"AI Statistical QC Interpretation",cat:"Core Role-Specific Skills"},
+        {skill:"Predictive Defect Detection",cat:"Specializations"},
+      ],
+      "Human Resources Specialists":[
+        {skill:"Predictive Attrition Analytics",cat:"Specializations"},
+        {skill:"AI-Powered People Analytics",cat:"Core Role-Specific Skills"},
+      ],
+    },
+    dropOverride:{},
+  },
+  {
+    id:"process-automation", icon:"⚙️", name:"Intelligent Process Automation",
+    badge:"transform", badgeLabel:"Transformative",
+    desc:"AI and robotics automate repetitive, rule-based tasks. Workers shift toward exception handling, oversight, and higher-complexity work.",
+    tags:["RPA","Robotics","Workflow Automation"],
+    for:["ops","retail","biz"],
+    addedSkills:{
+      "Transportation, Storage, and Distribution Managers":[
+        {skill:"Robotic Process Automation (RPA) Oversight",cat:"Specializations"},
+        {skill:"AI Workflow Exception Management",cat:"Core Role-Specific Skills"},
+        {skill:"Automation Tool Configuration",cat:"Specializations"},
+      ],
+      "Stockers and Order Fillers":[
+        {skill:"Collaborative Robot (Cobot) Operation",cat:"Specializations"},
+        {skill:"AI-Guided Order Fulfillment Systems",cat:"Core Role-Specific Skills"},
+        {skill:"Digital WMS Device Operation",cat:"Baseline Applied Skills"},
+      ],
+      "Laborers and Material Movers":[
+        {skill:"Collaborative Robot (Cobot) Operation",cat:"Specializations"},
+        {skill:"AI Sorting System Monitoring",cat:"Core Role-Specific Skills"},
+        {skill:"Digital Device & Wearable Operation",cat:"Baseline Applied Skills"},
+      ],
+      "Assemblers and Fabricators":[
+        {skill:"CNC / Automated Machine Operation",cat:"Specializations"},
+        {skill:"Automated Quality Control Oversight",cat:"Core Role-Specific Skills"},
+        {skill:"Digital Work Instruction Systems",cat:"Baseline Applied Skills"},
+      ],
+      "Packers and Packagers":[
+        {skill:"Automated Packing System Oversight",cat:"Specializations"},
+        {skill:"Cobot Line Operation",cat:"Core Role-Specific Skills"},
+      ],
+      "Shipping & Receiving Clerks":[
+        {skill:"Automated Shipping Platform Use",cat:"Core Role-Specific Skills"},
+        {skill:"AI Returns & Triage Systems",cat:"Specializations"},
+        {skill:"Automated Reporting & Dashboard Reading",cat:"Core Role-Specific Skills"},
+      ],
+      "Production and Expediting Clerks":[
+        {skill:"AI-Optimized Production Scheduling",cat:"Core Role-Specific Skills"},
+        {skill:"Automated Documentation & Records",cat:"Baseline Applied Skills"},
+      ],
+      "Cashiers":[
+        {skill:"Self-Checkout & AI POS Oversight",cat:"Specializations"},
+        {skill:"Technology Troubleshooting (Basic)",cat:"Baseline Applied Skills"},
+      ],
+      "First-Line Supervisors of Retail Sales Workers":[
+        {skill:"Smart Loss Prevention Systems",cat:"Specializations"},
+        {skill:"Automated Inventory & Replenishment Oversight",cat:"Core Role-Specific Skills"},
+      ],
+      "Receptionists and Information Clerks":[
+        {skill:"AI Virtual Assistant Management",cat:"Core Role-Specific Skills"},
+        {skill:"Automated Scheduling System Operation",cat:"Baseline Applied Skills"},
+      ],
+      "Human Resources Specialists":[
+        {skill:"Automated Payroll Oversight",cat:"Core Role-Specific Skills"},
+        {skill:"AI-Augmented Talent Sourcing",cat:"Specializations"},
+        {skill:"RPA HR Workflow Management",cat:"Specializations"},
+      ],
+      "Financial Managers":[
+        {skill:"Automated Close & Reconciliation Oversight",cat:"Core Role-Specific Skills"},
+        {skill:"RPA Financial Process Management",cat:"Specializations"},
+      ],
+    },
+    dropOverride:{},
+  },
+  {
+    id:"ai-customer", icon:"💬", name:"AI-Powered Customer Interaction",
+    badge:"high", badgeLabel:"High Augmentation",
+    desc:"AI chatbots, recommendation engines, and sentiment analysis handle routine interactions, freeing workers for high-value relationship management.",
+    tags:["NLP","Customer Analytics","Personalization"],
+    for:["retail","biz"],
+    addedSkills:{
+      "Customer Service Representatives":[
+        {skill:"AI Escalation Judgment & Triage",cat:"Core Role-Specific Skills"},
+        {skill:"AI Chat Tool Oversight",cat:"Core Role-Specific Skills"},
+        {skill:"Customer Empathy Coaching",cat:"Foundational & Leadership Skills"},
+      ],
+      "Customer Service Managers":[
+        {skill:"AI Chatbot Management & Training",cat:"Specializations"},
+        {skill:"Omnichannel AI Customer Experience Design",cat:"Core Role-Specific Skills"},
+        {skill:"AI Customer Sentiment Analytics",cat:"Specializations"},
+      ],
+      "Cashiers":[
+        {skill:"AI-Personalized Offer Delivery",cat:"Specializations"},
+        {skill:"Digital Customer Experience Tools",cat:"Core Role-Specific Skills"},
+      ],
+      "Retail Salespersons":[
+        {skill:"AI-Powered Product Recommendation",cat:"Core Role-Specific Skills"},
+        {skill:"Personalization Technology Use",cat:"Specializations"},
+      ],
+      "First-Line Supervisors of Retail Sales Workers":[
+        {skill:"AI Customer Insight Interpretation",cat:"Specializations"},
+        {skill:"Omnichannel Experience Oversight",cat:"Core Role-Specific Skills"},
+      ],
+      "Receptionists and Information Clerks":[
+        {skill:"AI Inquiry Routing & Triage",cat:"Core Role-Specific Skills"},
+        {skill:"Digital Communication Platform Management",cat:"Specializations"},
+      ],
+      "Sales Managers":[
+        {skill:"AI Customer Health Scoring",cat:"Specializations"},
+        {skill:"Personalization Campaign Analytics",cat:"Core Role-Specific Skills"},
+      ],
+      "Sales Representatives":[
+        {skill:"AI Buying Signal Detection",cat:"Specializations"},
+        {skill:"Personalized AI Pitch Generation",cat:"Core Role-Specific Skills"},
+      ],
+    },
+    dropOverride:{},
+  },
+  {
+    id:"ai-monitoring", icon:"🔍", name:"AI-Augmented Monitoring & Safety",
+    badge:"medium", badgeLabel:"Safety Enhancement",
+    desc:"Computer vision, IoT sensors, and AI monitoring augment oversight in physical environments — detecting anomalies, hazards, and quality issues.",
+    tags:["Computer Vision","IoT","Anomaly Detection"],
+    for:["ops","retail"],
+    addedSkills:{
+      "Inspectors, Testers, and Samplers":[
+        {skill:"Computer Vision QC Oversight",cat:"Specializations"},
+        {skill:"AI Anomaly Root Cause Analysis",cat:"Core Role-Specific Skills"},
+        {skill:"IoT Data Interpretation",cat:"Baseline Applied Skills"},
+      ],
+      "Security Guards":[
+        {skill:"AI Video Analytics Oversight",cat:"Specializations"},
+        {skill:"Smart Access & Biometric Systems",cat:"Core Role-Specific Skills"},
+        {skill:"Predictive Threat Monitoring",cat:"Specializations"},
+      ],
+      "Industrial Machinery Mechanics":[
+        {skill:"IoT Sensor Monitoring & Diagnostics",cat:"Specializations"},
+        {skill:"Predictive Maintenance AI Dashboards",cat:"Core Role-Specific Skills"},
+      ],
+      "Maintenance and Repair Workers":[
+        {skill:"IoT Building Management Systems",cat:"Specializations"},
+        {skill:"AI-Assisted Fault Diagnostics",cat:"Core Role-Specific Skills"},
+      ],
+      "Transportation, Storage, and Distribution Managers":[
+        {skill:"AI Fleet & Asset Monitoring",cat:"Specializations"},
+        {skill:"IoT Warehouse Safety Systems",cat:"Core Role-Specific Skills"},
+      ],
+      "Transportation Supervisors":[
+        {skill:"Real-Time AI Fleet Monitoring",cat:"Specializations"},
+        {skill:"AI Safety Compliance Analytics",cat:"Core Role-Specific Skills"},
+      ],
+      "Truck Drivers":[
+        {skill:"Semi-Autonomous Vehicle Oversight",cat:"Specializations"},
+        {skill:"AI Navigation & Traffic Systems",cat:"Core Role-Specific Skills"},
+        {skill:"ELD & Digital Compliance Tools",cat:"Baseline Applied Skills"},
+      ],
+      "Stockers and Order Fillers":[
+        {skill:"AI Inventory Monitoring Systems",cat:"Specializations"},
+        {skill:"RFID / Smart Shelf Operation",cat:"Core Role-Specific Skills"},
+      ],
+      "Laborers and Material Movers":[
+        {skill:"Wearable Safety Device Operation",cat:"Baseline Applied Skills"},
+        {skill:"AI Hazard Alert Response",cat:"Core Role-Specific Skills"},
+      ],
+      "Assemblers and Fabricators":[
+        {skill:"Computer Vision Quality Oversight",cat:"Specializations"},
+        {skill:"AI Production Monitoring Dashboards",cat:"Core Role-Specific Skills"},
+      ],
+    },
+    dropOverride:{},
+  },
+  {
+    id:"ai-dev", icon:"🧑‍💻", name:"AI-Assisted Development & Engineering",
+    badge:"transform", badgeLabel:"Deeply Transformative",
+    desc:"AI coding assistants and automated testing accelerate software cycles and shift developer focus to architecture, design, and oversight.",
+    tags:["Code Generation","AI Testing","LLM APIs"],
+    for:["tech"],
+    addedSkills:{
+      "Software Developers":[
+        {skill:"Prompt Engineering",cat:"Core Role-Specific Skills"},
+        {skill:"LLM API Integration",cat:"Specializations"},
+        {skill:"AI Code Review & Validation",cat:"Core Role-Specific Skills"},
+        {skill:"Responsible AI / Ethics",cat:"Foundational & Leadership Skills"},
+        {skill:"AI-Augmented Architecture Design",cat:"Core Role-Specific Skills"},
+        {skill:"AI Test Generation Oversight",cat:"Core Role-Specific Skills"},
+      ],
+      "Data Scientists":[
+        {skill:"AutoML & AI Experiment Orchestration",cat:"Specializations"},
+        {skill:"AI-Assisted Code Generation",cat:"Core Role-Specific Skills"},
+        {skill:"Foundation Model Fine-Tuning",cat:"Specializations"},
+      ],
+      "Cybersecurity Analysts":[
+        {skill:"AI-Assisted Penetration Testing",cat:"Specializations"},
+        {skill:"Automated Threat Intelligence Pipelines",cat:"Core Role-Specific Skills"},
+        {skill:"AI Security Code Review",cat:"Core Role-Specific Skills"},
+      ],
+      "Product Managers":[
+        {skill:"AI Feature & Prototyping Tools",cat:"Specializations"},
+        {skill:"AI Engineering Collaboration",cat:"Core Role-Specific Skills"},
+        {skill:"Generative AI Product Ethics",cat:"Foundational & Leadership Skills"},
+      ],
+    },
+    dropOverride:{},
+  },
+];
+
+/* ═══════════════════════════════ STATE ═══════════════════════════════ */
+let S = {step:1, cat:null, uc:null, role:null};
+
+/* ═══════════════════════════════ HELPERS ═══════════════════════════════ */
+function labelToClass(label){
+  if(label==="Declining Skill") return "declining";
+  if(label==="Durable Skill") return "durable";
+  if(label==="High Growth Skill") return "high-growth";
+  if(label==="High Value Skill") return "high-value";
+  return "durable";
+}
+
+function trendBadge(label){
+  const cls = labelToClass(label);
+  const short = {
+    "Declining Skill":"Declining","Durable Skill":"Durable",
+    "High Growth Skill":"↑ Growing","High Value Skill":"★ High Value"
+  }[label]||label;
+  return `<span class="trend-badge ${cls}">${short}</span>`;
+}
+
+/* ═══════════════════════════════ NAV ═══════════════════════════════ */
+function goHome(){ S={step:1,cat:null,uc:null,role:null}; show(1); syncStepper(); }
+function goToStep(n){
+  if(n===1){S.step=1;show(1);}
+  else if(n===2&&S.cat){S.step=2;renderUCs();show(2);}
+  else if(n===3&&S.uc){S.step=3;renderRoles();show(3);}
+  syncStepper();
+}
+function show(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sc'+n).classList.add('active');
+}
+function syncStepper(){
+  const steps=[1,2,3,4];
+  steps.forEach(i=>{
+    const num=document.getElementById('sn'+i);
+    const title=document.getElementById('st'+i);
+    num.className='step-num';title.className='step-name';
+    if(i<S.step){num.classList.add('done');title.classList.add('done');}
+    else if(i===S.step){num.classList.add('active');title.classList.add('active');}
+  });
+  [1,2,3].forEach(i=>{
+    const l=document.getElementById('sl'+i);
+    l.className='step-line'+(i<S.step?' done':'');
+  });
+  const catObj = S.cat ? CATS[S.cat] : null;
+  const uc = S.uc ? USE_CASES.find(u=>u.id===S.uc) : null;
+  document.getElementById('ss1').textContent = catObj ? catObj.label : 'Select a domain';
+  document.getElementById('ss2').textContent = uc ? uc.name : 'Pick an approach';
+  document.getElementById('ss3').textContent = S.role || 'Choose a role';
+}
+
+/* ═══════════════════════════════ STEP 1 ═══════════════════════════════ */
+function selectCat(el, id){
+  document.querySelectorAll('.cat-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.cat=id;
+  setTimeout(()=>{ S.step=2; renderUCs(); show(2); syncStepper(); },160);
+}
+
+/* ═══════════════════════════════ STEP 2 ═══════════════════════════════ */
+function renderUCs(){
+  const available = USE_CASES.filter(u=>u.for.includes(S.cat));
+  document.getElementById('uc-grid').innerHTML = available.map(u=>`
+    <div class="uc-card${S.uc===u.id?' sel':''}" onclick="selectUC('${u.id}')">
+      <div class="uc-top">
+        <div class="uc-icon">${u.icon}</div>
+        <div>
+          <div class="uc-name">${u.name}</div>
+          <span class="uc-badge ${u.badge}">${u.badgeLabel}</span>
+        </div>
+      </div>
+      <div class="uc-desc">${u.desc}</div>
+      <div class="uc-tags">${u.tags.map(t=>`<span class="uc-tag">${t}</span>`).join('')}</div>
+    </div>
+  `).join('');
+}
+function selectUC(id){
+  S.uc=id;
+  document.querySelectorAll('.uc-card').forEach(c=>c.classList.remove('sel'));
+  event.currentTarget.classList.add('sel');
+  setTimeout(()=>{ S.step=3; renderRoles(); show(3); syncStepper(); },160);
+}
+
+/* ═══════════════════════════════ STEP 3 ═══════════════════════════════ */
+function renderRoles(){
+  const cat = CATS[S.cat];
+  document.getElementById('role-hd').textContent = `Select a Role in ${cat.label}`;
+  document.getElementById('role-sub').textContent = `${cat.roles.length} roles from the Skills-First Workforce Initiative. Select one to see how "${USE_CASES.find(u=>u.id===S.uc).name}" transforms its skill profile.`;
+  document.getElementById('role-grid').innerHTML = cat.roles.map(r=>{
+    const rd = ROLES_DB[r]||{icon:'👤',workers:'',cat:''};
+    return `<div class="role-card" onclick="selectRole('${r.replace(/'/g,"\\'")}')">
+      <div class="role-icon">${rd.icon}</div>
+      <div class="role-info"><div class="role-name">${r}</div><div class="role-meta">${rd.workers}</div></div>
+      <div class="role-arr">→</div>
+    </div>`;
+  }).join('');
+}
+function selectRole(name){
+  S.role=name; S.step=4;
+  renderTransformation();
+  show(4); syncStepper();
+}
+
+/* ═══════════════════════════════ STEP 4 ═══════════════════════════════ */
+function renderTransformation(){
+  const rd = ROLES_DB[S.role]||{icon:'👤',workers:'',skills:[]};
+  const uc = USE_CASES.find(u=>u.id===S.uc);
+  const cat = CATS[S.cat];
+
+  // Skills added by this AI use case for this role
+  const added = (uc.addedSkills[S.role]||[]);
+
+  // Determine drop status: skill is "dropping" if label=Declining Skill, or if use-case overrides it
+  const dropOverrides = (uc.dropOverride||{})[S.role]||[];
+  const droppingNames = new Set([
+    ...rd.skills.filter(s=>s.label==="Declining Skill").map(s=>s.skill),
+    ...dropOverrides,
+  ]);
+
+  const keptSkills   = rd.skills.filter(s=>!droppingNames.has(s.skill));
+  const droppingSkills = rd.skills.filter(s=>droppingNames.has(s.skill));
+
+  // Header stats
+  document.getElementById('tx-header-area').innerHTML = `
+    <div class="tx-header">
+      <div class="tx-main">
+        <div class="tx-role">${S.role}</div>
+        <div class="tx-sub">${cat.label} · ${rd.workers}</div>
+        <div class="tx-chips">
+          <span class="tx-chip add">+${added.length} New AI Skills Added</span>
+          <span class="tx-chip keep">${keptSkills.length} Skills Remain</span>
+          <span class="tx-chip drop">${droppingSkills.length} Skills Declining</span>
+        </div>
+      </div>
+      <div class="tx-ai-box">
+        <div class="tx-ai-label">AI Use Case Applied</div>
+        <div class="tx-ai-name">${uc.icon} ${uc.name}</div>
+        <div class="tx-ai-desc">${uc.desc.slice(0,115)}…</div>
+      </div>
+    </div>
+  `;
+
+  // Group by category
+  function groupByCat(skillList){
+    const groups = {};
+    skillList.forEach(s=>{
+      const c = s.cat||s.category||"Other";
+      if(!groups[c]) groups[c]=[];
+      groups[c].push(s);
+    });
+    return groups;
+  }
+
+  function renderSkillRow(s, stateClass, showTrend=false){
+    const trend = showTrend && s.label ? trendBadge(s.label) : '';
+    return `<div class="sk ${stateClass}">
+      <div class="sk-dot ${stateClass}"></div>
+      <div class="sk-name">${s.skill}${trend}</div>
+    </div>`;
+  }
+
+  function renderGrouped(skillList, stateClass, showTrend=false){
+    const groups = groupByCat(skillList);
+    const catOrder = [
+      "Foundational & Leadership Skills",
+      "Baseline Applied Skills",
+      "Core Role-Specific Skills",
+      "Specializations","Specialization"
+    ];
+    const allCats = [...new Set([...catOrder.filter(c=>groups[c]), ...Object.keys(groups)])];
+    return allCats.map(c=>{
+      if(!groups[c]) return '';
+      return `<div class="cat-group">
+        <div class="cat-label">${c}</div>
+        ${groups[c].map(s=>renderSkillRow(s,stateClass,showTrend)).join('')}
+      </div>`;
+    }).join('');
+  }
+
+  // LEFT panel: current skills — show kept + dropping separately
+  const leftHtml = `
+    ${keptSkills.length ? renderGrouped(keptSkills,'kept',true) : '<div class="empty-note">No retained skills</div>'}
+    ${droppingSkills.length ? `
+      <div style="margin-top:.75rem;padding-top:.5rem;border-top:1px dashed var(--slate-200)">
+        <div style="font-size:11px;font-weight:700;color:var(--rose);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem;">
+          ↓ Skills Declining Due to AI
+        </div>
+        ${droppingSkills.map(s=>renderSkillRow(s,'dropping')).join('')}
+      </div>
+    ` : ''}
+  `;
+
+  // RIGHT panel: stays + new additions
+  const rightHtml = `
+    ${keptSkills.length ? renderGrouped(keptSkills,'kept-r',true) : ''}
+    ${added.length ? `
+      <div style="margin-top:.75rem;padding-top:.5rem;border-top:1px dashed #E9D5FF">
+        <div style="font-size:11px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem;">
+          ✦ New Skills Introduced by AI
+        </div>
+        ${renderGrouped(added,'new-skill')}
+      </div>
+    ` : '<div class="empty-note">No new AI skills mapped for this use case + role combination yet.</div>'}
+  `;
+
+  document.getElementById('tx-panels').innerHTML = `
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Current Skill Profile</span>
+        <span class="panel-count" style="background:var(--slate-100);color:var(--slate-600)">${rd.skills.length} skills</span>
+      </div>
+      <div class="panel-body">${leftHtml}</div>
+    </div>
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Transformed Skill Profile</span>
+        <span class="panel-count" style="background:var(--purple-bg);color:var(--purple)">${keptSkills.length + added.length} skills</span>
+      </div>
+      <div class="panel-body">${rightHtml}</div>
+    </div>
+  `;
+
+  // Insight
+  const insights = {
+    "ai-copilot":`Workers who master how to direct, validate, and build on AI outputs will be significantly more productive than those who only automate. The human advantage shifts toward framing the right questions, catching AI errors, and applying contextual judgment.`,
+    "predictive-analytics":`The premium is shifting from collecting and processing data to interpreting AI-generated signals and acting on them decisively. Workers who can bridge the gap between model outputs and business action will be most valued.`,
+    "process-automation":`Automation is most transformative in repetitive physical and transactional work. Workers are transitioning from performing standardized tasks to overseeing, troubleshooting, and optimizing the automated systems that perform them.`,
+    "ai-customer":`Routine customer interactions are shifting to AI. Human workers will focus on high-empathy, high-complexity interactions that require genuine trust and relationship-building — precisely where AI cannot substitute.`,
+    "ai-monitoring":`Computer vision and IoT systems expand what workers can monitor, but human judgment remains essential for interpreting ambiguous signals, handling edge cases, and making decisions with safety or ethical implications.`,
+    "ai-dev":`AI coding assistants are most transformative for software roles. Boilerplate code, routine testing, and documentation are automating rapidly. Highest-value skills are shifting to system design, prompt engineering, and AI model oversight.`,
+  };
+
+  document.getElementById('tx-insight').innerHTML = `
+    <div class="insight">
+      <div class="insight-icon">💡</div>
+      <div class="insight-body">
+        <div class="insight-title">Key Transformation Insight: ${S.role}</div>
+        <div class="insight-text">${insights[S.uc]||'Workers who develop fluency with AI tools early will shape how these systems are implemented in their organizations — creating opportunities for those who adapt proactively.'}</div>
+        <div class="insight-pills">
+          <span class="insight-pill">Explore Skill Gaps</span>
+          <span class="insight-pill">View Training Pathways</span>
+          <span class="insight-pill">See Hiring Implications</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
