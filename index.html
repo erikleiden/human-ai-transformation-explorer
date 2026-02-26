@@ -185,8 +185,6 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
 .insight-body{flex:1}
 .insight-title{font-size:14px;font-weight:700;margin-bottom:.5rem}
 .insight-text{font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.65}
-.insight-pills{display:flex;gap:7px;margin-top:.9rem;flex-wrap:wrap}
-.insight-pill{background:rgba(20,184,166,.14);border:1px solid rgba(20,184,166,.28);color:var(--teal-lt);font-size:11px;font-weight:600;padding:4px 10px;border-radius:16px}
 
 /* no-skills empty state */
 .empty-note{font-size:12px;color:var(--slate-400);padding:.5rem .25rem;font-style:italic}
@@ -1647,6 +1645,705 @@ const DESIGN_PRINCIPLES = [
   },
 ];
 
+// Role-specific task allocations: real O*NET tasks tagged by principle and oversight mode.
+// keyed by role name → use case id → array of {task, principle (p1–p6), mode, modeLabel}
+// O*NET source: onetonline.org. Tasks selected for relevance to AI transformation.
+const ROLE_TASK_ALLOCATIONS = {
+
+"Truck Drivers":{
+  "ai-monitoring":[
+    {task:"Check vehicles for mechanical problems and ensure they meet safety standards before driving",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Report vehicle defects, accidents, mechanical problems, or violations to dispatchers",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Follow appropriate safety procedures for transporting dangerous goods",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Drive trucks with capacities greater than 3 tons, including tractor-trailers",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Maintain logs of working hours, vehicle service, and cargo information",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Check all load-related documentation for completeness and accuracy",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Obtain receipts or signatures when delivering or picking up freight",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Follow traffic laws and respond to unexpected road hazards",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "process-automation":[
+    {task:"Maintain logs of working hours, vehicle service, and cargo information",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Obtain receipts or signatures when delivering or picking up freight",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Check all load-related documentation for completeness and accuracy",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Report vehicle defects, accidents, or violations to dispatchers",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Check vehicles for mechanical problems before driving",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Follow appropriate safety procedures for transporting dangerous goods",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Drive trucks and navigate routes with real-time judgment",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "predictive-analytics":[
+    {task:"Maintain logs of working hours, vehicle service, and cargo",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Check all load-related documentation for completeness and accuracy",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Report vehicle defects, accidents, mechanical problems, or violations",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Plan and adjust routes based on traffic, weather, and delivery windows",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Follow safety procedures for transporting dangerous goods",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Drive trucks and make real-time decisions in response to road conditions",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "ai-copilot":[
+    {task:"Maintain logs of working hours, vehicle service, and cargo information",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Read maps and plan routes to minimize fuel use and delivery time",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Report vehicle defects, accidents, or violations to dispatchers",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Check vehicles for mechanical problems before driving",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Follow safety procedures for transporting dangerous goods",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Respond to unexpected road hazards and make real-time driving decisions",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Software Developers":{
+  "ai-dev":[
+    {task:"Analyze user needs and software requirements to determine feasibility and design",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Design and develop software systems using scientific analysis and mathematical models",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Write, update, and maintain computer programs or software packages",principle:"p5",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Perform or direct software testing to identify defects",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Monitor performance of programs and make required modifications",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Store, retrieve, and manipulate data for analysis using computers",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Consult with customers or other departments on project status and technical issues",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Prepare detailed documentation of software specifications and design",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "ai-copilot":[
+    {task:"Analyze user needs to determine feasibility of design within time and cost constraints",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Write, update, and maintain computer programs or software packages",principle:"p5",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Prepare detailed documentation and specifications",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Consult with engineering staff to evaluate interface between hardware and software",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Perform or direct revision, repair, or expansion of existing programs",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Monitor performance of programs and make required modifications",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+},
+
+"Data Scientists":{
+  "predictive-analytics":[
+    {task:"Apply statistical methods and mathematical models to analyze data",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Develop and implement data analyses and data collection systems",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Interpret data and develop recommendations based on findings",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Communicate findings to stakeholders through reports and visualizations",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Identify trends and patterns in datasets",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Collaborate with programmers and statisticians to formulate problem objectives",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "ai-dev":[
+    {task:"Write algorithms and computer code to analyze, process, and organize large datasets",principle:"p5",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Develop and implement predictive models and machine learning algorithms",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Clean and validate data to ensure accuracy and completeness",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Monitor model performance and recalibrate as needed",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Interpret results and communicate findings to business stakeholders",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "ai-copilot":[
+    {task:"Interpret data and develop recommendations based on findings",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Develop and implement data collection systems and other strategies",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Apply statistical methods to analyze data and generate useful business reports",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Communicate findings and insights to project sponsors and team members",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Collaborate with programmers and engineers on technical objectives",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Cybersecurity Analysts":{
+  "ai-monitoring":[
+    {task:"Monitor computer networks for security issues",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Investigate security breaches and other cybersecurity incidents",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Implement security measures to protect computer systems and networks",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Perform penetration testing to identify vulnerabilities before attackers can",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Document security breaches and assess the damage they cause",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Install security software and monitor networks for malicious activity",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Recommend security enhancements to management or senior IT staff",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "ai-dev":[
+    {task:"Investigate security breaches and cybersecurity incidents",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Test data processing systems to ensure they produce correct results",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Implement security measures to protect computer systems and networks",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Scan for vulnerabilities using automated security tools",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Perform penetration testing to identify exploitable vulnerabilities",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Recommend security enhancements based on findings",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "ai-copilot":[
+    {task:"Investigate security breaches and assess damage",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Monitor computer networks for security issues",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Document security incidents and responses",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Implement security measures to protect systems and networks",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Recommend security enhancements to management",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Product Managers":{
+  "ai-copilot":[
+    {task:"Define product vision and strategy aligned with business goals",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Gather and synthesize customer feedback and user research",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Write product requirements documents and user stories",principle:"p5",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Prioritize features and manage the product backlog",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Analyze usage metrics and product performance data",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Coordinate cross-functional teams to deliver product releases",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Generate competitive market landscape summaries",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "ai-dev":[
+    {task:"Define product strategy and roadmap",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Write and refine product requirements and acceptance criteria",principle:"p5",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Collaborate with engineering on technical feasibility assessments",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Monitor product metrics and KPIs",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Generate meeting summaries and status updates",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Communicate product decisions to stakeholders",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Customer Service Representatives":{
+  "ai-customer":[
+    {task:"Listen to customer requests or concerns and resolve complaints",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Resolve customers' service or billing complaints by performing activities such as refunding money",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Refer unresolved customer grievances to designated departments for further investigation",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Check to ensure appropriate changes were made to resolve customers' problems",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Obtain and record customer information such as name, address, and payment method",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Contact customers to respond to inquiries or to notify them of claim investigation results",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Keep records of customer interactions, transactions, and responses taken",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "ai-copilot":[
+    {task:"Resolve customers' billing complaints and service issues",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Listen to and de-escalate distressed or angry customers",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Contact customers to respond to standard inquiries",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Keep records of customer interactions and transactions",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Obtain and record customer information",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Refer unresolved grievances to appropriate departments",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+  "process-automation":[
+    {task:"Obtain and record customer information such as name, address, and payment method",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Keep records of customer interactions, transactions, and responses",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Contact customers to respond to routine inquiries",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Resolve customers' billing complaints and service issues",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Listen to and de-escalate distressed or emotionally charged customers",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Refer unresolved grievances to designated departments",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+},
+
+"Customer Service Managers":{
+  "ai-customer":[
+    {task:"Plan, direct, or coordinate activities of a customer service department",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Resolve escalated customer complaints or issues that cannot be resolved at staff level",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Monitor the performance of customer service staff",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Implement customer service policies and procedures",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Analyze customer feedback data to recommend changes to products, services, or policies",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Compile and track performance metrics related to customer satisfaction",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Train and evaluate customer service staff",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "ai-copilot":[
+    {task:"Resolve escalated complaints that staff cannot resolve",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Monitor staff performance and provide coaching",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Analyze customer satisfaction data and recommend improvements",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Compile and track customer satisfaction metrics",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Implement service policies and manage team scheduling",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "process-automation":[
+    {task:"Compile and track customer satisfaction and service metrics",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Monitor performance of customer service staff",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Resolve escalated complaints that staff cannot handle",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Analyze customer feedback and recommend service improvements",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Train and coach customer service staff",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Cashiers":{
+  "process-automation":[
+    {task:"Receive payment by cash, check, credit cards, vouchers, or automatic debits",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Issue receipts, refunds, credits, or change due to customers",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Bag, box, wrap, or gift-wrap merchandise",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Greet customers entering establishments",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Resolve customer complaints or refer them to supervisors",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Maintain clean and orderly checkout areas",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Count money in cash drawers at the beginning of shifts",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "ai-customer":[
+    {task:"Greet customers entering establishments",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Resolve customer complaints or refer them to supervisors",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Receive payment and issue receipts",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Bag or wrap merchandise for customers",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Weigh items and collect payment for items purchased by weight",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "ai-copilot":[
+    {task:"Greet customers entering establishments",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Resolve customer complaints or refer to supervisors",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Receive payment by cash, check, credit cards, or automatic debits",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Bag, box, or wrap merchandise",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Issue receipts, refunds, credits, or change",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+},
+
+"Retail Salespersons":{
+  "ai-customer":[
+    {task:"Greet customers and ascertain what each customer wants or needs",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Recommend, select, and help customers locate merchandise",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Describe merchandise and explain its use, operation, and care",principle:"p5",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Compute sales prices, total purchases, and receive and process cash or credit payment",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Place special orders or call other stores to find desired items",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Watch for and recognize security risks and thefts",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Maintain records related to sales and inventory",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "ai-copilot":[
+    {task:"Greet customers and ascertain what each customer wants or needs",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Recommend, select, and help customers locate merchandise",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Compute sales prices and process payments",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Maintain records related to sales",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Describe merchandise and explain operation and care",principle:"p5",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "process-automation":[
+    {task:"Compute sales prices and process cash or credit payment",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Maintain records related to sales and inventory",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Watch for and recognize security risks and thefts",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Greet customers and ascertain what each customer wants or needs",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Recommend, select, and help customers locate merchandise",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Receptionists and Information Clerks":{
+  "process-automation":[
+    {task:"Greet persons entering establishment and direct them to correct destinations",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Operate telephone switchboard to answer and forward calls",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Schedule appointments and maintain appointment calendars",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Receive payment and record receipts for services",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Take and relay messages from callers and visitors",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Handle sensitive or difficult situations involving distressed visitors",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Transmit information and documents to customers using computer or fax machine",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "ai-customer":[
+    {task:"Greet persons entering establishment and direct them to correct destinations",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Handle sensitive or difficult situations involving distressed visitors",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Operate telephone switchboard to answer and forward calls",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Provide information about organization's services, products, and facilities",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Schedule and confirm appointments",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "ai-copilot":[
+    {task:"Greet persons entering establishment and direct them to correct destinations",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Schedule appointments and maintain appointment calendars",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Transmit information and documents using computer",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Handle sensitive or difficult visitor situations",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Collect, sort, and distribute mail and messages",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+},
+
+"Security Guards":{
+  "ai-monitoring":[
+    {task:"Monitor and authorize entrance and departure of employees and visitors",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Write reports of daily activities and irregularities such as equipment damage or unusual occurrences",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Call police or fire departments in cases of emergency",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Patrol industrial and commercial premises to prevent and detect signs of intrusion",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Operate detecting devices to screen individuals and prevent passage of prohibited articles",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Warn persons of rule infractions and apprehend or evict violators",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Circulate among visitors and employees to preserve order",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "ai-copilot":[
+    {task:"Call police or fire departments in cases of emergency",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Warn persons of rule infractions and apprehend or evict violators",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Monitor and authorize entrance and departure of employees and visitors",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Write reports of daily activities and irregularities",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Patrol premises to prevent and detect signs of intrusion",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+},
+
+"First-Line Supervisors of Retail Sales Workers":{
+  "ai-customer":[
+    {task:"Assign employees to specific duties",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Resolve customer complaints regarding sales and service",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Monitor sales activities to ensure customers receive satisfactory service",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Examine merchandise to ensure it is correctly priced and displayed",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Plan and prepare work schedules and assign employees to specific duties",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Instruct staff on how to handle difficult and complicated sales",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Inventory stock and order new stock",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "process-automation":[
+    {task:"Plan and prepare work schedules and assign employees to specific duties",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Inventory stock and order new stock",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Monitor sales activities to ensure customers receive satisfactory service",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Examine merchandise to ensure it is correctly priced and displayed",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Resolve customer complaints regarding sales and service",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Coach and mentor retail staff on customer service and sales techniques",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "ai-copilot":[
+    {task:"Assign employees to specific duties and manage scheduling",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Monitor sales activities and team performance",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Resolve customer complaints regarding sales and service",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Instruct staff on handling difficult sales situations",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Inventory stock and place orders",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+},
+
+"Financial Analysts":{
+  "predictive-analytics":[
+    {task:"Prepare plans of action for investment, using financial analyses",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Analyze financial information to produce forecasts of business and economic conditions",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Interpret data on price, yield, stability, and risk of investments",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Maintain knowledge of developments in the fields of industrial technology and economic factors",principle:"p5",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Compile and review financial reports",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Present oral and written reports on general economic trends, individual corporations, and entire industries",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Monitor developments in the fields affecting assigned industry segments",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+  "ai-copilot":[
+    {task:"Prepare plans of action for investment using financial analyses",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Compile and review financial reports",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Analyze financial information to produce forecasts of business conditions",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Present reports on economic trends, corporations, and industries to stakeholders",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Monitor investment developments in assigned sectors",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+},
+
+"Financial Managers":{
+  "predictive-analytics":[
+    {task:"Develop or analyze information to assess the current or future financial status of firms",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Direct the activities of workers who develop budgets and financial plans",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Prepare financial statements, business activity reports, and financial forecasts",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Monitor financial activities and details to ensure compliance with laws",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Make investment decisions and financial risk assessments",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Develop and maintain relationships with banking and auditing partners",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Automate routine financial reports and reconciliations",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "ai-copilot":[
+    {task:"Make major investment decisions and financial risk assessments",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Develop and analyze information to assess financial status of firms",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Prepare financial statements and financial forecasts",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Automate routine financial reports and reconciliations",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Monitor financial activities for compliance with laws and regulations",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+  "process-automation":[
+    {task:"Automate routine financial reports and reconciliations",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Prepare financial statements, business activity reports, and forecasts",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Monitor financial activities for compliance",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Make major investment decisions and risk assessments",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Direct the activities of workers who develop budgets and financial plans",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Human Resources Specialists":{
+  "ai-copilot":[
+    {task:"Interpret and explain human resources policies, procedures, laws, standards, or regulations",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Hire employees and process hiring-related paperwork",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Inform job applicants of their acceptance or rejection of employment",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Prepare or maintain employment records related to events such as hiring and termination",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Review employment applications and job orders to match applicants with job requirements",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Address employee relations issues such as harassment allegations or work complaints",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Schedule or conduct new employee orientations",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+  "predictive-analytics":[
+    {task:"Interpret and explain human resources policies, procedures, laws, or regulations",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Address employee relations issues such as harassment allegations",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Review employment applications to match applicants with job requirements",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Analyze HR data to identify trends in attrition, performance, and engagement",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Prepare or maintain employment records",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Advise management on organizational policy matters",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "process-automation":[
+    {task:"Prepare or maintain employment records related to hiring, termination, leaves, and transfers",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Schedule and process payroll and benefits administration",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Review employment applications to match applicants with job requirements",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Hire employees and process hiring-related paperwork",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Address employee relations issues such as harassment allegations",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Schedule or conduct new employee orientations",principle:"p5",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Project Management Specialists":{
+  "ai-copilot":[
+    {task:"Develop or update project plans including information such as schedules and resource requirements",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Assign duties or responsibilities to project team members",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Prepare project status reports by collecting and analyzing information",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Monitor and approve project expenditures",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Submit project deliverables ensuring adherence to quality standards",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Schedule and facilitate team meetings",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Track project costs and report on budget variances",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+  "predictive-analytics":[
+    {task:"Monitor and approve project expenditures",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Develop or update project plans including schedules and resource requirements",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Identify project risks and develop mitigation strategies",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Prepare project status reports",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Track project costs and schedule adherence",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Submit project deliverables ensuring adherence to quality standards",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Sales Managers":{
+  "ai-copilot":[
+    {task:"Direct and coordinate activities involving sales of products or services",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Resolve customer complaints regarding sales and service",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Review operational records and reports to project sales and determine profitability",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Determine price schedules and discount rates",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Monitor customer preferences to determine focus of sales efforts",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Prepare budgets and approve budget expenditures",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Compile sales figures and generate activity reports",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "predictive-analytics":[
+    {task:"Resolve customer complaints regarding sales and service",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Prepare budgets and approve budget expenditures",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Review operational records and reports to project sales and profitability",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Monitor customer preferences to determine focus of sales efforts",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Compile sales figures and generate activity reports",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Direct and coordinate activities involving sales teams",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Sales Representatives":{
+  "ai-copilot":[
+    {task:"Contact regular and prospective customers to demonstrate products and explain product features",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Answer customers' questions about products, prices, availability, and uses",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Quote prices, credit terms, and other bid specifications",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Prepare and submit sales contracts for orders",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Negotiate with retail merchants to improve product exposure",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Maintain customer records in CRM systems",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Identify prospective customers using business directories and referrals",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+  "ai-customer":[
+    {task:"Contact regular and prospective customers to demonstrate products",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Negotiate with merchants and customers to close deals",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Quote prices, credit terms, and bid specifications",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Identify prospective customers using AI-assisted lead scoring",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Maintain customer records using CRM systems",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Answer customer questions about products and resolve objections",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "predictive-analytics":[
+    {task:"Contact prospective customers to demonstrate products and features",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Identify prospective customers using business directories and referrals",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Quote prices, credit terms, and other bid specifications",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Analyze sales pipeline and forecast deal outcomes",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Negotiate deals and build relationships with key accounts",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Purchasing Agents":{
+  "ai-copilot":[
+    {task:"Negotiate prices with suppliers and vendors to obtain the best deal",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Evaluate and select suppliers based on price, quality, and delivery speed",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Prepare purchase orders and confirm purchases",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Monitor inventory levels and place orders as needed",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Analyze market conditions and trends to determine purchasing strategies",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Resolve vendor or contractor grievances and claims",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Track and report purchase orders and delivery status",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "predictive-analytics":[
+    {task:"Negotiate prices with suppliers to obtain the best deal",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Evaluate and select suppliers based on price, quality, delivery",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Monitor inventory levels and place orders based on AI forecasts",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Analyze price and market trends to inform purchasing strategies",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Track purchase orders and delivery status",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Resolve vendor grievances and contract disputes",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+  ],
+},
+
+"Production and Expediting Clerks":{
+  "process-automation":[
+    {task:"Examine documents, materials, and products and monitor work processes to assess completeness",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Distribute or route work orders to production areas or departments",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Compute figures such as required amounts of labor and materials",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Track progress of production and delivery schedules",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Contact suppliers to verify delivery schedules and resolve discrepancies",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Resolve bottlenecks and production exceptions",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Confer with department supervisors to resolve production problems",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+  ],
+  "ai-copilot":[
+    {task:"Track progress of production and delivery schedules",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Distribute or route work orders to production departments",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Compute required amounts of labor and materials",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Contact suppliers to verify delivery schedules and resolve discrepancies",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Confer with supervisors to resolve production problems and priorities",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+  ],
+},
+
+"Industrial Machinery Mechanics":{
+  "ai-monitoring":[
+    {task:"Repair or maintain the operating condition of industrial production and processing machinery",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Disassemble machinery and equipment to remove parts and make repairs",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Examine parts for defects such as breakage or excessive wear",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Record production, repair, and machine maintenance information",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Perform scheduled preventive maintenance on equipment",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Test repaired equipment to ensure proper functioning",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Clean and lubricate shafts, bearings, gears, and other parts",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+  "predictive-analytics":[
+    {task:"Repair or maintain operating condition of industrial machinery",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Examine parts for defects such as breakage or excessive wear",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Perform scheduled preventive maintenance based on AI-generated work orders",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Record production, repair, and maintenance information",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Test repaired equipment to ensure proper functioning",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Respond to unexpected equipment failures and breakdowns",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+  ],
+},
+
+"Inspectors, Testers, and Samplers":{
+  "ai-monitoring":[
+    {task:"Inspect, test, or measure materials, products, installations, or work for conformance to specifications",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Record inspection or test data such as weights, temperatures, and grades",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Notify supervisors or other personnel of production problems",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Measure dimensions of products to verify conformance to specifications",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Discard or reject products, materials, or equipment not meeting specifications",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Analyze test data or specimens to diagnose malfunctions or deviations",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Mark items with details such as grade or acceptance/rejection status",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "process-automation":[
+    {task:"Record inspection or test data",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Measure dimensions of products to verify conformance",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Analyze test data to diagnose malfunctions or deviations",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Discard or reject products not meeting specifications",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Notify supervisors of production problems",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Maintenance and Repair Workers":{
+  "ai-monitoring":[
+    {task:"Perform routine preventive maintenance to ensure equipment continues to run smoothly",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Diagnose mechanical problems and determine how to correct them",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Repair or replace worn or defective components using hand and power tools",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Record maintenance and repair work performed and the costs of the work",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Inspect drives, motors, and belts, check fluid levels, and perform other maintenance actions",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Respond to emergency repair calls",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Request parts and equipment from inventory systems",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "ai-copilot":[
+    {task:"Diagnose mechanical problems and determine how to correct them",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Perform routine preventive maintenance",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Record maintenance and repair work performed",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Respond to emergency repair calls",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Request parts and equipment from inventory",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+},
+
+"Assemblers and Fabricators":{
+  "process-automation":[
+    {task:"Review work orders or blueprints to ensure correct parts and assemblies",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Operate production machinery and assembly equipment",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Position parts in the correct sequence and orientation",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Inspect completed assemblies for conformance to specifications",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Record production quantities and report on defects",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Troubleshoot assembly defects and report equipment malfunctions",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Adjust, repair, or replace faulty components",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "ai-monitoring":[
+    {task:"Inspect completed assemblies for conformance to specifications",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Review work orders or blueprints to ensure correct assemblies",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Record production quantities and defects",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Troubleshoot assembly defects and report equipment malfunctions",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Operate and monitor production machinery",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+},
+
+"Packers and Packagers":{
+  "process-automation":[
+    {task:"Seal containers or materials using tools such as fasteners, wire, and packing tape",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Place or pour products into containers",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Mark or label containers, container tags, or products using stencils, marking tools, or stamps",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Record product, packaging, and order data on work tickets",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Inspect materials, products, or containers to ensure correct labeling and packaging",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Weigh or measure materials to ensure correct amounts",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Report packing equipment malfunctions and material shortages",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "ai-monitoring":[
+    {task:"Inspect materials, products, or containers to ensure correct labeling",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Weigh or measure materials to ensure correct amounts",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Mark or label containers using automated marking tools",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Record product, packaging, and order data",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Report equipment malfunctions and material shortages",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Laborers and Material Movers":{
+  "process-automation":[
+    {task:"Move freight, stock, or other materials to and from storage and production areas",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Attach identifying tags or labels to materials or mark with identifying information",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Carry out work under supervisor direction in packing and shipping",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Check and count materials to verify quantities",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Handle hazardous materials safely using proper equipment",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Respond to equipment or process exceptions and unusual situations",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Operate hand trucks, forklifts, and other material handling equipment",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+  "ai-monitoring":[
+    {task:"Move freight, stock, or other materials to and from storage areas",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Check and count materials to verify quantities",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Handle hazardous materials safely",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Respond to equipment exceptions and unusual situations",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Attach identifying labels to materials",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+},
+
+"Stockers and Order Fillers":{
+  "process-automation":[
+    {task:"Receive and count stock items and record data manually or using a computer",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Clean display cases, shelves, and aisles",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Pack customer purchases in bags or cartons",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Issue or distribute materials from stockrooms according to bills of materials or work orders",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Stamp, mark, or tag price on merchandise",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Keep records of out-of-stock items",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Respond to damaged items, exceptions, or product anomalies",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "ai-monitoring":[
+    {task:"Receive and count stock items and record data",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Issue or distribute materials according to work orders",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Stamp, mark, or tag price on merchandise",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Keep records of out-of-stock items",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Respond to damaged items or product anomalies",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "ai-copilot":[
+    {task:"Receive and count stock items and record data",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Issue or distribute materials from stockrooms",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Keep records of out-of-stock items and submit reorder requests",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Respond to damaged items, exceptions, or product anomalies",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Assist customers in locating merchandise",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Shipping & Receiving Clerks":{
+  "process-automation":[
+    {task:"Receive incoming shipments and verify contents against bills of lading",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Record shipment data such as weight, charges, and damages",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Determine method of shipment and prepare bills of lading, invoices, and manifests",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Contact carrier representatives to discuss shipment rates and resolve transit problems",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Unpack, examine, and route incoming shipments",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Resolve discrepancies between manifests and actual shipment contents",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Examine outgoing shipments to ensure they meet specifications",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+  "ai-monitoring":[
+    {task:"Verify contents of incoming shipments against bills of lading",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Record shipment data such as weight, charges, and damages",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Examine outgoing shipments to ensure they meet specifications",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Resolve discrepancies between manifests and actual contents",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Unpack, examine, and route incoming shipments",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+  ],
+},
+
+"Transportation, Storage, and Distribution Managers":{
+  "predictive-analytics":[
+    {task:"Direct and coordinate activities of staff engaged in transportation or warehousing",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Analyze expenditure and other financial information to optimize plans and operations",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Inspect facilities or equipment to ensure compliance with safety regulations",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Monitor operations and report on performance metrics",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Prepare and manage budgets for transportation and distribution",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Negotiate with carriers to arrange shipments",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Track incoming and outgoing shipments automatically",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "ai-monitoring":[
+    {task:"Inspect facilities or equipment to ensure compliance with safety regulations",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Direct and coordinate activities of transportation and warehousing staff",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Monitor operations and performance metrics",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Track incoming and outgoing shipments",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Analyze expenditure and operational data to optimize plans",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+  "process-automation":[
+    {task:"Track incoming and outgoing shipments automatically",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Monitor operations and report on performance metrics",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Inspect facilities and equipment for safety compliance",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Direct and coordinate activities of transportation staff",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Analyze expenditure and operational data to optimize distribution",principle:"p3",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+"Transportation Supervisors":{
+  "predictive-analytics":[
+    {task:"Coordinate transportation schedules and routes using fleet management systems",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Monitor driver performance and ensure compliance with safety regulations",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Respond to accidents, delays, and other transportation exceptions",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Record and report accidents and emergency situations",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Train workers in company policies, safety procedures, and job duties",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+    {task:"Issue work assignments and schedules",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+  ],
+  "ai-monitoring":[
+    {task:"Monitor driver performance and safety compliance",principle:"p4",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Coordinate transportation schedules and routes",principle:"p3",mode:"ai-audit",modeLabel:"🟢 AI + Audit"},
+    {task:"Respond to accidents, delays, and transportation exceptions",principle:"p1",mode:"full-human",modeLabel:"🔴 Full Human"},
+    {task:"Issue work assignments and schedules",principle:"p6",mode:"ai-auto",modeLabel:"🔵 AI Autonomous"},
+    {task:"Train workers in company policies and safety procedures",principle:"p2",mode:"human-loop",modeLabel:"🟡 Human-in-Loop"},
+  ],
+},
+
+};
+
 // Which principles are most prominent for each use case
 const UC_PRINCIPLE_EMPHASIS = {
   "ai-copilot":     {primary:["p2","p5"], secondary:["p1","p4"], note:"AI Co-Pilot configurations operate primarily at Level 2 (Human-in-the-Loop). The EPOCH Principle governs: AI amplifies throughput at scale while the human retains judgment authority on interpretation, ethical trade-offs, and high-stakes outputs. Per Brynjolfsson's augmentation research, the productivity dividend flows to workers who direct and validate AI — not those who simply delegate to it."},
@@ -1697,6 +2394,14 @@ function renderDesignPrinciples(){
         const isSecondary = emphasis.secondary.includes(p.id);
         const applyClass = isPrimary ? 'applies' : isSecondary ? 'partial' : 'na';
         const applyLabel = isPrimary ? `✓ Primary driver for this use case` : isSecondary ? `◐ Secondary factor` : `– Not a primary factor here`;
+
+        // Get role-specific tasks for this principle, filtered from ROLE_TASK_ALLOCATIONS
+        const roleTasks = (ROLE_TASK_ALLOCATIONS[S.role]||{})[S.uc]||[];
+        const principalTasks = roleTasks.filter(t=>t.principle===p.id);
+        // Fall back to generic examples if no role-specific tasks exist for this principle
+        const tasksToShow = principalTasks.length > 0 ? principalTasks : p.taskExamples.slice(0,3);
+        const sourceLabel = principalTasks.length > 0 ? `Tasks for <strong>${S.role}</strong>` : 'Illustrative tasks';
+
         return `
         <div class="dp-card" style="animation-delay:${idx*0.07}s">
           <div class="dp-card-top">
@@ -1718,15 +2423,16 @@ function renderDesignPrinciples(){
               </div>
             </div>
           </div>
+          ${tasksToShow.length > 0 ? `
           <div class="dp-task-breakdown">
-            <div class="dp-task-title">Example Task Allocations</div>
-            ${p.taskExamples.map(t=>`
+            <div class="dp-task-title">${sourceLabel} · How this principle allocates tasks</div>
+            ${tasksToShow.map(t=>`
               <div class="dp-task-row">
                 <div class="dp-task-name">${t.task}</div>
                 <div class="dp-task-mode ${t.mode}">${t.modeLabel}</div>
               </div>
             `).join('')}
-          </div>
+          </div>` : ''}
         </div>`;
       }).join('')}
     </div>
@@ -1875,27 +2581,163 @@ function renderTransformation(){
     </div>
   `;
 
-  // Insight
-  const insights = {
-    "ai-copilot":`Per Principles 2 & 5: AI Co-Pilot keeps humans firmly in the decision seat. Workers who master directing, validating, and building on AI outputs will outperform those who treat AI as a black box. New skills emerge around prompt engineering, output validation, and responsible AI use — not replacing existing expertise, but adding a coordination layer on top of it.`,
-    "predictive-analytics":`Per Principles 2 & 3: predictive models surface signals at scale; the human premium shifts to interpreting those signals with contextual judgment and acting decisively. Routine data gathering tasks automate (Principle 3), while insight stewardship, anomaly investigation, and stakeholder communication grow in importance.`,
-    "process-automation":`Per Principles 3 & 6: automation eliminates the most predictable physical and transactional tasks in this role. Job redesign centers on exception handling, system oversight, and quality assurance — the adaptive work that falls outside AI's rule-governed envelope. Principle 5 demands parallel upskilling to avoid de-skilling risk.`,
-    "ai-customer":`Per Principles 1 & 2: high-empathy, high-stakes customer interactions remain fully human (Principle 1). AI handles routine inquiry volume autonomously, freeing workers for relationship-intensive escalations where trust and contextual judgment matter most. Workers need new skills in AI triage, oversight, and escalation judgment.`,
-    "ai-monitoring":`Per Principles 4 & 3: AI expands monitoring scale dramatically, but human auditors remain the essential backstop (Principle 4). Workers shift from routine observation to anomaly investigation, safety-critical decisions, and IoT system interpretation — exactly the adaptive edge-case judgment AI cannot reliably provide.`,
-    "ai-dev":`Per Principles 2 & 5: AI coding assistants accelerate boilerplate work but elevate the importance of system architecture, security review, and responsible AI design. Principle 5 demands active upskilling in prompt engineering, AI code validation, and LLM integration — the new meta-skills of software engineering in an AI-augmented world.`,
+  // Role + use-case specific insights — plain language, no dead-link pills
+  const ROLE_INSIGHTS = {
+"Software Developers":{
+  "ai-copilot":"For software developers, AI co-pilots like GitHub Copilot and Cursor are already changing how code gets written. The shift isn't about writing less code — it's about spending less time on boilerplate and more time on design decisions, code review, and system thinking. Developers who know how to prompt well, validate AI output critically, and catch subtle bugs the AI misses will consistently outperform those who either ignore these tools or over-trust them.",
+  "ai-dev":"AI-assisted development is the most transformative use case for this role. Routine tasks — unit tests, documentation, repetitive API integrations — are automating rapidly. What grows in value is the work AI can't do: designing systems that scale, making architectural trade-offs, reviewing AI-generated code for security flaws, and deciding when not to use AI. The new premium skill is knowing how to orchestrate AI tools effectively without losing engineering judgment.",
+  "ai-copilot-default":"AI tools are reshaping how developers work, not eliminating the role. The most valuable skills are shifting toward directing AI, validating its output, and contributing the architectural judgment and domain context that AI tools lack.",
+},
+"Data Scientists":{
+  "predictive-analytics":"Data scientists are moving from building models to governing them. The work of cleaning data, running standard model training runs, and generating routine reports is increasingly automated. What remains distinctly human is the interpretive work: deciding which signals actually matter, explaining model outputs to stakeholders in ways that drive decisions, and knowing when a model's output shouldn't be trusted. The title may stay the same — but the job is becoming more about judgment and communication than computation.",
+  "ai-dev":"With AutoML and AI-assisted coding, a lot of the mechanical work in data science — feature engineering, hyperparameter tuning, code scaffolding — is automating. The role is shifting toward higher-level orchestration: choosing the right modeling approach, evaluating outputs critically, governing model behavior in production, and translating findings into action. Skills in LLM integration and foundation model fine-tuning are becoming core, not optional.",
+  "ai-copilot":"AI co-pilots accelerate the exploratory and documentation phases of data science work significantly. Writing analysis code, generating report narratives, and summarizing findings are all faster with AI assistance. The premium is shifting to the interpretive layer — being the person who can look at an AI-generated analysis and know whether the conclusion is actually valid, or whether the model is missing something important the data doesn't capture.",
+},
+"Cybersecurity Analysts":{
+  "ai-monitoring":"Cybersecurity analysts are gaining a powerful force multiplier: AI systems that can monitor networks continuously, detect anomalies at machine speed, and triage alerts before a human ever sees them. The human role shifts from watching dashboards to investigating the cases that AI escalates — the ambiguous, high-stakes incidents where context, creativity, and judgment matter. The risk is alert fatigue becoming automation complacency; staying sharp on active investigation skills is essential.",
+  "ai-dev":"For cybersecurity analysts working in development environments, AI is both a tool and a new attack surface. AI can generate security test cases and scan code for vulnerabilities at scale. But it also creates new threats — AI-generated phishing content, adversarial inputs, and vulnerable AI-generated code that passes human review. The most important new skill is understanding how AI systems can be attacked, not just how they can be used.",
+  "ai-copilot":"AI co-pilots reduce the documentation and reporting overhead that pulls analysts away from active threat work. Incident reports, policy documentation, and compliance summaries can be drafted by AI and reviewed by humans. That frees time for the adversarial thinking — red-teaming, threat modeling, and the creative reasoning that no AI system currently matches.",
+},
+"Product Managers":{
+  "ai-copilot":"AI co-pilots are most useful for product managers in the high-volume, lower-judgment work: drafting PRDs, summarizing user research, generating competitive landscape overviews. What they can't replace is the judgment layer — deciding what to build, why it matters, and how to align a cross-functional team around a direction. PMs who use AI well will produce more output; PMs who use it wisely will produce better decisions.",
+  "ai-dev":"As AI takes on more execution work in engineering teams, the product manager's role as the bridge between customer needs and technical capability becomes more important, not less. PMs need to understand AI capabilities well enough to set credible requirements, evaluate AI feature proposals critically, and lead ethically on questions about what AI products should and shouldn't do.",
+},
+"Customer Service Representatives":{
+  "ai-customer":"A lot of what customer service reps handle today — answering routine questions, looking up order status, processing standard refunds — can now be handled by AI chatbots faster and at lower cost. What's left for human reps is the harder, more human work: calming an angry customer, navigating an unusual situation that doesn't fit the script, or handling something sensitive where empathy matters more than efficiency. That shift is real, and it means the skills that matter most are changing — away from script-following, toward judgment and emotional intelligence.",
+  "ai-copilot":"AI tools are helping reps handle more cases with better consistency — surfacing relevant knowledge base articles, drafting response suggestions, flagging sentiment. But the rep is still the one deciding what to say and how to say it. The skill that grows in value is knowing when to follow the AI's suggestion and when to go off-script because the situation calls for something different.",
+  "process-automation":"Automation is taking over the most repetitive parts of this role — data entry, standard inquiry responses, appointment scheduling. The job isn't disappearing, but it's changing. The reps who stay most valuable are those who handle the exceptions: the complaints automation can't resolve, the customers who are upset enough to need a real person, and the edge cases that require human judgment to navigate.",
+},
+"Customer Service Managers":{
+  "ai-customer":"AI is reshaping the customer service floor in ways that change what managers actually manage. When AI handles routine volume, the cases that escalate to human reps are harder and more emotionally charged — which means coaching and quality oversight become more demanding, not easier. Managers need to develop their teams' judgment and empathy skills, not just their process compliance.",
+  "ai-copilot":"With AI handling reporting and performance dashboards automatically, managers can spend less time pulling together data and more time acting on it — coaching reps, improving processes, and designing better customer experiences. The skill shift is from data compilation to data interpretation and team development.",
+  "process-automation":"Automated scheduling, performance tracking, and routine reporting free up significant managerial time. The question is what that time gets redirected to. The managers who thrive are those who use it to improve team quality, handle escalated customer issues personally, and drive continuous improvement — not those who simply absorb the freed time passively.",
+},
+"Financial Analysts":{
+  "predictive-analytics":"Financial analysts who built their careers on Excel modeling and report compilation are facing the most direct pressure from AI. Routine quantitative work — data aggregation, standard reports, variance analysis — is automating rapidly. What stays human is the interpretive layer: understanding what the numbers actually mean in the context of a business, communicating a clear point of view to decision-makers, and knowing when to be skeptical of a model's output. The analyst role is shifting from data processor to insight advisor.",
+  "ai-copilot":"AI co-pilots accelerate the mechanical parts of financial analysis significantly — pulling data, structuring models, drafting summaries. The value-add shifts to the judgment the AI can't provide: investment thesis development, qualitative assessment of management teams and competitive dynamics, and the credibility to defend a recommendation in front of skeptical stakeholders.",
+},
+"Financial Managers":{
+  "predictive-analytics":"Predictive analytics gives financial managers better visibility into what's coming — cash flow risks, budget variances, market shifts — before they become problems. But the decisions that matter most still require human judgment: how much risk to take, how to allocate capital across competing priorities, and how to communicate financial reality to leaders who may not want to hear it. AI makes managers better-informed; it doesn't make the hard calls for them.",
+  "ai-copilot":"AI co-pilots handle the bulk of routine financial reporting, reconciliation, and compliance monitoring — tasks that once consumed significant analyst and manager time. The payoff is that financial managers can focus on the higher-value work: strategic financial planning, stakeholder relationships, and the judgment calls that require experience and accountability rather than computation.",
+  "process-automation":"Automating reconciliation, close processes, and standard reporting frees the finance team from significant mechanical work. The risk is that managers lose touch with the underlying data when they stop working through it manually. The managers who stay sharp are those who use the freed time to develop sharper analytical judgment — not just to sign off on automated outputs.",
+},
+"Human Resources Specialists":{
+  "ai-copilot":"HR specialists using AI co-pilots can move through administrative tasks — drafting job descriptions, generating onboarding materials, summarizing engagement survey data — much faster. The work that stays fully human is the work that matters most: navigating a difficult employee relations situation, having a hard conversation about performance, and making the judgment call that a policy technically permits but common sense says is wrong.",
+  "predictive-analytics":"People analytics is giving HR specialists visibility into workforce trends they couldn't see before — attrition risk, engagement dips, pay equity gaps. The challenge is that this data is only useful if the HR professional knows what to do with it. The new premium skill is translating workforce data into clear recommendations for managers and leaders — and having the credibility to make those recommendations stick.",
+  "process-automation":"Payroll, benefits administration, and applicant tracking are increasingly automated, which is mostly good news for HR specialists — it means less time on data entry and more time on the relational work that's hard to automate. The risk is over-relying on automated hiring screening tools that can reflect historical bias. Human review of AI-generated candidate rankings remains essential.",
+},
+"Project Management Specialists":{
+  "ai-copilot":"AI co-pilots can generate project plans, draft status reports, and flag schedule risks automatically — tasks that used to consume significant PM time. What that frees up is time for the work that actually drives project success: stakeholder alignment, resolving conflicts that block progress, and making judgment calls when the plan meets reality. The PMs who get more value from AI tools are those who use that freed time on harder human problems, not those who just produce more documentation.",
+  "predictive-analytics":"Predictive project analytics can surface schedule risks and budget variances earlier than any human reviewing a Gantt chart would catch them. But risk identification is only half the job. The PM still has to decide what to do about a risk — which trade-offs to make, which stakeholders to bring in, and how to communicate difficult news in a way that moves the project forward rather than triggering panic.",
+},
+"Sales Managers":{
+  "ai-copilot":"AI tools give sales managers better pipeline visibility, faster reporting, and deeper analytics on what's working across the team. The core of the job — coaching individual reps, building relationships with key accounts, and making judgment calls about where to invest time — stays human. The managers who benefit most from AI are those who use the data to have better coaching conversations, not those who use it to replace them.",
+  "predictive-analytics":"Predictive analytics changes the rhythm of sales management. Instead of finding out at the end of the quarter that a deal fell through, managers can see the signals earlier and intervene. But the intervention itself is still human work — understanding why a rep is struggling, what the customer really needs, and how to course-correct in a way that strengthens rather than undermines the relationship.",
+},
+"Sales Representatives":{
+  "ai-copilot":"AI tools are taking over the prep work that used to consume sales reps' time — researching prospects, logging CRM notes, drafting follow-up emails. That's mostly good news: reps can spend more time actually selling. The skills that matter most are shifting from information gathering to relationship building and consultative judgment — understanding what a prospect actually needs and finding creative ways to solve their problem, which AI can surface data about but can't do for you.",
+  "ai-customer":"AI-powered personalization is changing customer expectations. Buyers are getting more relevant outreach, which raises the bar for every sales interaction. The reps who stand out are those who add genuine value in conversations — asking better questions, listening more carefully, and bringing insight that the prospect couldn't have generated on their own. AI can help prepare for that conversation, but it can't have it.",
+  "predictive-analytics":"Propensity scoring and predictive outreach sequencing are making sales efforts more efficient — reps spend less time on cold leads and more on prospects who actually have a need. The judgment call that remains human is what to do when you're in front of that prospect. Data can tell you who to call; it can't tell you what to say when they push back.",
+},
+"Purchasing Agents":{
+  "ai-copilot":"AI tools help purchasing agents move through the administrative weight of the job faster — tracking orders, monitoring supplier performance, generating RFQ summaries. The judgment work stays human: evaluating a supplier's reliability beyond what the data shows, negotiating in a way that protects the relationship as well as the price, and knowing when a contract risk is worth taking. AI can surface more information; the agent still has to know what to do with it.",
+  "predictive-analytics":"Demand forecasting AI helps purchasing agents get ahead of supply needs before they become emergencies. But the forecast is only as useful as the agent's ability to act on it — knowing which suppliers can flex up quickly, which lead times are more variable than the system thinks, and when to carry extra buffer stock despite the optimization model saying otherwise.",
+},
+"Production and Expediting Clerks":{
+  "process-automation":"Production scheduling and work order routing are increasingly automated, which reduces the administrative burden on clerks significantly. What stays human is the exception-handling layer: when a supplier is late, a machine goes down, or a priority order needs to jump the queue, a human still has to figure out what to do. That judgment work — coordinating across departments under pressure — is what the role is evolving toward.",
+  "ai-copilot":"AI tools can track production progress, flag delays, and generate status reports automatically. The clerk's value shifts from tracking things to acting on them — contacting the right people when something is off, making calls about what gets expedited, and keeping the production floor moving when the plan meets reality.",
+},
+"Industrial Machinery Mechanics":{
+  "ai-monitoring":"Predictive maintenance AI is changing when mechanics show up to fix things. Instead of responding after a breakdown, they're receiving alerts about bearing wear, vibration anomalies, or temperature drift before failure occurs. The physical repair work stays fully human — the diagnostic starting point just gets better. Mechanics who learn to work with these systems and trust the data (while knowing its limits) will consistently prevent more downtime than those who ignore it.",
+  "predictive-analytics":"The shift from reactive to predictive maintenance fundamentally changes the job. Mechanics spend less time on emergency breakdowns and more time on planned, condition-based work. That's better for equipment uptime, safer for workers, and — done right — more satisfying than always being in crisis mode. The new skill is reading sensor data and IoT dashboards alongside physical inspection cues.",
+},
+"Inspectors, Testers, and Samplers":{
+  "ai-monitoring":"Computer vision systems can now scan products for defects faster and more consistently than the human eye for many standard quality checks. That doesn't eliminate the inspector's role — it changes it. Inspectors shift from performing repetitive visual checks to overseeing AI systems, validating their calibration, and handling the ambiguous cases the AI flags but can't confidently classify. The judgment work — deciding whether a borderline defect is acceptable — stays human.",
+  "process-automation":"Automated measurement and testing equipment handles an increasing share of routine inspection tasks. The inspector's role shifts toward setting up and maintaining these systems, interpreting results in context, and making the final call on anything that falls outside normal parameters. The skill that matters most is knowing when to trust the automated output and when something needs a closer look.",
+},
+"Maintenance and Repair Workers":{
+  "ai-monitoring":"IoT sensors and building management systems are giving maintenance workers earlier warning of problems — flagging an HVAC issue before it becomes a failure, or detecting unusual energy consumption before anyone notices. The physical repair work stays the same; the information going into the decision about what to fix first gets better. Workers who learn to read these systems add significant value through better-prioritized maintenance.",
+  "ai-copilot":"AI can help with work order documentation, parts lookup, and repair history retrieval — reducing the administrative overhead on maintenance workers. The hands-on diagnostic and repair work stays fully human. The combination of faster information access and physical skill creates more capacity to keep facilities running well.",
+},
+"Assemblers and Fabricators":{
+  "process-automation":"Automation is taking over the most repetitive assembly tasks — especially those that are high-volume, physically simple, and geometrically consistent. What stays human is the work that requires adaptation: handling variation in materials, troubleshooting when something doesn't fit as expected, and responding to the edge cases that automated systems flag as errors but can't resolve themselves. The role is shifting from execution to oversight and exception-handling.",
+  "ai-monitoring":"Computer vision quality systems are faster and more consistent at spotting standard defects than human visual inspection on a fast-moving line. Assemblers working alongside these systems shift toward responding to what the system flags — investigating the root cause of recurring defects, adjusting processes, and handling anything the automated check is uncertain about.",
+},
+"Packers and Packagers":{
+  "process-automation":"Automated packing lines handle high-volume, uniform packaging tasks more consistently than manual work. The job for workers alongside these systems shifts toward oversight, troubleshooting jams, handling non-standard items, and responding when the automated system flags a problem it can't resolve. Workers who understand how the equipment works — not just how to operate it — are most valuable when things go wrong.",
+  "ai-monitoring":"Vision-based inspection systems are increasingly used to check labeling, fill levels, and packaging integrity automatically. Workers shift from doing the visual check to monitoring whether the automated check is working correctly and handling the items it flags as uncertain. That requires a different kind of attention — systems thinking rather than repetitive inspection.",
+},
+"Laborers and Material Movers":{
+  "process-automation":"Autonomous mobile robots and conveyor systems are handling an increasing share of material movement in warehouses and distribution centers. The tasks that remain human-led are those that require physical adaptability — handling irregular items, navigating unpredictable environments, and responding to exceptions the automation can't process. Workers alongside these systems need to understand how to collaborate with the robots, not just work around them.",
+  "ai-monitoring":"Wearable safety devices and zone-monitoring AI are improving safety on the floor by flagging hazardous conditions and near-miss events automatically. Workers benefit from the earlier warning but still need to respond correctly — the AI can alert, but the human has to act. The most important safety skills are unchanged; the information arriving before the hazard becomes an incident is new.",
+},
+"Stockers and Order Fillers":{
+  "process-automation":"Automated inventory systems and pick-assist devices are significantly speeding up order fulfillment in high-volume warehouses. Workers using these systems shift from memorizing locations and managing lists manually to following system-guided picks and focusing on accuracy and speed. The tasks that stay human are those requiring physical judgment — handling damaged goods, dealing with items the system can't identify, and resolving discrepancies.",
+  "ai-monitoring":"RFID and smart shelf systems give real-time inventory visibility that changes how stockers work. Rather than scheduled cycle counts, issues surface as they happen. Workers respond to live alerts rather than discovered-after-the-fact discrepancies. That requires different habits — checking the system proactively and responding quickly to flags rather than working from a static task list.",
+  "ai-copilot":"AI co-pilots help stockers manage reorder requests and track out-of-stock items automatically, reducing the administrative tracking work. The physical stocking and order-filling work remains hands-on. The combination means workers can focus more attention on floor-level quality and customer assistance rather than inventory administration.",
+},
+"Shipping & Receiving Clerks":{
+  "process-automation":"Documentation — bills of lading, shipping manifests, invoices — is increasingly generated and processed automatically. The clerk's role shifts from paperwork execution to exception handling: resolving discrepancies between what was ordered, what arrived, and what the system recorded. That requires more careful attention to detail on the cases that fall through the cracks, not less.",
+  "ai-monitoring":"Automated verification systems can check inbound shipments against manifests faster than manual review. Clerks shift toward overseeing these systems, handling the exceptions they flag, and making the judgment calls about what to accept, reject, or escalate. Physical inspection of damaged goods and the negotiation with carriers to resolve transit problems stays human.",
+},
+"Transportation, Storage, and Distribution Managers":{
+  "predictive-analytics":"Predictive analytics is giving distribution managers visibility into demand patterns and supply chain disruptions before they hit operations. The value isn't in the data itself — it's in what managers do with it. Decisions about inventory positioning, carrier relationships, and contingency planning still require the judgment that comes from experience and organizational context that no system fully captures.",
+  "ai-monitoring":"AI fleet and facility monitoring systems can track asset location, condition, and utilization continuously. Managers shift from periodic check-ins to exception-based oversight — responding to what the system surfaces rather than reviewing everything manually. The decisions that matter most — safety compliance, significant resource allocation, and personnel matters — remain firmly under human authority.",
+  "process-automation":"Automated shipment tracking, reporting, and scheduling reduce the administrative overhead on distribution management significantly. The time that frees up is most valuable when redirected to continuous improvement work — identifying why exceptions keep recurring, strengthening supplier relationships, and coaching operations staff — rather than absorbed by additional administrative tasks.",
+},
+"Transportation Supervisors":{
+  "predictive-analytics":"Route optimization and driver performance analytics give transportation supervisors better data to work with. But managing drivers is still about relationships, trust, and knowing your team — knowing which driver can handle a difficult delivery and which one needs more support on a tough route. The data tells you what happened; the supervisor still has to know why, and what to do about it.",
+  "ai-monitoring":"Real-time fleet monitoring changes how supervisors stay on top of operations. Rather than waiting for drivers to check in or problems to surface through complaints, issues appear as they happen. The supervisor's role shifts from reactive troubleshooting to proactive intervention — catching problems earlier and responding faster. Safety decisions and personnel matters still require direct human judgment.",
+},
+"Truck Drivers":{
+  "ai-monitoring":"AI navigation, telematics, and driver-assist systems are becoming standard equipment in commercial trucking. These tools help drivers stay safer — lane departure warnings, following distance alerts, fatigue detection — and more efficient, with optimized routing and fuel usage guidance. But the driving itself, and every safety-critical decision on the road, remains the driver's responsibility. Understanding how to work with these systems — not just tolerate them — is becoming a core part of the job.",
+  "process-automation":"The administrative side of trucking — logging hours, tracking loads, processing paperwork at pickup and delivery — is increasingly automated through electronic logging devices and digital freight platforms. That reduces the paperwork burden but raises the bar on digital literacy. Drivers who are comfortable working with these systems spend less time on administration and more time on what matters: safe, on-time delivery.",
+  "predictive-analytics":"Predictive routing and load matching tools are changing how drivers interact with dispatch. Instead of waiting for instructions, drivers increasingly see AI-generated suggestions for routes, loads, and timing. The driver still makes the final call — knowing a route has construction the system didn't account for, or that a receiver's dock is notorious for delays — and that local, experiential knowledge remains genuinely valuable.",
+  "ai-copilot":"AI co-pilots in trucking are mostly about logistics support: ELD management, fuel optimization recommendations, route adjustments based on real-time traffic and weather. The physical act of driving — and every judgment call that comes with it — stays fully with the driver. The tools are most useful to drivers who engage with them actively rather than treating them as background noise.",
+},
+"Cashiers":{
+  "process-automation":"Self-checkout and automated payment systems are handling an increasing share of routine transactions. The cashier role is shifting away from transaction processing and toward the parts of the job automation handles least well: helping customers who are confused or frustrated, managing exceptions at self-checkout kiosks, and providing the basic human presence that a kiosk can't replicate. The role isn't gone — but it's changing.",
+  "ai-customer":"AI-powered recommendation and loyalty systems are giving cashiers real-time prompts about relevant offers or follow-up purchases for each customer. That changes the interaction from pure transaction processing to something slightly more consultative. The skill that matters is knowing how to make that feel helpful rather than pushy — which is a human judgment call the AI can't make.",
+  "ai-copilot":"AI tools are automating the most transactional parts of the checkout process — payment processing, receipt generation, inventory updates. What remains distinctly human is the customer interaction layer: greeting people, handling complaints, making someone who just waited too long in line feel good about coming back.",
+},
+"Retail Salespersons":{
+  "ai-customer":"AI recommendation engines and inventory lookup tools are giving retail salespersons better information about what a customer might want before they even ask. The physical presence, product demonstration, and relationship building that converts a browser into a buyer — that stays human. The most effective salespeople are those who use the AI-surfaced information to have more informed conversations, not those who simply hand the customer a tablet.",
+  "ai-copilot":"AI tools handle the lookup and inventory work that used to require salesperson time — checking whether a size is in the back, finding the right product code, logging a special order. That frees up attention for the customer in front of you. The skill shift is toward deeper product knowledge and consultative selling, since the transactional tasks are increasingly handled automatically.",
+  "process-automation":"Payment processing, inventory management, and records keeping are increasingly automated in retail. Salespersons who focus on the human-facing work — product expertise, customer engagement, and handling situations the system flags as exceptions — remain valuable in ways that automation doesn't replace.",
+},
+"Security Guards":{
+  "ai-monitoring":"AI video analytics and access control systems extend what security guards can monitor without increasing headcount. The role is shifting from patrolling and watching to interpreting alerts and responding to incidents the AI has flagged. That changes the job's rhythm significantly — less walking the floor, more active attention when something is flagged. The judgment calls that matter most — whether to intervene, when to call law enforcement, how to de-escalate a situation — remain fully human.",
+  "ai-copilot":"AI tools handle the incident logging and reporting work that once consumed significant guard time. That frees up time and attention for active observation and response. The most important security skills — situational awareness, calm judgment under pressure, and de-escalation — are as relevant as ever.",
+},
+"First-Line Supervisors of Retail Sales Workers":{
+  "ai-customer":"AI customer analytics and inventory systems are giving retail supervisors better real-time visibility into what's happening on the floor. The core supervision work — coaching staff, resolving customer escalations, making judgment calls about floor coverage and priorities — stays human. Supervisors who use the data to have better conversations with their teams get more value from it than those who just use it for reporting.",
+  "process-automation":"Automated scheduling, inventory replenishment, and performance reporting reduce the administrative overhead of retail supervision. The time freed up is most valuable when invested in the people side of the job — training staff, handling difficult customer situations personally, and building the team cohesion that drives consistent service quality.",
+  "ai-copilot":"AI tools handle scheduling optimization and inventory alerts automatically, surfacing what needs attention rather than requiring the supervisor to manually check everything. That creates space for more coaching, more floor presence, and more attention to the customer experience — which is where supervisors can actually make a difference.",
+},
   };
+
+  // Get the insight: first try role+uc, fall back to uc-generic, fall back to default
+  function getRoleInsight(role, uc) {
+    const roleMap = ROLE_INSIGHTS[role];
+    if (roleMap && roleMap[uc]) return roleMap[uc];
+    // generic fallbacks by use case
+    const generic = {
+      "ai-copilot":"AI co-pilot tools are changing the shape of this role — accelerating high-volume, lower-judgment tasks so that workers can spend more time on the work that requires genuine expertise and human connection. The biggest skill shift is learning to direct and validate AI effectively, rather than simply receiving its output.",
+      "predictive-analytics":"Predictive analytics is giving workers in this role better foresight into what's coming. The value is less about having the data and more about knowing what to do with it — translating signals into decisions, and decisions into action, in ways that improve outcomes for the people and operations this role serves.",
+      "process-automation":"Automation is taking the most repetitive, rule-governed tasks in this role and handling them more efficiently than manual processes can. The job is shifting toward exception-handling, oversight, and the adaptive judgment that automation can't replicate — which tends to be the more interesting and durable work.",
+      "ai-customer":"AI is handling a growing share of routine customer interactions, which changes what human workers in this role actually do all day. The interactions that reach a person are increasingly the harder ones — which raises the bar on empathy, judgment, and the ability to handle situations that don't fit a script.",
+      "ai-monitoring":"AI monitoring systems are expanding what workers in this role can see and respond to. The human role is shifting from routine observation to active interpretation — deciding what flagged anomalies actually mean and what to do about them. Safety-critical and high-stakes decisions remain firmly under human judgment.",
+      "ai-dev":"AI development tools are changing the pace and texture of technical work in this role. Routine implementation tasks are automating, raising the value of the design, oversight, and judgment work that remains. Workers who learn to collaborate effectively with AI tools — directing them well and catching their errors — will outperform those who either ignore them or over-rely on them.",
+    };
+    return generic[uc] || "AI is reshaping how this role operates. The skills that grow in value are those that AI cannot replicate — judgment in ambiguous situations, relationships built on trust, and the ability to handle what falls outside the automated system's envelope.";
+  }
 
   document.getElementById('tx-insight').innerHTML = `
     <div class="insight">
       <div class="insight-icon">💡</div>
       <div class="insight-body">
-        <div class="insight-title">Key Transformation Insight: ${S.role}</div>
-        <div class="insight-text">${insights[S.uc]||'Workers who develop fluency with AI tools early will shape how these systems are implemented in their organizations — creating opportunities for those who adapt proactively.'}</div>
-        <div class="insight-pills">
-          <span class="insight-pill">Explore Skill Gaps</span>
-          <span class="insight-pill">View Training Pathways</span>
-          <span class="insight-pill">See Hiring Implications</span>
-        </div>
+        <div class="insight-title">What this means for ${S.role}</div>
+        <div class="insight-text">${getRoleInsight(S.role, S.uc)}</div>
       </div>
     </div>
   `;
