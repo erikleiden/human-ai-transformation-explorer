@@ -1519,140 +1519,142 @@ function selectRole(name){
 
 /* ═══════════════════════════════ STEP 4: DESIGN PRINCIPLES ═══════════════════════════════ */
 
-// Principles data — synthesized from MIT Work of the Future, Brynjolfsson augmentation framework,
-// EU AI Act risk tiers, Stanford HAI task-level analysis, McKinsey Future of Work, and OECD 2024.
+// Principles data — synthesized from MIT EPOCH Index (Loaiza & Rigobon 2024), Brynjolfsson et al.
+// "Generative AI at Work" (NBER 2023), Acemoglu "Simple Macroeconomics of AI" (2024),
+// EU AI Act Article 14 (2024), McKinsey Agentic Organization (2025), OECD AI in Workplace (2024),
+// Harvard Centaur model (Saghafian 2024), Stanford HAI, and NIST AI RMF.
 const DESIGN_PRINCIPLES = [
   {
     id:"p1",
     tier:"t1",
     icon:"⚖️",
-    name:"Principle 1: Preserve Human Authority on High-Stakes Decisions",
-    desc:"Any decision with significant consequences for a person's livelihood, safety, health, legal standing, or civil rights must remain under direct human control. AI may inform and surface options, but the final decision requires an accountable human who can be questioned and held responsible. This reflects both ethical imperatives and emerging regulatory standards (e.g., EU AI Act High-Risk Systems).",
-    tags:["High-Stakes Oversight","Accountability","Regulatory Compliance","Ethics"],
-    rationale:"Grounded in Acemoglu & Johnson (2023): automation that bypasses human judgment in consequential domains consistently produces worse outcomes and erodes institutional trust.",
+    name:"The Stakes–Reversibility Principle",
+    desc:"The primary filter for oversight level is a two-axis test: How large is the harm if AI errs? And can the decision be undone? Irreversible, high-stakes decisions — hiring and firing, significant financial commitments, safety rulings, civil rights determinations — must remain under Full Human Control. AI may surface options and generate analysis, but the final decision requires a named, accountable human who can explain their reasoning. This is codified in EU AI Act Article 14, which mandates human override capability for all High-Risk AI systems, including employment-related uses.",
+    tags:["Full Human Control","Stakes × Reversibility","EU AI Act Article 14","Accountability"],
+    rationale:"EU AI Act Article 14 (2024) + Acemoglu (MIT, 2024): high-consequence automation without human accountability consistently produces worse long-run outcomes and erodes institutional trust.",
     applyRules:{
       default:"Human final authority required",
       highAI:"Human validates AI recommendations",
-      label:"Full Human Authority"
+      label:"Full Human Control (Level 1)"
     },
     taskExamples:[
       {task:"Hiring or firing a worker", mode:"full-human", modeLabel:"🔴 Full Human"},
-      {task:"Approving a large financial transaction", mode:"full-human", modeLabel:"🔴 Full Human"},
-      {task:"Disciplinary or safety incident rulings", mode:"full-human", modeLabel:"🔴 Full Human"},
-      {task:"Generating candidate shortlist from résumés", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
-      {task:"Summarizing risk factors for a loan", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"Disciplinary or safety incident ruling", mode:"full-human", modeLabel:"🔴 Full Human"},
+      {task:"Major financial commitment / contract signing", mode:"full-human", modeLabel:"🔴 Full Human"},
+      {task:"AI-generated candidate shortlist review", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"AI-summarized risk factors for review", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
     ]
   },
   {
     id:"p2",
     tier:"t2",
-    icon:"🎯",
-    name:"Principle 2: AI Augments Judgment, Never Replaces It",
-    desc:"AI systems excel at processing scale — large volumes of data, pattern detection across thousands of cases, real-time signal aggregation. Humans excel at contextual reasoning, ethical weighing, and adapting to situations that fall outside the training distribution. The optimal design keeps AI in a 'sensing and surfacing' role while the human brings contextual interpretation. Workers are retrained to be effective AI directors, not passive recipients.",
-    tags:["Augmentation", "Task-Level Design","Human-AI Teaming","Centaur Model"],
-    rationale:"Per MIT Work of the Future (2023) and Brynjolfsson's 'Turing Trap' (2022): the most productive human-AI configurations are those where AI handles breadth and humans provide depth.",
+    icon:"🧠",
+    name:"The EPOCH Capability Principle",
+    desc:"MIT Sloan's EPOCH Index (Loaiza & Rigobon, 2024–2025) identifies five capability categories where human performance remains categorically superior to AI — and where task demand is growing, not shrinking: Empathy (reading relational and emotional context), Presence (embodied real-time situational awareness), Opinion (value-laden ethical judgment), Creativity (novel synthesis beyond training data), and Hope/Vision/Leadership (long-horizon trust and motivation). Crucially, tasks added to the U.S. economy between 2016–2024 score higher on EPOCH than tasks that disappeared. AI has paradoxically increased the premium on human-signature work. High-EPOCH tasks should be augmented, not automated.",
+    tags:["EPOCH Framework","MIT Sloan 2024","Human-Signature Work","Augmentation over Automation"],
+    rationale:"Loaiza & Rigobon, MIT Sloan (2025): EPOCH task demand rose between 2016–2024 even as AI capabilities expanded — AI and human-signature work are complements, not substitutes.",
     applyRules:{
       default:"AI provides options, human decides",
-      label:"AI Assists, Human Decides"
+      label:"Human-in-the-Loop (Level 2)"
     },
     taskExamples:[
-      {task:"Drafting communications or reports", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
-      {task:"Identifying anomalies in monitoring data", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
-      {task:"Generating inventory forecasts", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
-      {task:"Scheduling optimization across large fleets", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
-      {task:"Auto-categorizing routine support tickets", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+      {task:"Resolving a distressed or complex customer situation", mode:"full-human", modeLabel:"🔴 Full Human"},
+      {task:"AI-drafted response reviewed and sent by human", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"Strategic planning with AI scenario modeling", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"AI-generated performance data; human coaches", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"AI suggests anomalies; human investigates", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
     ]
   },
   {
     id:"p3",
-    tier:"t3",
-    icon:"🔁",
-    name:"Principle 3: Automate the Predictable, Protect the Adaptive",
-    desc:"Tasks that are high-volume, rule-governed, and stable over time are strong automation candidates. Tasks that require real-time adaptation to novel circumstances, relationship navigation, or reading complex human signals should remain human-led. This principle drives the task decomposition logic — every job contains both automatable and irreducibly human elements, and effective AI deployment redesigns roles around this distinction rather than replacing entire jobs.",
-    tags:["Task Decomposition","Routine vs. Adaptive","Role Redesign","Skills Shift"],
-    rationale:"Based on Autor et al.'s task-based framework (updated 2024): middle-skill routine tasks face the highest automation pressure; abstract reasoning and physical adaptability tasks remain human-comparative advantage.",
+    tier:"t2",
+    icon:"♟️",
+    name:"The Centaur Complementarity Principle",
+    desc:"Named after the human-AI chess teams that outperformed both grandmasters and the best chess engines in freestyle tournaments (2005–2008), the Centaur model establishes that the optimal unit of performance is not a human or an AI, but a calibrated team. Each side contributes its comparative advantage: AI handles scale, speed, pattern breadth, and consistency; humans provide contextual depth, ethical judgment, tacit knowledge, and adaptation to novel situations. Per Harvard Data Science Review (Saghafian, 2024) and AAMAS 2025 research, centaur advantages must be deliberately engineered — the human is not just an approver but an active cognitive partner in a bidirectional learning loop. This is the highest-performance variant of Human-in-the-Loop.",
+    tags:["Centaur Model","Human-AI Teaming","Comparative Advantage","Bidirectional Learning"],
+    rationale:"Saghafian (Harvard, 2024) + AAMAS (2025): human-algorithm centaur teams consistently outperform both unaided humans and standalone AI across judgment-intensive domains.",
     applyRules:{
-      default:"Segment tasks by predictability and stakes",
-      label:"Task-Level Decomposition"
+      default:"Human and AI each contribute their comparative advantage",
+      label:"Human-in-the-Loop / Centaur (Level 2)"
     },
     taskExamples:[
-      {task:"Data entry and form processing", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
-      {task:"Generating standard compliance reports", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
-      {task:"Route optimization for standard deliveries", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
-      {task:"Exception handling in warehouse ops", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
-      {task:"De-escalation of distressed customers", mode:"full-human", modeLabel:"🔴 Full Human"},
+      {task:"AI first-pass analysis; human interprets and decides", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"AI surfaces risks; human weighs trade-offs", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"AI drafts; human edits, approves, and sends", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"AI monitors at scale; human handles edge cases", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"AI classifies routine items autonomously", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
     ]
   },
   {
     id:"p4",
     tier:"t3",
-    icon:"🕵️",
-    name:"Principle 4: Maintain Human Auditing Loops for All Autonomous AI Actions",
-    desc:"Even when AI operates autonomously on low-stakes tasks, periodic human review is essential to catch drift, detect bias, and maintain accountability chains. Audit frequency should be proportional to the consequence level of the task. This 'human-on-the-loop' model — distinct from 'human-in-the-loop' — allows operational efficiency while preventing silent degradation in AI outputs over time.",
-    tags:["AI Audit","Human-on-the-Loop","Quality Control","Bias Detection"],
-    rationale:"Informed by NIST AI RMF (2023) and EU AI Act Article 14: even low-risk AI systems benefit from periodic human audit cadences to detect model drift and proxy bias.",
+    icon:"🔁",
+    name:"The Human-on-the-Loop (HOTL) Audit Principle",
+    desc:"For tasks where AI operates autonomously (low stakes, high reversibility, low EPOCH content), a Human-on-the-Loop model is required: AI executes without prior human approval, but a human monitors outputs and can intervene or override. Audit frequency scales with consequence level. This model — distinct from Human-in-the-Loop — allows operational efficiency while preventing silent model drift, proxy bias, and accountability diffusion over time. EU AI Act Article 14 explicitly recognizes 'automation bias' as a design risk, requiring that human overseers be protected from over-reliance on AI outputs even in HOTL configurations.",
+    tags:["Human-on-the-Loop","HOTL","Audit Cadence","Automation Bias","NIST AI RMF"],
+    rationale:"NIST AI RMF (2023) + EU AI Act Article 14 (2024): autonomous AI systems require structured human audit loops to detect drift, bias, and edge-case failures that escape real-time monitoring.",
     applyRules:{
-      default:"AI acts; human reviews on cadence",
-      label:"Periodic Human Audit"
+      default:"AI acts; human monitors and can override",
+      label:"Human-on-the-Loop (Level 3)"
     },
     taskExamples:[
-      {task:"Automated quality inspection (computer vision)", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
-      {task:"AI-generated customer responses", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
-      {task:"Predictive maintenance alerts", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
-      {task:"Autonomous inventory replenishment orders", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
-      {task:"Real-time fraud flagging", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+      {task:"Automated computer vision quality inspection", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"AI-generated customer responses (standard)", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"Predictive maintenance alert routing", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"Autonomous inventory replenishment (within thresholds)", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"Real-time transaction fraud flagging", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
     ]
   },
   {
     id:"p5",
     tier:"t2",
     icon:"🌱",
-    name:"Principle 5: Design for Skill Continuity, Not Just Efficiency",
-    desc:"AI deployment decisions must account for the long-term skill capital of the workforce. Over-automation risks de-skilling workers in ways that reduce organizational resilience — when AI systems fail, no human can take over. Effective job design intentionally preserves human practice of core skills alongside AI augmentation, and actively invests in developing the new skills AI collaboration requires (prompt engineering, output validation, AI tool governance).",
-    tags:["Skill Capital","De-skilling Risk","Workforce Resilience","Upskilling"],
-    rationale:"MIT SHASS / Work of the Future (2024): organizations that aggressively automate without parallel upskilling programs see short-term productivity gains followed by medium-term fragility.",
+    name:"The Augmentation-Before-Automation Principle",
+    desc:"Before automating a task, the better question is whether augmenting the human performing it creates more value. Brynjolfsson et al.'s landmark 'Generative AI at Work' study (NBER, 2023) found AI assistance increased worker productivity by 14% — with the largest gains flowing to the least experienced workers, who were elevated to the performance level of senior peers. This 'augmentation dividend' is more valuable than substitution. Acemoglu (MIT, 2024) quantifies the cost of the alternative: pure automation-oriented AI deployment generates just ~0.07% annual productivity growth over 10 years — because automation without human complementarity fails to generate the multiplier that augmentation produces. Every automation decision must include a plan for where the liberated human capacity is redeployed.",
+    tags:["Augmentation Dividend","Brynjolfsson 2023","Acemoglu 2024","Skill Capital","Human Redeployment"],
+    rationale:"Brynjolfsson et al. (NBER 2023): augmentation produced 14% productivity gains; Acemoglu (MIT 2024): automation-only AI generates <0.1% annual TFP growth — the augmentation path creates substantially more value.",
     applyRules:{
-      default:"Pair each automation with a skills investment",
-      label:"Skills-Paired Deployment"
+      default:"Pair each automation with a human redeployment and upskilling plan",
+      label:"Augmentation-First Design"
     },
     taskExamples:[
-      {task:"Introducing AI scheduling tools", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
-      {task:"Deploying AI customer chat systems", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
-      {task:"Adopting AI-assisted code generation", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
-      {task:"Automating routine financial reconciliation", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
-      {task:"Emergency safety protocols", mode:"full-human", modeLabel:"🔴 Full Human"},
+      {task:"AI drafts; human reviews and adds judgment", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"AI handles routine tickets; human focuses on complex", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"AI generates code; developer reviews and architects", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"AI automates reconciliation; analyst interprets trends", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"Emergency and exception protocols", mode:"full-human", modeLabel:"🔴 Full Human"},
     ]
   },
   {
     id:"p6",
     tier:"t4",
     icon:"🤝",
-    name:"Principle 6: Fully Automate Where Humans Provide No Comparative Advantage",
-    desc:"A small class of tasks is genuinely better performed by AI with no meaningful human advantage: high-volume pattern classification, real-time data aggregation, 24/7 monitoring, and exhaustive search across structured datasets. Insisting on human involvement in these tasks wastes human attention that could be directed at irreducibly human work. The key is clear criteria for this category and regular reassessment as AI and human capabilities evolve.",
-    tags:["Full Automation","Comparative Advantage","Redeployment","AI-Native Tasks"],
-    rationale:"Building on Brynjolfsson & McAfee: the goal is not to keep humans involved everywhere, but to redeploy human effort to where it generates the most value.",
+    name:"The Accountability Anchoring Principle",
+    desc:"As AI systems move toward full autonomy, the greatest governance risk is accountability diffusion — when an AI agent makes a consequential error, no individual human feels responsible because 'the system decided.' McKinsey's Agentic Organization framework (2025) addresses this by establishing that humans must 'define goals, make trade-offs, and steer outcomes' even as AI handles execution. Every AI workflow requires a named human Process Owner with genuine override authority — not nominal oversight. The Global Privacy Assembly's 2025 resolution establishes four necessary conditions for meaningful oversight: (1) the overseer understands AI capabilities and limitations, (2) can intervene and override, (3) is not subject to automation bias, and (4) has genuine — not nominal — authority. Strategic full automation is only appropriate where this accountability chain is airtight and task stakes are genuinely low.",
+    tags:["Accountability Anchoring","AI Process Owner","McKinsey Agentic 2025","Anti-Diffusion","Full Autonomy Criteria"],
+    rationale:"McKinsey (2025) + Global Privacy Assembly (2025): accountability diffusion is the primary reason organizational AI trust has not scaled — only 6% of companies fully trust AI agents for core processes (HBR survey, 2025).",
     applyRules:{
-      default:"AI operates fully; humans redeployed",
-      label:"Strategic Full Automation"
+      default:"Named human accountable for all AI outputs at every automation level",
+      label:"Strategic Full Automation (Level 4)"
     },
     taskExamples:[
-      {task:"Real-time price monitoring across markets", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
-      {task:"Log file analysis and anomaly alerting", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
-      {task:"Automated appointment reminders", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
-      {task:"Standard report generation on schedule", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
-      {task:"Reviewing edge cases flagged by AI", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"Real-time price monitoring and alerting", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+      {task:"Log file anomaly detection and alerting", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+      {task:"Automated appointment and reminder dispatch", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+      {task:"Standard scheduled report generation", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+      {task:"Human reviews AI-flagged edge cases", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
     ]
   },
 ];
 
 // Which principles are most prominent for each use case
 const UC_PRINCIPLE_EMPHASIS = {
-  "ai-copilot":     {primary:["p2","p5"], secondary:["p1","p4"], note:"AI Co-Pilot designs keep humans firmly in the decision seat — AI amplifies throughput while workers direct, validate, and refine outputs."},
-  "predictive-analytics":{primary:["p2","p3"], secondary:["p4","p1"], note:"Predictive models surface signals; humans interpret meaning and act. The skill shift is from data gathering to insight stewardship."},
-  "process-automation":{primary:["p3","p6"], secondary:["p4","p5"], note:"Automation eliminates routine physical and transactional tasks; job redesign centers on exception handling, system oversight, and quality assurance."},
-  "ai-customer":    {primary:["p1","p2"], secondary:["p4","p5"], note:"AI handles routine inquiries autonomously; humans focus on high-empathy escalations where trust and relationship integrity matter most."},
-  "ai-monitoring":  {primary:["p4","p3"], secondary:["p2","p5"], note:"AI expands what can be monitored at scale; human auditors are the backstop for ambiguous anomalies, safety decisions, and edge cases."},
-  "ai-dev":         {primary:["p2","p5"], secondary:["p3","p6"], note:"Coding assistance dramatically accelerates boilerplate work; developer judgment is elevated to architecture, security review, and responsible AI design."},
+  "ai-copilot":     {primary:["p2","p5"], secondary:["p1","p4"], note:"AI Co-Pilot configurations operate primarily at Level 2 (Human-in-the-Loop). The EPOCH Principle governs: AI amplifies throughput at scale while the human retains judgment authority on interpretation, ethical trade-offs, and high-stakes outputs. Per Brynjolfsson's augmentation research, the productivity dividend flows to workers who direct and validate AI — not those who simply delegate to it."},
+  "predictive-analytics":{primary:["p2","p3"], secondary:["p4","p1"], note:"Predictive Analytics shifts the human role from data gathering to insight stewardship — a fundamentally high-EPOCH activity (Centaur Principle). Routine signal aggregation moves to Level 3–4 autonomy; consequential forecasting decisions (financial, operational) remain HITL. Acemoglu (2024) shows that AI-only data processing without human interpretive judgment fails to generate productivity multipliers."},
+  "process-automation":{primary:["p4","p6"], secondary:["p3","p5"], note:"Intelligent Process Automation moves the highest-volume, rule-governed tasks to Level 3–4 autonomy. The HOTL Audit Principle becomes critical: without structured human review cadences, automated workflows drift silently. The Augmentation-Before-Automation Principle demands parallel workforce upskilling — McKinsey (2025) emphasizes workers must be redeployed to exception handling and system stewardship, not simply displaced."},
+  "ai-customer":    {primary:["p1","p2"], secondary:["p4","p5"], note:"Customer interaction AI operates across the full oversight spectrum. The Stakes–Reversibility Principle governs escalation logic: routine queries route to Level 3–4 autonomy; high-emotion, high-stakes interactions remain Full Human Control. MIT's EPOCH framework is directly relevant — Empathy and Presence are precisely the capabilities AI cannot replicate and that customers most value in difficult moments."},
+  "ai-monitoring":  {primary:["p4","p3"], secondary:["p2","p5"], note:"AI-Augmented Monitoring primarily operates at Level 3 (Human-on-the-Loop). The HOTL Audit Principle is the governing design constraint: AI expands what can be monitored at scale, but human auditors remain the essential backstop for ambiguous anomalies, safety-critical decisions, and edge cases that fall outside the AI's training distribution. EU AI Act Article 14's automation bias provisions are especially relevant in safety monitoring contexts."},
+  "ai-dev":         {primary:["p2","p5"], secondary:["p3","p6"], note:"AI-Assisted Development operates through the Centaur Complementarity Principle: AI code generation handles breadth and boilerplate while developers contribute architectural judgment, security oversight, and responsible AI design — precisely the high-EPOCH capabilities that grow in value as AI handles more execution. The Augmentation-Before-Automation Principle requires paired upskilling: each automation gain (tests, docs, boilerplate) must redirect developer capacity to higher-value design and governance work."},
 };
 
 function renderDesignPrinciples(){
@@ -1665,9 +1667,9 @@ function renderDesignPrinciples(){
   document.getElementById('dp-header-area').innerHTML = `
     <div class="dp-header">
       <div class="dp-header-main">
-        <div class="dp-header-eyebrow">⚙️ Step 4 of 5 · Human + AI Job Design</div>
+        <div class="dp-header-eyebrow">⚙️ Step 4 of 5 · Human + AI Job Design Framework</div>
         <div class="dp-header-title">Applying Design Principles to ${S.role}</div>
-        <div class="dp-header-sub">These six principles govern how tasks within this role are allocated between human workers and AI systems — determining which skills grow, which fade, and which new skills emerge.</div>
+        <div class="dp-header-sub">Six evidence-based principles — drawn from MIT EPOCH Index, Brynjolfsson's augmentation research, EU AI Act Article 14, McKinsey's Agentic Organization framework, and the HITL/HOTL/OFTL oversight taxonomy — govern how tasks within this role are allocated between human workers and AI systems. These allocation decisions directly determine the skill transformation shown in Step 5.</div>
       </div>
       <div class="dp-meta">
         <div class="dp-header-meta">
@@ -1682,12 +1684,12 @@ function renderDesignPrinciples(){
 
   // Tier legend
   document.getElementById('dp-principles-area').innerHTML = `
-    <div class="section-hd"><h2>Human + AI Allocation Framework</h2><p style="max-width:640px">${emphasis.note || 'Six evidence-based principles guide how tasks are split between human workers and AI systems — shaping the resulting skill transformation.'}</p></div>
+    <div class="section-hd"><h2>Human + AI Allocation Framework</h2><p style="max-width:700px">${emphasis.note || 'Six evidence-based principles guide how tasks are split between human workers and AI systems — shaping the resulting skill transformation.'}</p></div>
     <div class="dp-tier-legend">
-      <div class="dp-tier-pill t1"><div class="dp-tier-dot t1"></div>Full Human Authority</div>
-      <div class="dp-tier-pill t2"><div class="dp-tier-dot t2"></div>Human-in-the-Loop</div>
-      <div class="dp-tier-pill t3"><div class="dp-tier-dot t3"></div>AI + Human Audit</div>
-      <div class="dp-tier-pill t4"><div class="dp-tier-dot t4"></div>AI Autonomous</div>
+      <div class="dp-tier-pill t1"><div class="dp-tier-dot t1"></div>🔴 Level 1 · Full Human Control</div>
+      <div class="dp-tier-pill t2"><div class="dp-tier-dot t2"></div>🟡 Level 2 · Human-in-the-Loop (HITL)</div>
+      <div class="dp-tier-pill t3"><div class="dp-tier-dot t3"></div>🟢 Level 3 · Human-on-the-Loop (HOTL)</div>
+      <div class="dp-tier-pill t4"><div class="dp-tier-dot t4"></div>🔵 Level 4 · AI Autonomous (OFTL)</div>
     </div>
     <div class="dp-grid">
       ${DESIGN_PRINCIPLES.map((p, idx) => {
@@ -1702,9 +1704,10 @@ function renderDesignPrinciples(){
             <div class="dp-card-inner">
               <div class="dp-card-icon ${p.tier}">${p.icon}</div>
               <div class="dp-card-body">
-                <div class="dp-card-pnum">Principle ${idx+1}</div>
-                <div class="dp-card-name">${p.name.replace(/^Principle \d+: /,'')}</div>
+                <div class="dp-card-pnum">Principle ${idx+1} of 6</div>
+                <div class="dp-card-name">${p.name}</div>
                 <div class="dp-card-desc">${p.desc}</div>
+                <div style="font-size:11px;color:var(--slate-400);font-style:italic;margin-bottom:.55rem;line-height:1.5">📚 ${p.rationale}</div>
                 <div class="dp-card-tags">${p.tags.map(t=>`<span class="dp-card-tag ${p.tier}">${t}</span>`).join('')}</div>
               </div>
               <div class="dp-card-side">
