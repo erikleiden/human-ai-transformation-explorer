@@ -190,6 +190,82 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
 
 /* no-skills empty state */
 .empty-note{font-size:12px;color:var(--slate-400);padding:.5rem .25rem;font-style:italic}
+
+/* ── DESIGN PRINCIPLES STEP ── */
+.dp-header{background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;color:#fff;display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap}
+.dp-header-main{flex:1;min-width:220px}
+.dp-header-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal-lt);margin-bottom:.5rem}
+.dp-header-title{font-size:1.2rem;font-weight:800;letter-spacing:-.025em;line-height:1.2;margin-bottom:.4rem}
+.dp-header-sub{font-size:12px;color:rgba(255,255,255,.65);line-height:1.6}
+.dp-header-meta{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:.75rem 1rem;min-width:200px;flex-shrink:0}
+.dp-meta-row{font-size:11px;color:rgba(255,255,255,.55);margin-bottom:.2rem}
+.dp-meta-val{font-size:13px;font-weight:700;color:#fff}
+
+/* tier legend bar */
+.dp-tier-legend{display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap}
+.dp-tier-pill{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid transparent}
+.dp-tier-pill.t1{background:#FEF2F2;border-color:#FECACA;color:#991B1B}
+.dp-tier-pill.t2{background:#FFFBEB;border-color:#FDE68A;color:#92400E}
+.dp-tier-pill.t3{background:#F0FDF4;border-color:#BBF7D0;color:#14532D}
+.dp-tier-pill.t4{background:#EFF6FF;border-color:#BFDBFE;color:#1E40AF}
+.dp-tier-dot{width:8px;height:8px;border-radius:50%}
+.dp-tier-dot.t1{background:#EF4444}
+.dp-tier-dot.t2{background:#F59E0B}
+.dp-tier-dot.t3{background:#10B981}
+.dp-tier-dot.t4{background:#3B82F6}
+
+/* principle cards */
+.dp-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:1.5rem}
+.dp-card{background:#fff;border:1.5px solid var(--slate-200);border-radius:14px;overflow:hidden;transition:box-shadow .2s;animation:fadeUp .3s ease both}
+.dp-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.dp-card-top{display:flex;align-items:stretch;cursor:default}
+.dp-card-tier-bar{width:5px;flex-shrink:0}
+.dp-card-tier-bar.t1{background:#EF4444}
+.dp-card-tier-bar.t2{background:#F59E0B}
+.dp-card-tier-bar.t3{background:#10B981}
+.dp-card-tier-bar.t4{background:#3B82F6}
+.dp-card-inner{flex:1;padding:1rem 1.25rem;display:flex;gap:1rem;align-items:flex-start;flex-wrap:wrap}
+.dp-card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;margin-top:1px}
+.dp-card-icon.t1{background:#FEF2F2}
+.dp-card-icon.t2{background:#FFFBEB}
+.dp-card-icon.t3{background:#F0FDF4}
+.dp-card-icon.t4{background:#EFF6FF}
+.dp-card-body{flex:1;min-width:180px}
+.dp-card-pnum{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--slate-400);margin-bottom:.2rem}
+.dp-card-name{font-size:14px;font-weight:800;color:var(--slate-800);margin-bottom:.4rem;letter-spacing:-.01em}
+.dp-card-desc{font-size:12.5px;color:var(--slate-600);line-height:1.65;margin-bottom:.6rem}
+.dp-card-tags{display:flex;flex-wrap:wrap;gap:5px}
+.dp-card-tag{font-size:10.5px;padding:2px 7px;border-radius:7px;font-weight:600}
+.dp-card-tag.t1{background:#FEF2F2;color:#991B1B}
+.dp-card-tag.t2{background:#FFFBEB;color:#92400E}
+.dp-card-tag.t3{background:#F0FDF4;color:#14532D}
+.dp-card-tag.t4{background:#EFF6FF;color:#1E40AF}
+.dp-card-side{min-width:200px;max-width:260px;padding:1rem 1.25rem 1rem 0;display:flex;flex-direction:column;gap:.4rem}
+.dp-card-side-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--slate-400);margin-bottom:.1rem}
+.dp-apply-chip{font-size:11px;font-weight:600;padding:3px 9px;border-radius:8px;display:inline-flex;align-items:center;gap:5px;margin-bottom:2px}
+.dp-apply-chip.applies{background:#F0FDF4;color:#14532D}
+.dp-apply-chip.partial{background:#FFFBEB;color:#92400E}
+.dp-apply-chip.na{background:var(--slate-100);color:var(--slate-400)}
+
+.dp-task-breakdown{background:var(--slate-50);border-top:1px solid var(--slate-100);padding:.75rem 1.25rem .75rem calc(5px + 1.25rem)}
+.dp-task-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--slate-400);margin-bottom:.5rem}
+.dp-task-row{display:flex;align-items:center;gap:8px;padding:.3rem 0;border-bottom:1px solid var(--slate-100)}
+.dp-task-row:last-child{border-bottom:none}
+.dp-task-name{font-size:12px;font-weight:500;color:var(--slate-700);flex:1}
+.dp-task-mode{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.dp-task-mode.full-human{background:#FEF2F2;color:#991B1B}
+.dp-task-mode.human-loop{background:#FFFBEB;color:#92400E}
+.dp-task-mode.ai-audit{background:#F0FDF4;color:#14532D}
+.dp-task-mode.ai-auto{background:#EFF6FF;color:#1E40AF}
+
+/* nav to step 5 */
+.dp-proceed{background:linear-gradient(135deg,var(--purple),var(--blue));border-radius:14px;padding:1.4rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;cursor:pointer;transition:opacity .2s;border:none;width:100%;text-align:left}
+.dp-proceed:hover{opacity:.92}
+.dp-proceed-left{color:#fff}
+.dp-proceed-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.65);margin-bottom:.3rem}
+.dp-proceed-title{font-size:1rem;font-weight:800;letter-spacing:-.02em}
+.dp-proceed-sub{font-size:12px;color:rgba(255,255,255,.7);margin-top:.25rem}
+.dp-proceed-arrow{font-size:2rem;color:rgba(255,255,255,.8)}
 </style>
 </head>
 <body>
@@ -224,9 +300,14 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
       <div class="step-label"><div class="step-name" id="st3">Specific Role</div><div class="step-sel" id="ss3">Choose a role</div></div>
     </button>
     <div class="step-line" id="sl3"></div>
-    <button class="step-btn">
+    <button class="step-btn" onclick="goToStep(4)">
       <div class="step-num" id="sn4">4</div>
-      <div class="step-label"><div class="step-name" id="st4">Skill Transformation</div><div class="step-sel" id="ss4">See what changes</div></div>
+      <div class="step-label"><div class="step-name" id="st4">Design Principles</div><div class="step-sel" id="ss4">Human + AI allocation</div></div>
+    </button>
+    <div class="step-line" id="sl4"></div>
+    <button class="step-btn" onclick="goToStep(5)">
+      <div class="step-num" id="sn5">5</div>
+      <div class="step-label"><div class="step-name" id="st5">Skill Transformation</div><div class="step-sel" id="ss5">See what changes</div></div>
     </button>
   </div>
 </div>
@@ -236,7 +317,7 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
   <div class="hero-inner">
     <div class="hero-eyebrow">🤝 Skills-First × AI Transformation</div>
     <h1>See how <em>AI transforms</em> the skills workers need</h1>
-    <p>Walk four steps to understand how specific AI use cases add, remove, and reshape skill requirements — using real skill taxonomies from the Skills-First Workforce Initiative.</p>
+    <p>Walk five steps to understand how specific AI use cases add, remove, and reshape skill requirements — grounded in Human + AI design principles and real skill taxonomies from the Skills-First Workforce Initiative.</p>
   </div>
 </div>
 
@@ -293,11 +374,22 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
   <div class="role-grid" id="role-grid"></div>
 </div>
 
-<!-- SCREEN 4: TRANSFORMATION -->
+<!-- SCREEN 4: DESIGN PRINCIPLES -->
 <div class="screen" id="sc4">
   <button class="back-btn" onclick="goToStep(3)">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11L5 7l4-4"/></svg>
     Back to Roles
+  </button>
+  <div id="dp-header-area"></div>
+  <div id="dp-principles-area"></div>
+  <div id="dp-nav-area"></div>
+</div>
+
+<!-- SCREEN 5: TRANSFORMATION -->
+<div class="screen" id="sc5">
+  <button class="back-btn" onclick="goToStep(4)">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11L5 7l4-4"/></svg>
+    Back to Design Principles
   </button>
   <div id="tx-header-area"></div>
   <div class="legend">
@@ -1343,6 +1435,8 @@ function goToStep(n){
   if(n===1){S.step=1;show(1);}
   else if(n===2&&S.cat){S.step=2;renderUCs();show(2);}
   else if(n===3&&S.uc){S.step=3;renderRoles();show(3);}
+  else if(n===4&&S.role){S.step=4;renderDesignPrinciples();show(4);}
+  else if(n===5&&S.role){S.step=5;renderTransformation();show(5);}
   syncStepper();
 }
 function show(n){
@@ -1350,7 +1444,7 @@ function show(n){
   document.getElementById('sc'+n).classList.add('active');
 }
 function syncStepper(){
-  const steps=[1,2,3,4];
+  const steps=[1,2,3,4,5];
   steps.forEach(i=>{
     const num=document.getElementById('sn'+i);
     const title=document.getElementById('st'+i);
@@ -1358,7 +1452,7 @@ function syncStepper(){
     if(i<S.step){num.classList.add('done');title.classList.add('done');}
     else if(i===S.step){num.classList.add('active');title.classList.add('active');}
   });
-  [1,2,3].forEach(i=>{
+  [1,2,3,4].forEach(i=>{
     const l=document.getElementById('sl'+i);
     l.className='step-line'+(i<S.step?' done':'');
   });
@@ -1367,6 +1461,8 @@ function syncStepper(){
   document.getElementById('ss1').textContent = catObj ? catObj.label : 'Select a domain';
   document.getElementById('ss2').textContent = uc ? uc.name : 'Pick an approach';
   document.getElementById('ss3').textContent = S.role || 'Choose a role';
+  document.getElementById('ss4').textContent = S.role ? 'View principles' : 'Human + AI allocation';
+  document.getElementById('ss5').textContent = S.role ? 'See what changes' : 'Skill changes';
 }
 
 /* ═══════════════════════════════ STEP 1 ═══════════════════════════════ */
@@ -1417,11 +1513,236 @@ function renderRoles(){
 }
 function selectRole(name){
   S.role=name; S.step=4;
-  renderTransformation();
+  renderDesignPrinciples();
   show(4); syncStepper();
 }
 
-/* ═══════════════════════════════ STEP 4 ═══════════════════════════════ */
+/* ═══════════════════════════════ STEP 4: DESIGN PRINCIPLES ═══════════════════════════════ */
+
+// Principles data — synthesized from MIT Work of the Future, Brynjolfsson augmentation framework,
+// EU AI Act risk tiers, Stanford HAI task-level analysis, McKinsey Future of Work, and OECD 2024.
+const DESIGN_PRINCIPLES = [
+  {
+    id:"p1",
+    tier:"t1",
+    icon:"⚖️",
+    name:"Principle 1: Preserve Human Authority on High-Stakes Decisions",
+    desc:"Any decision with significant consequences for a person's livelihood, safety, health, legal standing, or civil rights must remain under direct human control. AI may inform and surface options, but the final decision requires an accountable human who can be questioned and held responsible. This reflects both ethical imperatives and emerging regulatory standards (e.g., EU AI Act High-Risk Systems).",
+    tags:["High-Stakes Oversight","Accountability","Regulatory Compliance","Ethics"],
+    rationale:"Grounded in Acemoglu & Johnson (2023): automation that bypasses human judgment in consequential domains consistently produces worse outcomes and erodes institutional trust.",
+    applyRules:{
+      default:"Human final authority required",
+      highAI:"Human validates AI recommendations",
+      label:"Full Human Authority"
+    },
+    taskExamples:[
+      {task:"Hiring or firing a worker", mode:"full-human", modeLabel:"🔴 Full Human"},
+      {task:"Approving a large financial transaction", mode:"full-human", modeLabel:"🔴 Full Human"},
+      {task:"Disciplinary or safety incident rulings", mode:"full-human", modeLabel:"🔴 Full Human"},
+      {task:"Generating candidate shortlist from résumés", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"Summarizing risk factors for a loan", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+    ]
+  },
+  {
+    id:"p2",
+    tier:"t2",
+    icon:"🎯",
+    name:"Principle 2: AI Augments Judgment, Never Replaces It",
+    desc:"AI systems excel at processing scale — large volumes of data, pattern detection across thousands of cases, real-time signal aggregation. Humans excel at contextual reasoning, ethical weighing, and adapting to situations that fall outside the training distribution. The optimal design keeps AI in a 'sensing and surfacing' role while the human brings contextual interpretation. Workers are retrained to be effective AI directors, not passive recipients.",
+    tags:["Augmentation", "Task-Level Design","Human-AI Teaming","Centaur Model"],
+    rationale:"Per MIT Work of the Future (2023) and Brynjolfsson's 'Turing Trap' (2022): the most productive human-AI configurations are those where AI handles breadth and humans provide depth.",
+    applyRules:{
+      default:"AI provides options, human decides",
+      label:"AI Assists, Human Decides"
+    },
+    taskExamples:[
+      {task:"Drafting communications or reports", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"Identifying anomalies in monitoring data", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"Generating inventory forecasts", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"Scheduling optimization across large fleets", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"Auto-categorizing routine support tickets", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+    ]
+  },
+  {
+    id:"p3",
+    tier:"t3",
+    icon:"🔁",
+    name:"Principle 3: Automate the Predictable, Protect the Adaptive",
+    desc:"Tasks that are high-volume, rule-governed, and stable over time are strong automation candidates. Tasks that require real-time adaptation to novel circumstances, relationship navigation, or reading complex human signals should remain human-led. This principle drives the task decomposition logic — every job contains both automatable and irreducibly human elements, and effective AI deployment redesigns roles around this distinction rather than replacing entire jobs.",
+    tags:["Task Decomposition","Routine vs. Adaptive","Role Redesign","Skills Shift"],
+    rationale:"Based on Autor et al.'s task-based framework (updated 2024): middle-skill routine tasks face the highest automation pressure; abstract reasoning and physical adaptability tasks remain human-comparative advantage.",
+    applyRules:{
+      default:"Segment tasks by predictability and stakes",
+      label:"Task-Level Decomposition"
+    },
+    taskExamples:[
+      {task:"Data entry and form processing", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+      {task:"Generating standard compliance reports", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+      {task:"Route optimization for standard deliveries", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"Exception handling in warehouse ops", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"De-escalation of distressed customers", mode:"full-human", modeLabel:"🔴 Full Human"},
+    ]
+  },
+  {
+    id:"p4",
+    tier:"t3",
+    icon:"🕵️",
+    name:"Principle 4: Maintain Human Auditing Loops for All Autonomous AI Actions",
+    desc:"Even when AI operates autonomously on low-stakes tasks, periodic human review is essential to catch drift, detect bias, and maintain accountability chains. Audit frequency should be proportional to the consequence level of the task. This 'human-on-the-loop' model — distinct from 'human-in-the-loop' — allows operational efficiency while preventing silent degradation in AI outputs over time.",
+    tags:["AI Audit","Human-on-the-Loop","Quality Control","Bias Detection"],
+    rationale:"Informed by NIST AI RMF (2023) and EU AI Act Article 14: even low-risk AI systems benefit from periodic human audit cadences to detect model drift and proxy bias.",
+    applyRules:{
+      default:"AI acts; human reviews on cadence",
+      label:"Periodic Human Audit"
+    },
+    taskExamples:[
+      {task:"Automated quality inspection (computer vision)", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"AI-generated customer responses", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"Predictive maintenance alerts", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"Autonomous inventory replenishment orders", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"Real-time fraud flagging", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+    ]
+  },
+  {
+    id:"p5",
+    tier:"t2",
+    icon:"🌱",
+    name:"Principle 5: Design for Skill Continuity, Not Just Efficiency",
+    desc:"AI deployment decisions must account for the long-term skill capital of the workforce. Over-automation risks de-skilling workers in ways that reduce organizational resilience — when AI systems fail, no human can take over. Effective job design intentionally preserves human practice of core skills alongside AI augmentation, and actively invests in developing the new skills AI collaboration requires (prompt engineering, output validation, AI tool governance).",
+    tags:["Skill Capital","De-skilling Risk","Workforce Resilience","Upskilling"],
+    rationale:"MIT SHASS / Work of the Future (2024): organizations that aggressively automate without parallel upskilling programs see short-term productivity gains followed by medium-term fragility.",
+    applyRules:{
+      default:"Pair each automation with a skills investment",
+      label:"Skills-Paired Deployment"
+    },
+    taskExamples:[
+      {task:"Introducing AI scheduling tools", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"Deploying AI customer chat systems", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"Adopting AI-assisted code generation", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+      {task:"Automating routine financial reconciliation", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
+      {task:"Emergency safety protocols", mode:"full-human", modeLabel:"🔴 Full Human"},
+    ]
+  },
+  {
+    id:"p6",
+    tier:"t4",
+    icon:"🤝",
+    name:"Principle 6: Fully Automate Where Humans Provide No Comparative Advantage",
+    desc:"A small class of tasks is genuinely better performed by AI with no meaningful human advantage: high-volume pattern classification, real-time data aggregation, 24/7 monitoring, and exhaustive search across structured datasets. Insisting on human involvement in these tasks wastes human attention that could be directed at irreducibly human work. The key is clear criteria for this category and regular reassessment as AI and human capabilities evolve.",
+    tags:["Full Automation","Comparative Advantage","Redeployment","AI-Native Tasks"],
+    rationale:"Building on Brynjolfsson & McAfee: the goal is not to keep humans involved everywhere, but to redeploy human effort to where it generates the most value.",
+    applyRules:{
+      default:"AI operates fully; humans redeployed",
+      label:"Strategic Full Automation"
+    },
+    taskExamples:[
+      {task:"Real-time price monitoring across markets", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+      {task:"Log file analysis and anomaly alerting", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+      {task:"Automated appointment reminders", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+      {task:"Standard report generation on schedule", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
+      {task:"Reviewing edge cases flagged by AI", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
+    ]
+  },
+];
+
+// Which principles are most prominent for each use case
+const UC_PRINCIPLE_EMPHASIS = {
+  "ai-copilot":     {primary:["p2","p5"], secondary:["p1","p4"], note:"AI Co-Pilot designs keep humans firmly in the decision seat — AI amplifies throughput while workers direct, validate, and refine outputs."},
+  "predictive-analytics":{primary:["p2","p3"], secondary:["p4","p1"], note:"Predictive models surface signals; humans interpret meaning and act. The skill shift is from data gathering to insight stewardship."},
+  "process-automation":{primary:["p3","p6"], secondary:["p4","p5"], note:"Automation eliminates routine physical and transactional tasks; job redesign centers on exception handling, system oversight, and quality assurance."},
+  "ai-customer":    {primary:["p1","p2"], secondary:["p4","p5"], note:"AI handles routine inquiries autonomously; humans focus on high-empathy escalations where trust and relationship integrity matter most."},
+  "ai-monitoring":  {primary:["p4","p3"], secondary:["p2","p5"], note:"AI expands what can be monitored at scale; human auditors are the backstop for ambiguous anomalies, safety decisions, and edge cases."},
+  "ai-dev":         {primary:["p2","p5"], secondary:["p3","p6"], note:"Coding assistance dramatically accelerates boilerplate work; developer judgment is elevated to architecture, security review, and responsible AI design."},
+};
+
+function renderDesignPrinciples(){
+  const rd = ROLES_DB[S.role]||{icon:'👤',workers:'',skills:[]};
+  const uc = USE_CASES.find(u=>u.id===S.uc);
+  const cat = CATS[S.cat];
+  const emphasis = UC_PRINCIPLE_EMPHASIS[S.uc] || {primary:[], secondary:[], note:""};
+
+  // Header
+  document.getElementById('dp-header-area').innerHTML = `
+    <div class="dp-header">
+      <div class="dp-header-main">
+        <div class="dp-header-eyebrow">⚙️ Step 4 of 5 · Human + AI Job Design</div>
+        <div class="dp-header-title">Applying Design Principles to ${S.role}</div>
+        <div class="dp-header-sub">These six principles govern how tasks within this role are allocated between human workers and AI systems — determining which skills grow, which fade, and which new skills emerge.</div>
+      </div>
+      <div class="dp-meta">
+        <div class="dp-header-meta">
+          <div class="dp-meta-row">AI Use Case</div>
+          <div class="dp-meta-val">${uc.icon} ${uc.name}</div>
+          <div style="margin-top:.6rem" class="dp-meta-row">Category</div>
+          <div class="dp-meta-val" style="font-size:12px">${cat.label}</div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Tier legend
+  document.getElementById('dp-principles-area').innerHTML = `
+    <div class="section-hd"><h2>Human + AI Allocation Framework</h2><p style="max-width:640px">${emphasis.note || 'Six evidence-based principles guide how tasks are split between human workers and AI systems — shaping the resulting skill transformation.'}</p></div>
+    <div class="dp-tier-legend">
+      <div class="dp-tier-pill t1"><div class="dp-tier-dot t1"></div>Full Human Authority</div>
+      <div class="dp-tier-pill t2"><div class="dp-tier-dot t2"></div>Human-in-the-Loop</div>
+      <div class="dp-tier-pill t3"><div class="dp-tier-dot t3"></div>AI + Human Audit</div>
+      <div class="dp-tier-pill t4"><div class="dp-tier-dot t4"></div>AI Autonomous</div>
+    </div>
+    <div class="dp-grid">
+      ${DESIGN_PRINCIPLES.map((p, idx) => {
+        const isPrimary = emphasis.primary.includes(p.id);
+        const isSecondary = emphasis.secondary.includes(p.id);
+        const applyClass = isPrimary ? 'applies' : isSecondary ? 'partial' : 'na';
+        const applyLabel = isPrimary ? `✓ Primary driver for this use case` : isSecondary ? `◐ Secondary factor` : `– Not a primary factor here`;
+        return `
+        <div class="dp-card" style="animation-delay:${idx*0.07}s">
+          <div class="dp-card-top">
+            <div class="dp-card-tier-bar ${p.tier}"></div>
+            <div class="dp-card-inner">
+              <div class="dp-card-icon ${p.tier}">${p.icon}</div>
+              <div class="dp-card-body">
+                <div class="dp-card-pnum">Principle ${idx+1}</div>
+                <div class="dp-card-name">${p.name.replace(/^Principle \d+: /,'')}</div>
+                <div class="dp-card-desc">${p.desc}</div>
+                <div class="dp-card-tags">${p.tags.map(t=>`<span class="dp-card-tag ${p.tier}">${t}</span>`).join('')}</div>
+              </div>
+              <div class="dp-card-side">
+                <div class="dp-card-side-label">Applies to This Use Case</div>
+                <span class="dp-apply-chip ${applyClass}">${applyLabel}</span>
+                <div style="margin-top:.5rem" class="dp-card-side-label">Allocation Mode</div>
+                <span style="font-size:12px;font-weight:600;color:var(--slate-700)">${p.applyRules.label}</span>
+              </div>
+            </div>
+          </div>
+          <div class="dp-task-breakdown">
+            <div class="dp-task-title">Example Task Allocations</div>
+            ${p.taskExamples.map(t=>`
+              <div class="dp-task-row">
+                <div class="dp-task-name">${t.task}</div>
+                <div class="dp-task-mode ${t.mode}">${t.modeLabel}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+
+  // Proceed button
+  document.getElementById('dp-nav-area').innerHTML = `
+    <button class="dp-proceed" onclick="goToStep(5)">
+      <div class="dp-proceed-left">
+        <div class="dp-proceed-label">Next: Step 5 of 5</div>
+        <div class="dp-proceed-title">See how these principles reshape the ${S.role} skill profile →</div>
+        <div class="dp-proceed-sub">The skill transformation you'll see reflects the task allocation decisions above.</div>
+      </div>
+      <div class="dp-proceed-arrow">→</div>
+    </button>
+  `;
+}
+
+/* ═══════════════════════════════ STEP 5: TRANSFORMATION ═══════════════════════════════ */
 function renderTransformation(){
   const rd = ROLES_DB[S.role]||{icon:'👤',workers:'',skills:[]};
   const uc = USE_CASES.find(u=>u.id===S.uc);
@@ -1440,8 +1761,19 @@ function renderTransformation(){
   const keptSkills   = rd.skills.filter(s=>!droppingNames.has(s.skill));
   const droppingSkills = rd.skills.filter(s=>droppingNames.has(s.skill));
 
+  const emphasis = UC_PRINCIPLE_EMPHASIS[S.uc] || {primary:[], secondary:[]};
+  const primaryPrincipleNames = emphasis.primary.map(pid => {
+    const p = DESIGN_PRINCIPLES.find(d=>d.id===pid);
+    return p ? p.name.replace(/^Principle \d+: /,'') : '';
+  }).filter(Boolean);
+
   // Header stats
   document.getElementById('tx-header-area').innerHTML = `
+    <div style="background:var(--purple-bg);border:1px solid #E9D5FF;border-radius:12px;padding:.75rem 1.1rem;margin-bottom:.85rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
+      <span style="font-size:13px">⚙️</span>
+      <span style="font-size:12px;color:var(--slate-600);flex:1"><strong style="color:var(--purple)">Design principles applied:</strong> Skill changes below reflect task allocation decisions from Step 4 — particularly <em>${primaryPrincipleNames.join('</em> and <em>')}</em>.</span>
+      <button onclick="goToStep(4)" style="font-size:11px;font-weight:700;color:var(--purple);background:none;border:1.5px solid #C4B5FD;border-radius:8px;padding:4px 10px;cursor:pointer">← Review Principles</button>
+    </div>
     <div class="tx-header">
       <div class="tx-main">
         <div class="tx-role">${S.role}</div>
@@ -1542,12 +1874,12 @@ function renderTransformation(){
 
   // Insight
   const insights = {
-    "ai-copilot":`Workers who master how to direct, validate, and build on AI outputs will be significantly more productive than those who only automate. The human advantage shifts toward framing the right questions, catching AI errors, and applying contextual judgment.`,
-    "predictive-analytics":`The premium is shifting from collecting and processing data to interpreting AI-generated signals and acting on them decisively. Workers who can bridge the gap between model outputs and business action will be most valued.`,
-    "process-automation":`Automation is most transformative in repetitive physical and transactional work. Workers are transitioning from performing standardized tasks to overseeing, troubleshooting, and optimizing the automated systems that perform them.`,
-    "ai-customer":`Routine customer interactions are shifting to AI. Human workers will focus on high-empathy, high-complexity interactions that require genuine trust and relationship-building — precisely where AI cannot substitute.`,
-    "ai-monitoring":`Computer vision and IoT systems expand what workers can monitor, but human judgment remains essential for interpreting ambiguous signals, handling edge cases, and making decisions with safety or ethical implications.`,
-    "ai-dev":`AI coding assistants are most transformative for software roles. Boilerplate code, routine testing, and documentation are automating rapidly. Highest-value skills are shifting to system design, prompt engineering, and AI model oversight.`,
+    "ai-copilot":`Per Principles 2 & 5: AI Co-Pilot keeps humans firmly in the decision seat. Workers who master directing, validating, and building on AI outputs will outperform those who treat AI as a black box. New skills emerge around prompt engineering, output validation, and responsible AI use — not replacing existing expertise, but adding a coordination layer on top of it.`,
+    "predictive-analytics":`Per Principles 2 & 3: predictive models surface signals at scale; the human premium shifts to interpreting those signals with contextual judgment and acting decisively. Routine data gathering tasks automate (Principle 3), while insight stewardship, anomaly investigation, and stakeholder communication grow in importance.`,
+    "process-automation":`Per Principles 3 & 6: automation eliminates the most predictable physical and transactional tasks in this role. Job redesign centers on exception handling, system oversight, and quality assurance — the adaptive work that falls outside AI's rule-governed envelope. Principle 5 demands parallel upskilling to avoid de-skilling risk.`,
+    "ai-customer":`Per Principles 1 & 2: high-empathy, high-stakes customer interactions remain fully human (Principle 1). AI handles routine inquiry volume autonomously, freeing workers for relationship-intensive escalations where trust and contextual judgment matter most. Workers need new skills in AI triage, oversight, and escalation judgment.`,
+    "ai-monitoring":`Per Principles 4 & 3: AI expands monitoring scale dramatically, but human auditors remain the essential backstop (Principle 4). Workers shift from routine observation to anomaly investigation, safety-critical decisions, and IoT system interpretation — exactly the adaptive edge-case judgment AI cannot reliably provide.`,
+    "ai-dev":`Per Principles 2 & 5: AI coding assistants accelerate boilerplate work but elevate the importance of system architecture, security review, and responsible AI design. Principle 5 demands active upskilling in prompt engineering, AI code validation, and LLM integration — the new meta-skills of software engineering in an AI-augmented world.`,
   };
 
   document.getElementById('tx-insight').innerHTML = `
