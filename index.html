@@ -264,6 +264,94 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
 .dp-proceed-title{font-size:1rem;font-weight:800;letter-spacing:-.02em}
 .dp-proceed-sub{font-size:12px;color:rgba(255,255,255,.7);margin-top:.25rem}
 .dp-proceed-arrow{font-size:2rem;color:rgba(255,255,255,.8)}
+
+/* ── INTERACTIVE ASSESSMENT (Step 4 alt) ── */
+.ia-substeps{display:flex;gap:6px;margin-bottom:1.25rem;flex-wrap:wrap}
+.ia-substep{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;border:1.5px solid var(--slate-200);background:#fff;color:var(--slate-500);cursor:pointer;transition:all .18s}
+.ia-substep.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.ia-substep.done{background:#F0FDF4;color:#14532D;border-color:#BBF7D0}
+
+.ia-cluster{background:#fff;border:1.5px solid var(--slate-200);border-radius:12px;margin-bottom:10px;overflow:hidden;transition:all .2s;animation:fadeUp .28s ease both}
+.ia-cluster:hover{box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.ia-cluster-head{padding:14px 16px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;user-select:none}
+.ia-cluster-head:hover{background:var(--slate-50)}
+.ia-cluster-info{flex:1;min-width:0}
+.ia-cluster-label{font-size:14px;font-weight:700;color:var(--slate-800);margin-bottom:2px}
+.ia-cluster-desc{font-size:12px;color:var(--slate-500);line-height:1.5}
+.ia-cluster-meta{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;align-items:center}
+.ia-cluster-badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--slate-100);color:var(--slate-500)}
+.ia-bar-wrap{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--slate-400)}
+.ia-bar{width:48px;height:5px;background:var(--slate-100);border-radius:3px;overflow:hidden}
+.ia-bar-fill{height:100%;border-radius:3px}
+.ia-chevron{font-size:18px;color:var(--slate-400);transition:transform .2s;flex-shrink:0;margin-top:2px}
+.ia-cluster.open .ia-chevron{transform:rotate(180deg)}
+.ia-cluster-body{border-top:1px solid var(--slate-100);padding:14px 16px}
+
+/* tags */
+.ia-tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.ia-tag-btn{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;border:1.5px solid var(--slate-200);background:#fff;color:var(--slate-500);cursor:pointer;transition:all .15s}
+.ia-tag-btn:hover{border-color:var(--slate-300)}
+.ia-tag-btn.on-dev{background:#F5F3FF;color:#6D28D9;border-color:#C4B5FD}
+.ia-tag-btn.on-atrophy{background:#FFFBEB;color:#92400E;border-color:#FDE68A}
+.ia-tag-btn.on-relation{background:#EFF6FF;color:#1E40AF;border-color:#BFDBFE}
+.ia-tag-btn.on-bottleneck{background:#FEF2F2;color:#991B1B;border-color:#FECACA}
+
+/* task list inside cluster */
+.ia-task{font-size:12px;color:var(--slate-600);padding:5px 8px;border-radius:6px;background:var(--slate-50);margin-bottom:4px;display:flex;align-items:flex-start;gap:6px;line-height:1.45}
+.ia-task.not-impacted{color:var(--slate-400);font-style:italic;background:var(--slate-100)}
+.ia-task-scores{font-size:10px;color:var(--slate-400);white-space:nowrap;flex-shrink:0}
+
+/* question tree */
+.ia-q-nav{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.ia-q-nav-btn{width:28px;height:28px;border-radius:6px;border:1.5px solid var(--slate-200);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--slate-500);transition:all .15s}
+.ia-q-nav-btn:hover{background:var(--slate-50)}
+.ia-q-nav-btn:disabled{opacity:.3;cursor:default}
+.ia-q-label{font-size:13px;color:var(--slate-500)}
+.ia-q-progress{width:100%;height:5px;background:var(--slate-100);border-radius:3px;overflow:hidden;margin-bottom:16px}
+.ia-q-progress-fill{height:100%;background:var(--navy);border-radius:3px;transition:width .3s}
+.ia-q-cluster-ctx{background:var(--slate-50);border:1.5px solid var(--slate-200);border-radius:10px;padding:12px 16px;margin-bottom:16px}
+.ia-q-cluster-name{font-size:14px;font-weight:700;color:var(--slate-800);margin-bottom:2px}
+.ia-q-cluster-desc{font-size:12px;color:var(--slate-500);margin-bottom:6px}
+.ia-q-cluster-tasks{font-size:11px;color:var(--navy);cursor:pointer;font-weight:600}
+.ia-q-cluster-tasks:hover{text-decoration:underline}
+.ia-q-tasklist{margin-top:6px;font-size:11px;color:var(--slate-500);line-height:1.5;display:none}
+.ia-q-tasklist.open{display:block}
+
+.ia-question{margin-bottom:16px}
+.ia-q-title{font-size:13px;font-weight:700;color:var(--slate-700);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.ia-q-title .ia-info{font-size:11px;color:var(--slate-400);font-weight:400;cursor:help}
+.ia-q-opts{display:flex;flex-direction:column;gap:4px}
+.ia-q-opt{padding:8px 12px;border:1.5px solid var(--slate-200);border-radius:8px;font-size:12px;color:var(--slate-600);cursor:pointer;transition:all .15s;background:#fff;text-align:left;line-height:1.4}
+.ia-q-opt:hover{border-color:var(--slate-300);background:var(--slate-50)}
+.ia-q-opt.sel{border-color:var(--navy);background:#EFF6FF;color:var(--navy)}
+.ia-q-opt b{font-weight:700}
+
+/* bucket result */
+.ia-bucket{padding:14px 16px;border-radius:10px;border:2px solid;margin-top:12px;display:flex;align-items:center;gap:10px}
+.ia-bucket-label{font-size:14px;font-weight:800}
+.ia-bucket-desc{font-size:12px;color:var(--slate-600)}
+
+/* nav dots for clusters */
+.ia-dots{display:flex;flex-wrap:wrap;gap:5px;margin-top:16px;padding-top:12px;border-top:1px solid var(--slate-100)}
+.ia-dot{width:26px;height:26px;border-radius:6px;border:1.5px solid var(--slate-200);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s}
+.ia-dot.current{box-shadow:0 0 0 2px var(--navy)}
+
+/* synthesis */
+.ia-syn-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+@media(max-width:700px){.ia-syn-grid{grid-template-columns:1fr}}
+.ia-syn-card{background:#fff;border:1.5px solid var(--slate-200);border-radius:12px;overflow:hidden}
+.ia-syn-card-hd{padding:12px 16px;font-size:13px;font-weight:700;border-bottom:1px solid var(--slate-100)}
+.ia-syn-card-body{padding:12px 16px}
+.ia-bucket-card{border-left:4px solid;border-radius:12px;background:#fff;border-right:1.5px solid var(--slate-200);border-top:1.5px solid var(--slate-200);border-bottom:1.5px solid var(--slate-200);padding:14px 16px;margin-bottom:10px}
+.ia-bucket-card-title{font-size:13px;font-weight:800;margin-bottom:4px}
+.ia-bucket-card-desc{font-size:11px;color:var(--slate-500);margin-bottom:8px}
+.ia-bucket-card-cluster{font-size:10px;font-weight:700;color:var(--slate-400);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;margin-top:8px}
+.ia-bucket-card-task{font-size:12px;color:var(--slate-600);padding:3px 0 3px 12px;border-left:2px solid var(--slate-200);margin-bottom:2px;line-height:1.4}
+.ia-flag{padding:10px 14px;border-radius:8px;font-size:12px;line-height:1.5;margin-bottom:6px}
+.ia-flag.warn{background:#FEF2F2;color:#991B1B;border:1px solid #FECACA}
+.ia-flag.caution{background:#FFFBEB;color:#92400E;border:1px solid #FDE68A}
+.ia-narrative{font-size:13px;color:var(--slate-600);line-height:1.7;padding:14px 16px;background:var(--slate-50);border-radius:10px;border:1.5px solid var(--slate-200)}
+.ia-badge-count{font-size:12px;font-weight:700;padding:3px 10px;border-radius:14px;background:var(--slate-100);color:var(--slate-600)}
 </style>
 </head>
 <body>
@@ -2354,7 +2442,139 @@ const UC_PRINCIPLE_EMPHASIS = {
   "ai-dev":         {primary:["p2","p5"], secondary:["p3","p6"], note:"AI-Assisted Development operates through the Centaur Complementarity Principle: AI code generation handles breadth and boilerplate while developers contribute architectural judgment, security oversight, and responsible AI design — precisely the high-EPOCH capabilities that grow in value as AI handles more execution. The Augmentation-Before-Automation Principle requires paired upskilling: each automation gain (tests, docs, boilerplate) must redirect developer capacity to higher-value design and governance work."},
 };
 
+/* ═══════════════════ INTERACTIVE ASSESSMENT (cluster-based) ═══════════════════ */
+
+const IA_ROLES = {
+  "Human Resources Specialists": {
+    clusters: [
+      { id:'hr-sourcing', label:'Sourcing & Candidate Search', description:'Finding, attracting, and initially screening job candidates through various channels.',
+        tasks: [
+          { id:'hr-7', text:'Develop or implement recruiting strategies to meet current or anticipated staffing needs.', auto:0.2, aug:0.6, impacted:true },
+          { id:'hr-14', text:'Perform searches for qualified job candidates, using sources such as computer databases, networking, Internet recruiting resources, media advertisements, job fairs, recruiting firms, or employee referrals.', auto:0.6, aug:0.4, impacted:true },
+          { id:'hr-22', text:'Coordinate with outside staffing agencies to secure temporary employees, based on departmental needs.', auto:0.3, aug:0.2, impacted:true },
+        ]},
+      { id:'hr-evaluation', label:'Candidate Evaluation & Selection', description:'Interviewing, testing, reviewing qualifications, and making hiring decisions.',
+        tasks: [
+          { id:'hr-4', text:'Conduct reference or background checks on job applicants.', auto:0.6, aug:0.2, impacted:true },
+          { id:'hr-11', text:'Interview job applicants to obtain information on work history, training, education, or job skills.', auto:0.2, aug:0.4, impacted:true },
+          { id:'hr-17', text:'Review employment applications and job orders to match applicants with job requirements.', auto:0.6, aug:0.3, impacted:true },
+          { id:'hr-18', text:'Schedule or administer skill, intelligence, psychological, or drug tests for current or prospective employees.', auto:0.5, aug:0.1, impacted:true },
+          { id:'hr-20', text:'Select qualified job applicants or refer them to managers, making hiring recommendations when appropriate.', auto:0.3, aug:0.5, impacted:true },
+          { id:'hr-23', text:'Evaluate recruitment or selection criteria to ensure conformance to professional, statistical, or testing standards.', auto:0.3, aug:0.6, impacted:true },
+          { id:'hr-24', text:'Evaluate selection or testing techniques by conducting research or follow-up activities and conferring with management.', auto:0.3, aug:0.5, impacted:true },
+          { id:'hr-25', text:'Review and evaluate applicant qualifications or eligibility for specified licensing, according to established guidelines.', auto:0.5, aug:0.3, impacted:true },
+        ]},
+      { id:'hr-communication', label:'Applicant Communication & Onboarding', description:'Informing applicants, updating status, processing hires, and conducting orientations.',
+        tasks: [
+          { id:'hr-6', text:'Contact job applicants to inform them of the status of their applications.', auto:0.7, aug:0.1, impacted:true },
+          { id:'hr-8', text:'Hire employees and process hiring-related paperwork.', auto:0.5, aug:0.3, impacted:true },
+          { id:'hr-9', text:'Inform job applicants of details such as duties and responsibilities, compensation, benefits, schedules, working conditions, or promotion opportunities.', auto:0.3, aug:0.2, impacted:true },
+          { id:'hr-19', text:'Schedule or conduct new employee orientations.', auto:0.0, aug:0.0, impacted:false },
+        ]},
+      { id:'hr-employee-relations', label:'Employee Relations & Workplace Issues', description:'Addressing employee concerns, handling complaints, and managing separations.',
+        tasks: [
+          { id:'hr-1', text:'Address employee relations issues, such as harassment allegations, work complaints, or other employee concerns.', auto:0.1, aug:0.4, impacted:true },
+          { id:'hr-3', text:'Conduct exit interviews and ensure that necessary employment termination paperwork is completed.', auto:0.0, aug:0.0, impacted:false },
+        ]},
+      { id:'hr-policy-compliance', label:'Policy, Compliance & Management Advisory', description:'Developing HR policies, maintaining legal knowledge, and advising management.',
+        tasks: [
+          { id:'hr-5', text:'Confer with management to develop or implement personnel policies or procedures.', auto:0.1, aug:0.5, impacted:true },
+          { id:'hr-10', text:'Interpret and explain human resources policies, procedures, laws, standards, or regulations.', auto:0.3, aug:0.5, impacted:true },
+          { id:'hr-13', text:'Maintain current knowledge of Equal Employment Opportunity (EEO) and affirmative action guidelines and laws.', auto:0.3, aug:0.5, impacted:true },
+          { id:'hr-16', text:'Provide management with information or training related to interviewing, performance appraisals, counseling techniques.', auto:0.0, aug:0.0, impacted:false },
+          { id:'hr-21', text:'Advise management on organizing, preparing, or implementing recruiting or retention programs.', auto:0.0, aug:0.0, impacted:false },
+        ]},
+      { id:'hr-records-admin', label:'HR Data, Records & Benefits', description:'Maintaining employment records, analyzing HR data, and administering benefits.',
+        tasks: [
+          { id:'hr-2', text:'Analyze employment-related data and prepare required reports.', auto:0.6, aug:0.5, impacted:true },
+          { id:'hr-12', text:'Maintain and update human resources documents, such as organizational charts, employee handbooks or directories.', auto:0.5, aug:0.2, impacted:true },
+          { id:'hr-15', text:'Prepare or maintain employment records related to events, such as hiring, termination, leaves, transfers, or promotions.', auto:0.6, aug:0.1, impacted:true },
+          { id:'hr-26', text:'Administer employee benefit plans.', auto:0.4, aug:0.3, impacted:true },
+        ]},
+    ],
+  }
+};
+
+const IA_STRUCTURAL_TAGS = [
+  { id:'developmental', label:'Developmental', cls:'dev', description:'Crucial for career progression. Automating may erode the learning pipeline.' },
+  { id:'atrophy-risk', label:'Atrophy Risk', cls:'atrophy', description:'Skill degrades without practice. Oversight may become unreliable over time.' },
+  { id:'relationship-critical', label:'Relationship-Critical', cls:'relation', description:'Value comes from human relationship. Automating destroys relational value.' },
+  { id:'bottleneck', label:'Bottleneck', cls:'bottleneck', description:'Sets ceiling for other tasks. Non-automatable bottleneck limits overall gains.' },
+];
+
+const IA_CORE_QUESTIONS = [
+  { id:'codifiability', label:'Codifiability', question:'How clearly can the rules or decision criteria for these tasks be defined?',
+    options:[
+      {value:'full', label:'Fully codifiable', desc:'Rules and criteria can be clearly specified'},
+      {value:'partial', label:'Partially codifiable', desc:'Some aspects can be specified, others rely on judgment'},
+      {value:'not', label:'Not codifiable', desc:'Relies on tacit knowledge or intuition'},
+    ]},
+  { id:'verifiability', label:'Verifiability', question:'Can the output of these tasks be easily tested or validated?',
+    options:[
+      {value:'yes', label:'Yes \u2014 clear test exists', desc:'Output can be checked against a spec or standard'},
+      {value:'partial', label:'Partially \u2014 judgment-based', desc:'Requires expert judgment to evaluate quality'},
+      {value:'no', label:'No \u2014 hard to verify', desc:'No reliable, repeatable test for output quality'},
+    ]},
+  { id:'stakes', label:'Stakes of Mistakes', question:'How costly are errors, and how reversible are decisions?',
+    options:[
+      {value:'low', label:'Low stakes', desc:'Errors are cheap and easily reversible'},
+      {value:'moderate', label:'Moderate stakes', desc:'Errors matter but are manageable'},
+      {value:'high', label:'High stakes', desc:'Errors are costly or potentially irreversible'},
+    ]},
+  { id:'accountability', label:'Human Accountability', question:'Does a human need to own the final outcome?',
+    options:[
+      {value:'no', label:'No requirement', desc:'No specific human needs to own the outcome'},
+      {value:'yes', label:'Yes \u2014 accountability required', desc:'Human must sign off for legal, regulatory, or org reasons'},
+    ]},
+  { id:'expertise', label:'Expertise Level', question:'Are these more expert/skilled tasks or more routine?',
+    options:[
+      {value:'routine', label:'Routine', desc:'Standard, repetitive, lower-skill'},
+      {value:'moderate', label:'Moderate', desc:'Requires experience but not deep expertise'},
+      {value:'expert', label:'Expert', desc:'Requires deep expertise, judgment, or rare knowledge'},
+    ]},
+];
+
+const IA_BUCKETS = {
+  'human-led':          {label:'Human-Led',           color:'#991B1B', bg:'#FEF2F2', border:'#FECACA', icon:'\uD83D\uDD34', desc:'AI plays no significant role; the task remains fundamentally human.'},
+  'human-in-the-loop':  {label:'Human-in-the-Loop',   color:'#92400E', bg:'#FFFBEB', border:'#FDE68A', icon:'\uD83D\uDFE1', desc:'AI assists or drafts, but a human actively participates and validates.'},
+  'human-on-the-loop':  {label:'Human-on-the-Loop',   color:'#14532D', bg:'#F0FDF4', border:'#BBF7D0', icon:'\uD83D\uDFE2', desc:'AI executes autonomously, but a human monitors and can intervene.'},
+  'fully-automated':    {label:'Fully Automated',      color:'#1E40AF', bg:'#EFF6FF', border:'#BFDBFE', icon:'\uD83D\uDD35', desc:'AI handles end-to-end with no routine human involvement.'},
+};
+
+function iaRouteCluster(answers, tags) {
+  const {codifiability, verifiability, stakes, accountability} = answers;
+  const isDev = tags?.includes('developmental');
+  const isAtrophy = tags?.includes('atrophy-risk');
+  if(codifiability==='not') return 'human-led';
+  if(codifiability==='partial'){ return isDev ? 'human-led' : 'human-in-the-loop'; }
+  if(verifiability==='no' && stakes==='high') return 'human-led';
+  if(verifiability==='no') return 'human-in-the-loop';
+  if(accountability==='yes') return 'human-in-the-loop';
+  if(stakes==='high') return 'human-in-the-loop';
+  if(isDev){ return stakes==='moderate' ? 'human-in-the-loop' : 'human-on-the-loop'; }
+  if(stakes==='moderate') return 'human-on-the-loop';
+  if(isAtrophy) return 'human-on-the-loop';
+  return 'fully-automated';
+}
+
+// Interactive assessment state
+let iaState = { subStep:'tags', clusterTags:{}, clusterAnswers:{}, qIdx:0 };
+
+function iaGetEnrichedClusters(roleName) {
+  const rd = IA_ROLES[roleName];
+  if(!rd) return [];
+  return rd.clusters.map(c => {
+    const impacted = c.tasks.filter(t=>t.impacted);
+    const avgAuto = impacted.length ? impacted.reduce((s,t)=>s+t.auto,0)/impacted.length : 0;
+    const avgAug = impacted.length ? impacted.reduce((s,t)=>s+t.aug,0)/impacted.length : 0;
+    return {...c, impactedCount:impacted.length, totalCount:c.tasks.length, avgAuto, avgAug};
+  });
+}
+
 function renderDesignPrinciples(){
+  // Branch: if this role has interactive assessment data, use it
+  if(IA_ROLES[S.role]) { renderInteractiveAssessment(); return; }
+
   const rd = ROLES_DB[S.role]||{icon:'👤',workers:'',skills:[]};
   const uc = USE_CASES.find(u=>u.id===S.uc);
   const cat = CATS[S.cat];
@@ -2449,6 +2669,328 @@ function renderDesignPrinciples(){
       <div class="dp-proceed-arrow">→</div>
     </button>
   `;
+}
+
+/* ═══════════════════ INTERACTIVE ASSESSMENT RENDERING ═══════════════════ */
+
+function renderInteractiveAssessment() {
+  const rd = ROLES_DB[S.role]||{icon:'👤',workers:'',skills:[]};
+  const uc = USE_CASES.find(u=>u.id===S.uc);
+  const cat = CATS[S.cat];
+  const clusters = iaGetEnrichedClusters(S.role);
+
+  // Header
+  document.getElementById('dp-header-area').innerHTML = `
+    <div class="dp-header">
+      <div class="dp-header-main">
+        <div class="dp-header-eyebrow">⚙️ Step 4 of 5 · AI Transformation Assessment</div>
+        <div class="dp-header-title">Interactive Task Assessment: ${S.role}</div>
+        <div class="dp-header-sub">Tasks are grouped into ${clusters.length} functional clusters. Tag each cluster with structural properties, then answer questions to determine the optimal human–AI allocation for each group of tasks.</div>
+      </div>
+      <div class="dp-meta">
+        <div class="dp-header-meta">
+          <div class="dp-meta-row">AI Use Case</div>
+          <div class="dp-meta-val">${uc.icon} ${uc.name}</div>
+          <div style="margin-top:.6rem" class="dp-meta-row">Category</div>
+          <div class="dp-meta-val" style="font-size:12px">${cat.label}</div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Sub-step tabs
+  const subSteps = [
+    {id:'tags', label:'1. Structural Tagging'},
+    {id:'questions', label:'2. Question Tree'},
+    {id:'synthesis', label:'3. Synthesis'},
+  ];
+
+  const tabsHtml = `<div class="ia-substeps">${subSteps.map(ss =>
+    `<button class="ia-substep ${iaState.subStep===ss.id?'active':''}" onclick="iaGoSubStep('${ss.id}')">${ss.label}</button>`
+  ).join('')}</div>`;
+
+  if(iaState.subStep === 'tags') {
+    document.getElementById('dp-principles-area').innerHTML = tabsHtml + iaRenderTags(clusters);
+  } else if(iaState.subStep === 'questions') {
+    document.getElementById('dp-principles-area').innerHTML = tabsHtml + iaRenderQuestions(clusters);
+  } else {
+    document.getElementById('dp-principles-area').innerHTML = tabsHtml + iaRenderSynthesis(clusters);
+  }
+
+  // Proceed button
+  const assessed = clusters.filter(c => c.impactedCount > 0).filter(c => {
+    const a = iaState.clusterAnswers[c.id]||{};
+    return IA_CORE_QUESTIONS.every(q => a[q.id]);
+  }).length;
+  const total = clusters.filter(c => c.impactedCount > 0).length;
+
+  document.getElementById('dp-nav-area').innerHTML = iaState.subStep === 'synthesis' && assessed > 0 ? `
+    <button class="dp-proceed" onclick="goToStep(5)">
+      <div class="dp-proceed-left">
+        <div class="dp-proceed-label">Next: Step 5 of 5</div>
+        <div class="dp-proceed-title">See how these allocations reshape the ${S.role} skill profile →</div>
+        <div class="dp-proceed-sub">${assessed}/${total} clusters assessed. The skill transformation reflects your task allocation decisions.</div>
+      </div>
+      <div class="dp-proceed-arrow">→</div>
+    </button>` : iaState.subStep !== 'synthesis' ? `
+    <button class="dp-proceed" onclick="iaGoSubStep('${iaState.subStep==='tags'?'questions':'synthesis'}')">
+      <div class="dp-proceed-left">
+        <div class="dp-proceed-label">Continue</div>
+        <div class="dp-proceed-title">${iaState.subStep==='tags' ? 'Proceed to Question Tree →' : 'View Synthesis →'}</div>
+        <div class="dp-proceed-sub">${iaState.subStep==='tags' ? 'Answer questions for each cluster to determine allocation.' : `${assessed}/${total} clusters assessed.`}</div>
+      </div>
+      <div class="dp-proceed-arrow">→</div>
+    </button>` : '';
+}
+
+function iaGoSubStep(id) {
+  iaState.subStep = id;
+  renderInteractiveAssessment();
+}
+
+/* ── Tags sub-step ── */
+function iaRenderTags(clusters) {
+  const sorted = [...clusters].sort((a,b) => b.avgAuto - a.avgAuto);
+  let html = `<div class="section-hd"><h2>Structural Tagging</h2><p style="max-width:700px">Tag each functional cluster with structural properties. These tags carry forward as constraints in the question tree and surface as flags in the synthesis.</p></div>`;
+
+  // Tag legend
+  html += `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">${IA_STRUCTURAL_TAGS.map(t =>
+    `<span class="ia-tag-btn on-${t.cls}" style="cursor:help" title="${t.description}">${t.label}</span>`
+  ).join('')}</div>`;
+
+  html += sorted.map((c, idx) => {
+    const tags = iaState.clusterTags[c.id] || [];
+    const isOpen = iaState._openCluster === c.id;
+    return `
+    <div class="ia-cluster ${isOpen?'open':''}" style="animation-delay:${idx*0.05}s">
+      <div class="ia-cluster-head" onclick="iaToggleCluster('${c.id}')">
+        <div class="ia-cluster-info">
+          <div class="ia-cluster-label">${c.label}</div>
+          <div class="ia-cluster-desc">${c.description}</div>
+          <div class="ia-cluster-meta">
+            <span class="ia-cluster-badge">${c.impactedCount}/${c.totalCount} tasks impacted</span>
+            <span class="ia-bar-wrap">Auto <span class="ia-bar"><span class="ia-bar-fill" style="width:${c.avgAuto*100}%;background:#EF4444"></span></span> ${Math.round(c.avgAuto*100)}%</span>
+            <span class="ia-bar-wrap">Aug <span class="ia-bar"><span class="ia-bar-fill" style="width:${c.avgAug*100}%;background:var(--navy)"></span></span> ${Math.round(c.avgAug*100)}%</span>
+            ${tags.map(t => {const tag=IA_STRUCTURAL_TAGS.find(s=>s.id===t); return tag?`<span class="ia-tag-btn on-${tag.cls}" style="font-size:10px;padding:2px 8px">${tag.label}</span>`:''}).join('')}
+          </div>
+        </div>
+        <span class="ia-chevron">▾</span>
+      </div>
+      ${isOpen ? `<div class="ia-cluster-body">
+        <div style="margin-bottom:10px"><span style="font-size:11px;font-weight:700;color:var(--slate-400);text-transform:uppercase;letter-spacing:.06em">Structural Tags</span></div>
+        <div class="ia-tag-row">
+          ${IA_STRUCTURAL_TAGS.map(t => {
+            const on = tags.includes(t.id);
+            return `<button class="ia-tag-btn ${on?'on-'+t.cls:''}" onclick="iaToggleTag('${c.id}','${t.id}')" title="${t.description}">${t.label}</button>`;
+          }).join('')}
+        </div>
+        <div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:var(--slate-400);text-transform:uppercase;letter-spacing:.06em">Tasks</span></div>
+        ${c.tasks.map(t => `<div class="ia-task ${t.impacted?'':'not-impacted'}">
+          <span style="flex:1">${t.text}</span>
+          ${t.impacted ? `<span class="ia-task-scores">${Math.round(t.auto*100)}% / ${Math.round(t.aug*100)}%</span>` : `<span class="ia-task-scores" style="font-style:italic">Not impacted</span>`}
+        </div>`).join('')}
+      </div>` : ''}
+    </div>`;
+  }).join('');
+
+  return html;
+}
+
+function iaToggleCluster(id) {
+  iaState._openCluster = iaState._openCluster === id ? null : id;
+  renderInteractiveAssessment();
+}
+
+function iaToggleTag(clusterId, tagId) {
+  const tags = iaState.clusterTags[clusterId] || [];
+  iaState.clusterTags[clusterId] = tags.includes(tagId) ? tags.filter(t=>t!==tagId) : [...tags, tagId];
+  renderInteractiveAssessment();
+}
+
+/* ── Questions sub-step ── */
+function iaRenderQuestions(clusters) {
+  const assessable = clusters.filter(c => c.impactedCount > 0).sort((a,b) => b.avgAuto - a.avgAuto);
+  const idx = iaState.qIdx;
+  const cluster = assessable[idx];
+  if(!cluster) return '<p>No assessable clusters.</p>';
+
+  const answers = iaState.clusterAnswers[cluster.id] || {};
+  const tags = iaState.clusterTags[cluster.id] || [];
+  const allAnswered = IA_CORE_QUESTIONS.every(q => answers[q.id]);
+  const bucket = allAnswered ? iaRouteCluster(answers, tags) : null;
+
+  const assessed = assessable.filter(c => {
+    const a = iaState.clusterAnswers[c.id]||{};
+    return IA_CORE_QUESTIONS.every(q => a[q.id]);
+  }).length;
+
+  let html = `<div class="section-hd"><h2>Task-Level Question Tree</h2><p style="max-width:700px">Answer questions for each cluster. Answers apply to all impacted tasks in the cluster.</p></div>`;
+
+  // Progress
+  html += `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+    <span style="font-size:13px;font-weight:700;color:var(--slate-600)">${assessed}/${assessable.length} clusters assessed</span>
+  </div>`;
+  html += `<div class="ia-q-progress"><div class="ia-q-progress-fill" style="width:${(assessed/assessable.length)*100}%"></div></div>`;
+
+  // Navigator
+  html += `<div class="ia-q-nav">
+    <button class="ia-q-nav-btn" onclick="iaQNav(-1)" ${idx===0?'disabled':''}>‹</button>
+    <span class="ia-q-label">Cluster ${idx+1} of ${assessable.length}</span>
+    <button class="ia-q-nav-btn" onclick="iaQNav(1)" ${idx===assessable.length-1?'disabled':''}>›</button>
+  </div>`;
+
+  // Cluster context
+  html += `<div class="ia-q-cluster-ctx">
+    <div class="ia-q-cluster-name">${cluster.label} <span class="ia-cluster-badge">${cluster.impactedCount} tasks</span></div>
+    <div class="ia-q-cluster-desc">${cluster.description}</div>
+    <div style="display:flex;gap:8px;margin-top:4px;align-items:center">
+      <span class="ia-bar-wrap">Auto ${Math.round(cluster.avgAuto*100)}%</span>
+      <span class="ia-bar-wrap">Aug ${Math.round(cluster.avgAug*100)}%</span>
+      ${tags.length ? `<span style="font-size:11px;color:var(--amber)">Tags: ${tags.join(', ')}</span>` : ''}
+    </div>
+    <div class="ia-q-cluster-tasks" onclick="this.nextElementSibling.classList.toggle('open')">▸ View ${cluster.impactedCount} tasks in this cluster</div>
+    <div class="ia-q-tasklist">${cluster.tasks.filter(t=>t.impacted).map(t=>`• ${t.text}`).join('<br>')}</div>
+  </div>`;
+
+  // Questions
+  IA_CORE_QUESTIONS.forEach(q => {
+    html += `<div class="ia-question">
+      <div class="ia-q-title">${q.question}</div>
+      <div class="ia-q-opts">${q.options.map(o =>
+        `<button class="ia-q-opt ${answers[q.id]===o.value?'sel':''}" onclick="iaAnswer('${cluster.id}','${q.id}','${o.value}')"><b>${o.label}</b> — ${o.desc}</button>`
+      ).join('')}</div>
+    </div>`;
+  });
+
+  // Bucket result
+  if(bucket) {
+    const b = IA_BUCKETS[bucket];
+    html += `<div class="ia-bucket" style="border-color:${b.border};background:${b.bg}">
+      <div>
+        <div class="ia-bucket-label" style="color:${b.color}">${b.icon} ${b.label}</div>
+        <div class="ia-bucket-desc">${b.desc} All ${cluster.impactedCount} tasks in this cluster receive this assignment.</div>
+      </div>
+    </div>`;
+  }
+
+  // Nav dots
+  html += `<div class="ia-dots">${assessable.map((c,i) => {
+    const a = iaState.clusterAnswers[c.id]||{};
+    const done = IA_CORE_QUESTIONS.every(q => a[q.id]);
+    const bk = done ? iaRouteCluster(a, iaState.clusterTags[c.id]||[]) : null;
+    const bkData = bk ? IA_BUCKETS[bk] : null;
+    return `<button class="ia-dot ${i===idx?'current':''}" onclick="iaQNav(${i - idx})" title="${c.label}"
+      style="${bkData ? `background:${bkData.bg};color:${bkData.color};border-color:${bkData.border}` : ''}">${i+1}</button>`;
+  }).join('')}</div>`;
+
+  return html;
+}
+
+function iaQNav(delta) {
+  const clusters = iaGetEnrichedClusters(S.role).filter(c => c.impactedCount > 0);
+  iaState.qIdx = Math.max(0, Math.min(clusters.length - 1, iaState.qIdx + delta));
+  renderInteractiveAssessment();
+}
+
+function iaAnswer(clusterId, qId, value) {
+  const prev = iaState.clusterAnswers[clusterId] || {};
+  iaState.clusterAnswers[clusterId] = {...prev, [qId]: value};
+  renderInteractiveAssessment();
+}
+
+/* ── Synthesis sub-step ── */
+function iaRenderSynthesis(clusters) {
+  const bucketMap = {'human-led':[], 'human-in-the-loop':[], 'human-on-the-loop':[], 'fully-automated':[]};
+  const assessable = clusters.filter(c => c.impactedCount > 0);
+
+  for(const c of clusters) {
+    const answers = iaState.clusterAnswers[c.id]||{};
+    const tags = iaState.clusterTags[c.id]||[];
+    const allAnswered = IA_CORE_QUESTIONS.every(q => answers[q.id]);
+    if(!allAnswered) continue;
+    const bucket = iaRouteCluster(answers, tags);
+    for(const t of c.tasks) {
+      if(!t.impacted) continue;
+      bucketMap[bucket].push({...t, clusterId:c.id, clusterLabel:c.label});
+    }
+  }
+
+  const totalAssessed = Object.values(bucketMap).flat().length;
+  const totalImpacted = clusters.reduce((s,c)=>s+c.impactedCount, 0);
+  const assessedClusters = assessable.filter(c => {
+    const a = iaState.clusterAnswers[c.id]||{};
+    return IA_CORE_QUESTIONS.every(q => a[q.id]);
+  }).length;
+
+  let html = `<div class="section-hd"><h2>Synthesis</h2><p style="max-width:700px">${assessedClusters}/${assessable.length} clusters assessed (${totalAssessed}/${totalImpacted} impacted tasks).${assessedClusters < assessable.length ? ' <span style="color:var(--amber)">Go back to the Question Tree to assess remaining clusters.</span>' : ''}</p></div>`;
+
+  if(totalAssessed === 0) {
+    html += `<div style="padding:40px;text-align:center;color:var(--slate-400)">No clusters assessed yet. Complete the Question Tree to see synthesis.</div>`;
+    return html;
+  }
+
+  // Bucket cards
+  html += `<div class="section-hd" style="margin-top:8px"><h2 style="font-size:15px">Task Allocation Map</h2></div>`;
+  html += `<div class="ia-syn-grid">`;
+  for(const [bId, tasks] of Object.entries(bucketMap)) {
+    if(tasks.length === 0) continue;
+    const b = IA_BUCKETS[bId];
+    // Group by cluster
+    const byCluster = {};
+    tasks.forEach(t => {
+      if(!byCluster[t.clusterId]) byCluster[t.clusterId] = {label:t.clusterLabel, tasks:[]};
+      byCluster[t.clusterId].tasks.push(t);
+    });
+    html += `<div class="ia-bucket-card" style="border-left-color:${b.color}">
+      <div class="ia-bucket-card-title" style="color:${b.color}">${b.icon} ${b.label} <span class="ia-badge-count">${tasks.length} tasks</span></div>
+      <div class="ia-bucket-card-desc">${b.desc}</div>
+      ${Object.values(byCluster).map(g => `
+        <div class="ia-bucket-card-cluster">${g.label}</div>
+        ${g.tasks.map(t => `<div class="ia-bucket-card-task">${t.text}</div>`).join('')}
+      `).join('')}
+    </div>`;
+  }
+  html += `</div>`;
+
+  // Flags
+  const flags = [];
+  for(const c of clusters) {
+    const answers = iaState.clusterAnswers[c.id]||{};
+    const tags = iaState.clusterTags[c.id]||[];
+    const allAnswered = IA_CORE_QUESTIONS.every(q => answers[q.id]);
+    if(!allAnswered) continue;
+    const bucket = iaRouteCluster(answers, tags);
+    if(tags.includes('developmental') && (bucket==='fully-automated'||bucket==='human-on-the-loop'))
+      flags.push({type:'warn', text:`"${c.label}" is tagged as developmental but routed to ${IA_BUCKETS[bucket].label}. Automating may erode the learning pipeline.`});
+    if(tags.includes('atrophy-risk') && (bucket==='human-on-the-loop'||bucket==='human-in-the-loop'))
+      flags.push({type:'caution', text:`"${c.label}" has atrophy risk in a ${IA_BUCKETS[bucket].label} configuration. Human oversight may degrade over time.`});
+    if(tags.includes('relationship-critical') && bucket==='fully-automated')
+      flags.push({type:'warn', text:`"${c.label}" is relationship-critical but routed to fully automated. This may destroy relational value.`});
+  }
+  if(flags.length > 0) {
+    html += `<div class="section-hd" style="margin-top:16px"><h2 style="font-size:15px">Flags & Considerations</h2></div>`;
+    html += flags.map(f => `<div class="ia-flag ${f.type}">${f.text}</div>`).join('');
+  }
+
+  // Role narrative
+  const autoCount = bucketMap['fully-automated'].length + bucketMap['human-on-the-loop'].length;
+  const humanCount = bucketMap['human-led'].length + bucketMap['human-in-the-loop'].length;
+  const total = autoCount + humanCount;
+  if(total > 0) {
+    const rate = autoCount / total;
+    let narrative = '';
+    if(rate > 0.6) narrative = `Based on your assessment, the ${S.role} role is poised for significant transformation. Over ${Math.round(rate*100)}% of assessed tasks can be meaningfully automated or operate with minimal human oversight. `;
+    else if(rate > 0.3) narrative = `The ${S.role} role shows a balanced transformation profile. About ${Math.round(rate*100)}% of tasks can be automated or monitored, while the remainder requires active human involvement. `;
+    else narrative = `The ${S.role} role remains primarily human-centered. Only ${Math.round(rate*100)}% of tasks are candidates for automation. `;
+
+    if(bucketMap['human-led'].length > 0) narrative += `${bucketMap['human-led'].length} task${bucketMap['human-led'].length>1?'s remain':' remains'} fundamentally human. `;
+    if(bucketMap['fully-automated'].length > 0) narrative += `${bucketMap['fully-automated'].length} task${bucketMap['fully-automated'].length>1?'s are':' is'} candidates for full automation.`;
+
+    html += `<div class="section-hd" style="margin-top:16px"><h2 style="font-size:15px">Role-Level Narrative</h2></div>`;
+    html += `<div class="ia-narrative">${narrative}</div>`;
+  }
+
+  return html;
 }
 
 /* ═══════════════════════════════ STEP 5: TRANSFORMATION ═══════════════════════════════ */
