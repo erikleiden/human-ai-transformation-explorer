@@ -3493,6 +3493,61 @@ const IA_BUCKETS = {
   'fully-automated':    {label:'Fully Automated',      color:'#1E40AF', bg:'#EFF6FF', border:'#BFDBFE', icon:'\uD83D\uDD35', desc:'AI handles end-to-end with no routine human involvement.'},
 };
 
+// Maps a cluster to the skills it primarily exercises, using keyword affinity.
+// Returns an array of skill objects from ROLES_DB[roleName].skills.
+function iaSkillAffinity(cluster, roleName) {
+  const rd = ROLES_DB[roleName] || {skills:[]};
+  if (!rd.skills.length) return [];
+  const text = (cluster.label + ' ' + cluster.description).toLowerCase();
+
+  // Determine which skill categories and keywords match this cluster type
+  let targetCats = [];
+  let keywords = [];
+
+  if (/record|document|admin|log|report|filing|data entry|paperwork|tracking|clerical|bookkeep/.test(text)) {
+    targetCats = ['Baseline Applied Skills'];
+    keywords = ['record','document','report','data','admin','log','filing','tracking','software','system','computer','management system','excel','spreadsheet','database'];
+  } else if (/diagnos|troubleshoot|analyz|assess|evaluat|inspect|detect|audit|quality|test/.test(text)) {
+    targetCats = ['Core Role-Specific Skills','Specializations'];
+    keywords = ['diagnos','troubleshoot','analyz','assess','inspect','test','detect','audit','quality','review','calibrat','root cause'];
+  } else if (/technical|program|blueprint|schemat|engineer|code|software|computing|machining|fabricat/.test(text)) {
+    targetCats = ['Core Role-Specific Skills','Specializations'];
+    keywords = ['technical','program','blueprint','schemat','engineer','code','software','system','computer','machin','fabricat','weld','electrical'];
+  } else if (/communicat|stakeholder|customer|client|meeting|present|relation|coordinat|negotiat/.test(text)) {
+    targetCats = ['Foundational & Leadership Skills','Core Role-Specific Skills'];
+    keywords = ['communicat','present','stakeholder','relation','coordinat','partner','client','customer','negotiat','interpersonal'];
+  } else if (/monitor|patrol|surveil|watch|check|control|compliance|safety|security/.test(text)) {
+    targetCats = ['Core Role-Specific Skills','Baseline Applied Skills'];
+    keywords = ['monitor','patrol','surveil','check','control','compliance','safety','security','regulat'];
+  } else if (/plan|schedul|strateg|budget|forecast|organiz|resource/.test(text)) {
+    targetCats = ['Foundational & Leadership Skills','Baseline Applied Skills'];
+    keywords = ['plan','schedul','strateg','budget','forecast','organiz','project','resource'];
+  } else if (/manag|supervis|lead|direct|oversee|staff|hire|train|personnel|coach/.test(text)) {
+    targetCats = ['Foundational & Leadership Skills'];
+    keywords = ['manag','supervis','lead','direct','train','coach','staff','personnel','hire','develop'];
+  } else if (/repair|fabricat|weld|assembl|install|maintain|fix|mechanical/.test(text)) {
+    targetCats = ['Core Role-Specific Skills'];
+    keywords = ['repair','fabricat','weld','assembl','install','maintain','mechanical','electrical','equipment'];
+  } else if (/sourcing|recruit|search|candidate|talent|hiring/.test(text)) {
+    targetCats = ['Core Role-Specific Skills'];
+    keywords = ['recruit','sourcing','hire','talent','candidate','applicant'];
+  } else if (/inventory|stock|warehouse|logistics|ship|transport/.test(text)) {
+    targetCats = ['Core Role-Specific Skills','Baseline Applied Skills'];
+    keywords = ['inventory','stock','warehouse','logistics','ship','transport','supply','order'];
+  } else {
+    targetCats = ['Baseline Applied Skills','Core Role-Specific Skills'];
+    keywords = [];
+  }
+
+  let candidates = rd.skills.filter(s => targetCats.includes(s.cat));
+  if (keywords.length > 0) {
+    const matched = candidates.filter(s => keywords.some(kw => s.skill.toLowerCase().includes(kw)));
+    if (matched.length > 0) candidates = matched;
+  }
+  // Cap at 3 skills per cluster to avoid over-marking
+  return candidates.slice(0, 3);
+}
+
 function iaRouteCluster(answers, tags) {
   const {codifiability, verifiability, stakes, accountability} = answers;
   const isDev = tags?.includes('developmental');
@@ -3961,45 +4016,49 @@ function renderTransformation(){
     ...dropOverrides,
   ]);
 
-  const keptSkills   = rd.skills.filter(s=>!droppingNames.has(s.skill));
-  const droppingSkills = rd.skills.filter(s=>droppingNames.has(s.skill));
-
   const emphasis = UC_PRINCIPLE_EMPHASIS[S.uc] || {primary:[], secondary:[]};
 
-  // IA assessment-driven skill derivation
+  // IA assessment-driven skill derivation — must run BEFORE keptSkills/droppingSkills are computed
+  const transformingSkills = new Set();
+  const iaClusterMap = [];
   const hasIAData = !!IA_ROLES[S.role];
   const iaCompleted = hasIAData && Object.keys(iaState.clusterAnswers).length > 0;
 
   if (iaCompleted) {
-    // Compute bucket distribution from user's answers
     const enriched = iaGetEnrichedClusters(S.role);
     const bucketCounts = {'human-led':0,'human-in-the-loop':0,'human-on-the-loop':0,'fully-automated':0};
     let totalImpacted = 0;
-    enriched.filter(c=>c.impactedCount>0).forEach(c=>{
-      if(iaState.clusterAnswers[c.id]){
-        const bucket = iaRouteCluster(iaState.clusterAnswers[c.id], iaState.clusterTags[c.id]||[]);
-        bucketCounts[bucket]++;
-        totalImpacted++;
+    enriched.filter(c => c.impactedCount > 0).forEach(c => {
+      const answers = iaState.clusterAnswers[c.id];
+      if (!answers) return;
+      const bucket = iaRouteCluster(answers, iaState.clusterTags[c.id] || []);
+      const affectedSkills = iaSkillAffinity(c, S.role);
+      bucketCounts[bucket]++;
+      totalImpacted++;
+      iaClusterMap.push({cluster:c, bucket, affectedSkills});
+      if (bucket === 'fully-automated') {
+        // Skills primarily exercised by fully-automated clusters decline
+        affectedSkills.forEach(s => droppingNames.add(s.skill));
+      } else if (bucket === 'human-on-the-loop' || bucket === 'human-in-the-loop') {
+        // Skills transform in character — human still involved but role changes
+        affectedSkills.forEach(s => { if (!droppingNames.has(s.skill)) transformingSkills.add(s.skill); });
       }
+      // human-led: skills persist unchanged or grow — no modification needed
     });
-    const autoRate = totalImpacted > 0 ? (bucketCounts['fully-automated'] + bucketCounts['human-on-the-loop'] * 0.5) / totalImpacted : 0;
-    // Override dropping skills based on IA assessment
-    // High automation rate → skills with Declining label drop, plus Baseline Applied skills
-    // Low automation rate → fewer skills drop, human judgment skills persist/grow
-    if(autoRate >= 0.6){
-      // High automation: standard declining + flag baseline applied skills as at risk
-      // droppingNames already set above; we add extra context but don't expand drop set here
-    } else if(autoRate <= 0.2) {
-      // Low automation (human-led choices): reduce dropping skills — user is keeping humans in
-      droppingNames.clear();
-    }
-    // Attach IA narrative to window for use in header
+    const autoRate = totalImpacted > 0 ? (bucketCounts['fully-automated'] + bucketCounts['human-on-the-loop']*0.5) / totalImpacted : 0;
     window._iaAutoRate = autoRate;
     window._iaBucketCounts = bucketCounts;
     window._iaTotalImpacted = totalImpacted;
+    window._iaClusterMap = iaClusterMap;
   } else {
     window._iaAutoRate = null;
+    window._iaClusterMap = [];
   }
+
+  // Computed after IA block so droppingNames and transformingSkills are fully populated
+  const keptSkills      = rd.skills.filter(s => !droppingNames.has(s.skill) && !transformingSkills.has(s.skill));
+  const droppingSkills  = rd.skills.filter(s => droppingNames.has(s.skill));
+  const transformingList = rd.skills.filter(s => transformingSkills.has(s.skill));
 
   const primaryPrincipleNames = emphasis.primary.map(pid => {
     const p = DESIGN_PRINCIPLES.find(d=>d.id===pid);
@@ -4027,6 +4086,7 @@ function renderTransformation(){
         <div class="tx-chips">
           <span class="tx-chip add">+${added.length} New AI Skills Added</span>
           <span class="tx-chip keep">${keptSkills.length} Skills Remain</span>
+          ${transformingList.length ? `<span class="tx-chip" style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA">${transformingList.length} Skills Transforming</span>` : ''}
           <span class="tx-chip drop">${droppingSkills.length} Skills Declining</span>
         </div>
       </div>
@@ -4078,6 +4138,18 @@ function renderTransformation(){
   // LEFT panel: current skills — show kept + dropping separately
   const leftHtml = `
     ${keptSkills.length ? renderGrouped(keptSkills,'kept',true) : '<div class="empty-note">No retained skills</div>'}
+    ${transformingList.length ? `
+      <div style="margin-top:.75rem;padding-top:.5rem;border-top:1px dashed #FED7AA">
+        <div style="font-size:11px;font-weight:700;color:#C2410C;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem;">
+          ↔ Skills Transforming in Character
+        </div>
+        <div style="font-size:11px;color:var(--slate-500);margin-bottom:.4rem;">These skills remain — but shift from execution to oversight, validation, or AI-assisted judgment.</div>
+        ${transformingList.map(s=>`<div class="sk kept" style="border-left:3px solid #FB923C;padding-left:.5rem">
+          <div class="sk-dot" style="background:#FB923C"></div>
+          <div class="sk-name">${s.skill} <span style="font-size:10px;font-weight:600;color:#C2410C;background:#FFF7ED;border:1px solid #FED7AA;border-radius:4px;padding:1px 5px;margin-left:4px">Transforming</span></div>
+        </div>`).join('')}
+      </div>
+    ` : ''}
     ${droppingSkills.length ? `
       <div style="margin-top:.75rem;padding-top:.5rem;border-top:1px dashed var(--slate-200)">
         <div style="font-size:11px;font-weight:700;color:var(--rose);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem;">
