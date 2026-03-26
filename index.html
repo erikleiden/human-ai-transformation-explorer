@@ -2492,7 +2492,959 @@ const IA_ROLES = {
           { id:'hr-26', text:'Administer employee benefit plans.', auto:0.4, aug:0.3, impacted:true },
         ]},
     ],
-  }
+  },
+  "Software Developers": {
+    clusters: [
+      { id:'sd-requirements', label:'Requirements & Analysis', description:'Gathering user needs, analyzing feasibility, and defining system requirements.',
+        tasks: [
+          { id:'sd-1', text:'Analyze user needs and software requirements to determine feasibility of design within time and cost constraints.', auto:0.3, aug:0.7, impacted:true },
+          { id:'sd-2', text:'Analyze information to determine, recommend, and plan installation of a new system or modification of an existing system.', auto:0.25, aug:0.7, impacted:true },
+          { id:'sd-3', text:'Store, retrieve, and manipulate data for analysis of system capabilities and requirements.', auto:0.5, aug:0.6, impacted:true },
+          { id:'sd-4', text:'Determine system performance standards.', auto:0.2, aug:0.6, impacted:true },
+          { id:'sd-5', text:'Obtain and evaluate information on factors such as reporting formats required, costs, or security needs to determine hardware configuration.', auto:0.3, aug:0.6, impacted:true },
+        ]},
+      { id:'sd-design', label:'Design & Development', description:'Designing, coding, and modifying software systems using engineering principles.',
+        tasks: [
+          { id:'sd-6', text:'Design, develop and modify software systems, using scientific analysis and mathematical models to predict and measure outcomes and consequences of design.', auto:0.2, aug:0.8, impacted:true },
+          { id:'sd-7', text:'Modify existing software to correct errors, adapt it to new hardware, or upgrade interfaces and improve performance.', auto:0.3, aug:0.8, impacted:true },
+          { id:'sd-8', text:'Coordinate installation of software system.', auto:0.15, aug:0.4, impacted:true },
+        ]},
+      { id:'sd-testing', label:'Testing & Quality Assurance', description:'Developing and directing software testing, validation, and monitoring procedures.',
+        tasks: [
+          { id:'sd-9', text:'Develop or direct software system testing or validation procedures, programming, or documentation.', auto:0.35, aug:0.75, impacted:true },
+          { id:'sd-10', text:'Monitor functioning of equipment to ensure system operates in conformance with specifications.', auto:0.45, aug:0.5, impacted:true },
+        ]},
+      { id:'sd-collaboration', label:'Collaboration & Communication', description:'Conferring with stakeholders, preparing reports, and coordinating across teams.',
+        tasks: [
+          { id:'sd-11', text:'Confer with systems analysts, engineers, programmers and others to design systems and to obtain information on project limitations and capabilities, performance requirements and interfaces.', auto:0.1, aug:0.5, impacted:true },
+          { id:'sd-12', text:'Consult with customers or other departments on project status, proposals, or technical issues, such as software system design or maintenance.', auto:0.1, aug:0.5, impacted:true },
+          { id:'sd-14', text:'Prepare reports or correspondence concerning project specifications, activities, or status.', auto:0.55, aug:0.7, impacted:true },
+        ]},
+      { id:'sd-leadership', label:'Supervision & Training', description:'Supervising technical personnel and training end users.',
+        tasks: [
+          { id:'sd-15', text:'Supervise the work of programmers, technologists and technicians and other engineering and scientific personnel.', auto:0.05, aug:0.3, impacted:true },
+          { id:'sd-17', text:'Train users to use new or modified equipment.', auto:0.15, aug:0.5, impacted:true },
+        ]},
+    ],
+  },
+  "Data Scientists": {
+    clusters: [
+      { id:'ds-dataprep', label:'Data Preparation & Processing', description:'Cleaning, manipulating, and processing large datasets for analysis.',
+        tasks: [
+          { id:'ds-1', text:'Analyze, manipulate, or process large sets of data using statistical software.', auto:0.4, aug:0.8, impacted:true },
+          { id:'ds-2', text:'Clean and manipulate raw data using statistical software.', auto:0.55, aug:0.7, impacted:true },
+          { id:'ds-3', text:'Apply sampling techniques to determine groups to be surveyed or use complete enumeration methods.', auto:0.35, aug:0.6, impacted:true },
+          { id:'ds-4', text:'Design surveys, opinion polls, or other instruments to collect data.', auto:0.25, aug:0.65, impacted:true },
+        ]},
+      { id:'ds-modeling', label:'Modeling & Algorithm Development', description:'Building, testing, and refining predictive models and machine learning applications.',
+        tasks: [
+          { id:'ds-5', text:'Apply feature selection algorithms to models predicting outcomes of interest, such as sales, attrition, and healthcare use.', auto:0.35, aug:0.8, impacted:true },
+          { id:'ds-6', text:'Compare models using statistical performance metrics, such as loss functions or proportion of explained variance.', auto:0.45, aug:0.75, impacted:true },
+          { id:'ds-7', text:'Test, validate, and reformulate models to ensure accurate prediction of outcomes of interest.', auto:0.35, aug:0.8, impacted:true },
+          { id:'ds-8', text:'Write new functions or applications in programming languages to conduct analyses.', auto:0.3, aug:0.8, impacted:true },
+        ]},
+      { id:'ds-analysis', label:'Business Analysis & Problem Identification', description:'Identifying business problems and determining analytical approaches.',
+        tasks: [
+          { id:'ds-10', text:'Identify business problems or management objectives that can be addressed through data analysis.', auto:0.1, aug:0.6, impacted:true },
+          { id:'ds-11', text:'Identify relationships and trends or any factors that could affect the results of research.', auto:0.35, aug:0.75, impacted:true },
+          { id:'ds-12', text:'Identify solutions to business problems, such as budgeting, staffing, and marketing decisions, using the results of data analysis.', auto:0.15, aug:0.7, impacted:true },
+        ]},
+      { id:'ds-communication', label:'Communication & Stakeholder Engagement', description:'Presenting findings, creating visualizations, and recommending solutions to stakeholders.',
+        tasks: [
+          { id:'ds-13', text:'Deliver oral or written presentations of the results of mathematical modeling and data analysis to management or other end users.', auto:0.2, aug:0.7, impacted:true },
+          { id:'ds-14', text:'Create graphs, charts, or other visualizations to convey the results of data analysis using specialized software.', auto:0.5, aug:0.7, impacted:true },
+          { id:'ds-15', text:'Recommend data-driven solutions to key stakeholders.', auto:0.1, aug:0.6, impacted:true },
+        ]},
+    ],
+  },
+  "Cybersecurity Analysts": {
+    clusters: [
+      { id:'cyber-planning', label:'Security Planning & Policy', description:'Developing security plans, policies, and procedures to protect information systems.',
+        tasks: [
+          { id:'cyber-1', text:'Develop plans to safeguard computer files against accidental or unauthorized modification, destruction, or disclosure and to meet emergency data processing needs.', auto:0.15, aug:0.65, impacted:true },
+          { id:'cyber-2', text:'Document computer security and emergency measures policies, procedures, and tests.', auto:0.45, aug:0.7, impacted:true },
+        ]},
+      { id:'cyber-monitoring', label:'Threat Monitoring & Detection', description:'Monitoring systems and reports to detect viruses, breaches, and unauthorized access.',
+        tasks: [
+          { id:'cyber-3', text:'Monitor current reports of computer viruses to determine when to update virus protection systems.', auto:0.55, aug:0.6, impacted:true },
+          { id:'cyber-4', text:'Monitor use of data files and regulate access to safeguard information in computer files.', auto:0.5, aug:0.55, impacted:true },
+        ]},
+      { id:'cyber-implementation', label:'Security Implementation & Maintenance', description:'Implementing encryption, firewalls, and access controls; modifying security configurations.',
+        tasks: [
+          { id:'cyber-5', text:'Encrypt data transmissions and erect firewalls to conceal confidential information as it is being transmitted and to keep out tainted digital transfers.', auto:0.3, aug:0.5, impacted:true },
+          { id:'cyber-6', text:'Modify computer security files to incorporate new software, correct errors, or change individual access status.', auto:0.4, aug:0.5, impacted:true },
+          { id:'cyber-7', text:'Coordinate implementation of computer system plan with establishment personnel and outside vendors.', auto:0.1, aug:0.4, impacted:true },
+        ]},
+      { id:'cyber-assessment', label:'Risk Assessment & Testing', description:'Performing risk assessments and executing tests to ensure security measures function properly.',
+        tasks: [
+          { id:'cyber-8', text:'Perform risk assessments and execute tests of data processing system to ensure functioning of data processing activities and security measures.', auto:0.3, aug:0.7, impacted:true },
+        ]},
+      { id:'cyber-response', label:'Incident Response & Compliance', description:'Reviewing violations, conferring with users, and enforcing security procedures.',
+        tasks: [
+          { id:'cyber-9', text:'Review violations of computer security procedures and discuss procedures with violators to ensure violations are not repeated.', auto:0.15, aug:0.45, impacted:true },
+          { id:'cyber-10', text:'Confer with users to discuss issues such as computer data access needs, security violations, and programming changes.', auto:0.1, aug:0.4, impacted:true },
+        ]},
+      { id:'cyber-training', label:'Security Awareness & Training', description:'Training users and promoting security awareness across the organization.',
+        tasks: [
+          { id:'cyber-11', text:'Train users and promote security awareness to ensure system security and to improve server and network efficiency.', auto:0.2, aug:0.55, impacted:true },
+        ]},
+    ],
+  },
+  "Product Managers": {
+    clusters: [
+      { id:'pm-strategy', label:'Marketing Strategy & Planning', description:'Developing marketing strategies, pricing, and sales forecasting.',
+        tasks: [
+          { id:'pm-1', text:'Identify, develop, or evaluate marketing strategy, based on knowledge of establishment objectives, market characteristics, and cost and markup factors.', auto:0.15, aug:0.7, impacted:true },
+          { id:'pm-2', text:'Develop pricing strategies, balancing firm objectives and customer satisfaction.', auto:0.2, aug:0.65, impacted:true },
+          { id:'pm-3', text:'Use sales forecasting or strategic planning to ensure the sale and profitability of products, lines, or services, analyzing business developments and monitoring market trends.', auto:0.3, aug:0.75, impacted:true },
+        ]},
+      { id:'pm-research', label:'Market Research & Analysis', description:'Initiating and analyzing market research, surveys, and competitive intelligence.',
+        tasks: [
+          { id:'pm-9', text:'Initiate market research studies, or analyze their findings.', auto:0.3, aug:0.75, impacted:true },
+          { id:'pm-10', text:'Conduct economic or commercial surveys to identify potential markets for products or services.', auto:0.35, aug:0.7, impacted:true },
+          { id:'pm-11', text:'Evaluate the financial aspects of product development, such as budgets, expenditures, research and development appropriations, or return-on-investment and profit-loss projections.', auto:0.35, aug:0.7, impacted:true },
+        ]},
+      { id:'pm-coordination', label:'Campaign Coordination & Promotion', description:'Coordinating marketing activities, promotional events, and trade shows.',
+        tasks: [
+          { id:'pm-5', text:'Formulate, direct, or coordinate marketing activities or policies to promote products or services, working with advertising or promotion managers.', auto:0.1, aug:0.5, impacted:true },
+          { id:'pm-6', text:'Coordinate or participate in promotional activities or trade shows, working with developers, advertisers, or production managers, to market products or services.', auto:0.05, aug:0.35, impacted:true },
+          { id:'pm-8', text:'Compile lists describing product or service offerings.', auto:0.6, aug:0.6, impacted:true },
+        ]},
+      { id:'pm-product', label:'Product Development & Sustainability', description:'Consulting on product specifications, packaging, and environmental sustainability.',
+        tasks: [
+          { id:'pm-12', text:'Consult with product development personnel on product specifications, such as design, color, or packaging.', auto:0.05, aug:0.4, impacted:true },
+          { id:'pm-13', text:'Recommend modifications to products, packaging, production processes, or other characteristics to improve the environmental soundness or sustainability of products.', auto:0.15, aug:0.55, impacted:true },
+        ]},
+      { id:'pm-stakeholders', label:'Stakeholder & Vendor Management', description:'Negotiating contracts, managing distribution, and advising on market factors.',
+        tasks: [
+          { id:'pm-16', text:'Negotiate contracts with vendors or distributors to manage product distribution, establishing distribution networks or developing distribution strategies.', auto:0.05, aug:0.35, impacted:true },
+          { id:'pm-18', text:'Consult with buying personnel to gain advice regarding the types of products or services expected to be in demand.', auto:0.1, aug:0.45, impacted:true },
+          { id:'pm-19', text:'Advise business or other groups on local, national, or international factors affecting the buying or selling of products or services.', auto:0.1, aug:0.55, impacted:true },
+          { id:'pm-20', text:'Direct the hiring, training, or performance evaluations of marketing or sales staff and oversee their daily activities.', auto:0.1, aug:0.35, impacted:true },
+        ]},
+    ],
+  },
+  "Transportation, Storage, and Distribution Managers": {
+    clusters: [
+      { id:'tsd-operations', label:'Warehouse & Logistics Operations', description:'Supervising receiving, storing, shipping activities, and directing inbound/outbound operations.',
+        tasks: [
+          { id:'tsd-1', text:'Supervise the activities of workers engaged in receiving, storing, testing, and shipping products or materials.', auto:0.1, aug:0.35, impacted:true },
+          { id:'tsd-2', text:'Plan, organize, or manage the work of subordinate staff to ensure that the work is accomplished in a manner consistent with organizational requirements.', auto:0.1, aug:0.4, impacted:true },
+          { id:'tsd-3', text:'Direct inbound or outbound operations, such as transportation or warehouse activities, safety performance, and logistics quality management.', auto:0.1, aug:0.4, impacted:true },
+          { id:'tsd-5', text:'Direct the use of drones and autonomous vehicles for efficient and cost-effective delivery of goods and inventory management.', auto:0.15, aug:0.5, impacted:true },
+        ]},
+      { id:'tsd-planning', label:'Logistics Planning & Analysis', description:'Analyzing logistics, routes, and financial impacts to optimize transportation and distribution.',
+        tasks: [
+          { id:'tsd-6', text:'Analyze all aspects of corporate logistics to determine the most cost-effective or efficient means of transporting products or supplies.', auto:0.3, aug:0.75, impacted:true },
+          { id:'tsd-7', text:'Analyze the financial impact of proposed logistics changes, such as routing, shipping modes, product volumes or mixes, or carriers.', auto:0.35, aug:0.75, impacted:true },
+          { id:'tsd-8', text:'Analyze expenditures and other financial information to develop plans, policies, or budgets for increasing profits or improving services.', auto:0.35, aug:0.7, impacted:true },
+          { id:'tsd-9', text:'Plan or implement energy saving changes to transportation services, such as reducing routes, optimizing capacities, employing alternate modes of transportation, or minimizing idling.', auto:0.25, aug:0.65, impacted:true },
+        ]},
+      { id:'tsd-compliance', label:'Safety, Compliance & Risk Management', description:'Developing safety programs, monitoring compliance, and managing emergency procedures.',
+        tasks: [
+          { id:'tsd-11', text:'Plan, develop, or implement warehouse safety and security programs and activities.', auto:0.15, aug:0.5, impacted:true },
+          { id:'tsd-12', text:'Monitor operations to ensure that staff members comply with administrative policies and procedures, safety rules, union contracts, environmental policies, or government regulations.', auto:0.25, aug:0.5, impacted:true },
+          { id:'tsd-13', text:'Develop and document standard and emergency operating procedures for receiving, handling, storing, shipping, or salvaging products or materials.', auto:0.3, aug:0.6, impacted:true },
+          { id:'tsd-15', text:'Examine invoices and shipping manifests for conformity to tariff and customs regulations.', auto:0.5, aug:0.55, impacted:true },
+        ]},
+      { id:'tsd-inventory', label:'Inventory & Facility Management', description:'Monitoring inventory levels, inspecting facilities, and managing equipment and infrastructure.',
+        tasks: [
+          { id:'tsd-16', text:'Inspect physical conditions of warehouses, vehicle fleets, or equipment and order testing, maintenance, repairs, or replacements.', auto:0.15, aug:0.4, impacted:true },
+          { id:'tsd-17', text:'Monitor inventory levels of products or materials in warehouses.', auto:0.5, aug:0.55, impacted:true },
+          { id:'tsd-20', text:'Evaluate contractors or business partners for operational efficiency or safety or environmental performance records.', auto:0.25, aug:0.6, impacted:true },
+        ]},
+      { id:'tsd-admin', label:'Administration & Reporting', description:'Managing budgets, maintaining records, and preparing management reports.',
+        tasks: [
+          { id:'tsd-21', text:'Prepare and manage departmental budgets.', auto:0.35, aug:0.6, impacted:true },
+          { id:'tsd-22', text:'Maintain metrics, reports, process documentation, customer service logs, or training or safety records.', auto:0.5, aug:0.55, impacted:true },
+          { id:'tsd-23', text:'Prepare management recommendations, such as proposed fee and tariff increases or schedule changes.', auto:0.3, aug:0.65, impacted:true },
+          { id:'tsd-24', text:'Review invoices, work orders, consumption reports, or demand forecasts to estimate peak performance periods and to issue work assignments.', auto:0.4, aug:0.6, impacted:true },
+          { id:'tsd-26', text:'Establish or monitor specific supply chain-based performance measurement systems.', auto:0.3, aug:0.6, impacted:true },
+        ]},
+      { id:'tsd-stakeholders', label:'Stakeholder Coordination', description:'Collaborating with departments, resolving issues, and negotiating with carriers and vendors.',
+        tasks: [
+          { id:'tsd-27', text:'Collaborate with other departments to integrate logistics with business systems or processes, such as customer sales, order management, accounting, or shipping.', auto:0.1, aug:0.45, impacted:true },
+          { id:'tsd-28', text:'Resolve problems concerning transportation, logistics systems, imports or exports, or customer issues.', auto:0.1, aug:0.45, impacted:true },
+          { id:'tsd-31', text:'Negotiate with carriers, warehouse operators, or insurance company representatives for services and preferential rates.', auto:0.05, aug:0.35, impacted:true },
+        ]},
+    ],
+  },
+  "Truck Drivers": {
+    clusters: [
+      { id:'td-driving', label:'Vehicle Operation & Navigation', description:'Driving trucks, planning routes, and maneuvering vehicles for loading and unloading.',
+        tasks: [
+          { id:'td-1', text:'Drive trucks with capacities greater than 13 tons, including tractor-trailer combinations, to transport and deliver products, livestock, or other materials.', auto:0.15, aug:0.2, impacted:false },
+          { id:'td-2', text:'Read and interpret maps to determine vehicle routes.', auto:0.7, aug:0.6, impacted:true },
+          { id:'td-3', text:'Plan or adjust routes based on changing conditions, using computer equipment, global positioning systems (GPS) equipment, or other navigation devices, to minimize fuel consumption and carbon emissions.', auto:0.6, aug:0.6, impacted:true },
+          { id:'td-4', text:'Maneuver trucks into loading or unloading positions, following signals from loading crew and checking that vehicle and loading equipment are properly positioned.', auto:0.1, aug:0.15, impacted:false },
+          { id:'td-6', text:'Operate equipment, such as truck cab computers, CB radios, phones, or global positioning systems (GPS) equipment to exchange necessary information with bases, supervisors, or other drivers.', auto:0.3, aug:0.4, impacted:true },
+        ]},
+      { id:'td-cargo', label:'Cargo Handling & Securement', description:'Loading, unloading, securing, and inspecting cargo for transport.',
+        tasks: [
+          { id:'td-7', text:'Inspect loads to ensure that cargo is secure.', auto:0.1, aug:0.15, impacted:false },
+          { id:'td-8', text:'Load or unload trucks or help others with loading or unloading, using special loading-related equipment or other equipment as necessary.', auto:0.1, aug:0.1, impacted:false },
+          { id:'td-9', text:'Secure cargo for transport, using ropes, blocks, chain, binders, or covers.', auto:0.05, aug:0.1, impacted:false },
+          { id:'td-12', text:'Inventory and inspect goods to be moved to determine quantities and conditions.', auto:0.2, aug:0.3, impacted:true },
+        ]},
+      { id:'td-inspection', label:'Vehicle Inspection & Maintenance', description:'Inspecting vehicles, performing basic maintenance, and handling roadside repairs.',
+        tasks: [
+          { id:'td-14', text:'Check vehicles to ensure that mechanical, safety, and emergency equipment is in good working order.', auto:0.1, aug:0.2, impacted:false },
+          { id:'td-15', text:'Perform basic vehicle maintenance tasks, such as adding oil, fuel, or radiator fluid, performing minor repairs, or washing trucks.', auto:0.05, aug:0.1, impacted:false },
+          { id:'td-16', text:'Perform emergency roadside repairs, such as changing tires or installing light bulbs, tire chains, or spark plugs.', auto:0.05, aug:0.1, impacted:false },
+        ]},
+      { id:'td-admin', label:'Documentation & Compliance', description:'Maintaining logs, checking documentation, collecting receipts, and reporting incidents.',
+        tasks: [
+          { id:'td-24', text:'Check all load-related documentation for completeness and accuracy.', auto:0.5, aug:0.5, impacted:true },
+          { id:'td-25', text:'Maintain logs of working hours or of vehicle service or repair status, following applicable state and federal regulations.', auto:0.6, aug:0.5, impacted:true },
+          { id:'td-26', text:'Obtain receipts or signatures for delivered goods and collect payment for services when required.', auto:0.35, aug:0.3, impacted:true },
+          { id:'td-27', text:'Read bills of lading to determine assignment details.', auto:0.45, aug:0.4, impacted:true },
+          { id:'td-28', text:'Report vehicle defects, accidents, traffic violations, or damage to the vehicles.', auto:0.35, aug:0.4, impacted:true },
+          { id:'td-29', text:'Collect delivery instructions from appropriate sources, verifying instructions and routes.', auto:0.5, aug:0.45, impacted:true },
+        ]},
+    ],
+  },
+  "Stockers and Order Fillers": {
+    clusters: [
+      { id:'sof-stocking', label:'Stocking & Shelving', description:'Receiving, unpacking, and stocking merchandise on shelves, racks, and display areas.',
+        tasks: [
+          { id:'sof-1', text:'Stock shelves, racks, cases, bins, and tables with new or transferred merchandise.', auto:0.1, aug:0.1, impacted:false },
+          { id:'sof-2', text:'Receive, unload, open, unpack, or issue sales floor merchandise.', auto:0.1, aug:0.1, impacted:false },
+          { id:'sof-3', text:'Pack and unpack items to be stocked on shelves in stockrooms, warehouses, or storage yards.', auto:0.1, aug:0.1, impacted:false },
+          { id:'sof-5', text:'Determine proper storage methods, identification, and stock location, based on turnover, environmental factors, and physical capabilities of facilities.', auto:0.25, aug:0.45, impacted:true },
+        ]},
+      { id:'sof-orderfill', label:'Order Fulfillment & Distribution', description:'Picking, packing, and issuing merchandise based on orders and requisitions.',
+        tasks: [
+          { id:'sof-6', text:'Obtain merchandise from bins or shelves.', auto:0.15, aug:0.1, impacted:false },
+          { id:'sof-7', text:'Read orders to ascertain catalog numbers, sizes, colors, and quantities of merchandise.', auto:0.45, aug:0.4, impacted:true },
+          { id:'sof-8', text:'Issue or distribute materials, products, parts, and supplies to customers or coworkers, based on information from incoming requisitions.', auto:0.15, aug:0.2, impacted:false },
+        ]},
+      { id:'sof-inventory', label:'Inventory Management & Record-Keeping', description:'Counting stock, tracking inventory, recording data, and managing reorders.',
+        tasks: [
+          { id:'sof-11', text:'Receive and count stock items, and record data manually or on computer.', auto:0.45, aug:0.45, impacted:true },
+          { id:'sof-12', text:'Take inventory or examine merchandise to identify items to be reordered or replenished.', auto:0.4, aug:0.5, impacted:true },
+          { id:'sof-13', text:'Keep records of out-going orders.', auto:0.55, aug:0.4, impacted:true },
+          { id:'sof-15', text:'Complete order receipts.', auto:0.55, aug:0.4, impacted:true },
+          { id:'sof-16', text:'Compare merchandise invoices to items actually received to ensure that shipments are correct.', auto:0.45, aug:0.45, impacted:true },
+          { id:'sof-17', text:'Requisition merchandise from supplier, based on available space, merchandise on hand, customer demand, or advertised specials.', auto:0.35, aug:0.5, impacted:true },
+        ]},
+      { id:'sof-quality', label:'Quality Control & Maintenance', description:'Inspecting stock for defects, cleaning areas, and maintaining compliance with safety standards.',
+        tasks: [
+          { id:'sof-19', text:'Examine and inspect stock items for wear or defects, reporting any damage to supervisors.', auto:0.15, aug:0.3, impacted:true },
+          { id:'sof-21', text:'Recommend disposal of excess, defective, or obsolete stock.', auto:0.3, aug:0.45, impacted:true },
+        ]},
+      { id:'sof-customer', label:'Customer Service & Merchandising', description:'Assisting customers, setting up displays, pricing merchandise, and processing transactions.',
+        tasks: [
+          { id:'sof-24', text:'Answer customers\' questions about merchandise and advise customers on merchandise selection.', auto:0.15, aug:0.4, impacted:true },
+          { id:'sof-25', text:'Stamp, attach, or change price tags on merchandise, referring to price list.', auto:0.3, aug:0.2, impacted:true },
+          { id:'sof-27', text:'Design and set up advertising signs and displays of merchandise on shelves, counters, or tables to attract customers and promote sales.', auto:0.1, aug:0.35, impacted:true },
+          { id:'sof-28', text:'Itemize and total customer merchandise selection at checkout counter, using cash register, and accept cash or charge card for purchases.', auto:0.4, aug:0.25, impacted:true },
+        ]},
+    ],
+  },
+  "Laborers and Material Movers": {
+    clusters: [
+      { id:'lmm-moving', label:'Material Handling & Transport', description:'Physically moving freight, stock, and materials by hand or with equipment.',
+        tasks: [
+          { id:'lmm-1', text:'Move freight, stock, or other materials to and from storage or production areas, loading docks, delivery vehicles, ships, or containers, by hand or using trucks, tractors, or other equipment.', auto:0.1, aug:0.1, impacted:false },
+          { id:'lmm-2', text:'Carry needed tools or supplies from storage or trucks and return them after use.', auto:0.05, aug:0.05, impacted:false },
+          { id:'lmm-3', text:'Adjust controls to guide, position, or move equipment, such as cranes, booms, or cameras.', auto:0.15, aug:0.15, impacted:false },
+          { id:'lmm-4', text:'Attach slings, hooks, or other devices to lift cargo and guide loads.', auto:0.05, aug:0.1, impacted:false },
+        ]},
+      { id:'lmm-loading', label:'Loading, Packing & Securing', description:'Sorting, packing, securing, and protecting cargo for storage or shipment.',
+        tasks: [
+          { id:'lmm-5', text:'Sort cargo before loading and unloading.', auto:0.15, aug:0.15, impacted:false },
+          { id:'lmm-6', text:'Install protective devices, such as bracing, padding, or strapping, to prevent shifting or damage to items being transported.', auto:0.05, aug:0.1, impacted:false },
+          { id:'lmm-7', text:'Pack containers and re-pack damaged containers.', auto:0.05, aug:0.05, impacted:false },
+        ]},
+      { id:'lmm-inspection', label:'Inspection & Quality Checks', description:'Inspecting products, verifying conditions, and identifying damage or leaks.',
+        tasks: [
+          { id:'lmm-9', text:'Inspect products for damage or leaks.', auto:0.15, aug:0.2, impacted:false },
+        ]},
+      { id:'lmm-records', label:'Documentation & Equipment Care', description:'Recording production data, maintaining equipment, tagging containers, and reading work orders.',
+        tasks: [
+          { id:'lmm-11', text:'Record numbers of units handled or moved, using daily production sheets or work tickets.', auto:0.55, aug:0.45, impacted:true },
+          { id:'lmm-12', text:'Attach identifying tags to containers or mark them with identifying information.', auto:0.25, aug:0.15, impacted:true },
+          { id:'lmm-13', text:'Read work orders or receive oral instructions to determine work assignments or material or equipment needs.', auto:0.3, aug:0.3, impacted:true },
+        ]},
+    ],
+  },
+  "Industrial Machinery Mechanics": {
+    clusters: [
+      { id:'imm-diagnosis', label:'Diagnostics & Troubleshooting', description:'Observing, testing, and analyzing machinery to diagnose malfunctions and equipment problems.',
+        tasks: [
+          { id:'imm-1', text:'Observe and test the operation of machinery or equipment to diagnose malfunctions, using voltmeters or other testing devices.', auto:0.1, aug:0.4, impacted:true },
+          { id:'imm-2', text:'Analyze test results, machine error messages, or information obtained from operators to diagnose equipment problems.', auto:0.2, aug:0.55, impacted:true },
+          { id:'imm-3', text:'Examine parts for defects, such as breakage or excessive wear.', auto:0.1, aug:0.3, impacted:true },
+        ]},
+      { id:'imm-repair', label:'Repair & Fabrication', description:'Disassembling, repairing, replacing, welding, and reassembling machinery components.',
+        tasks: [
+          { id:'imm-4', text:'Repair or maintain the operating condition of industrial production or processing machinery or equipment.', auto:0.05, aug:0.2, impacted:false },
+          { id:'imm-5', text:'Repair or replace broken or malfunctioning components of machinery or equipment.', auto:0.05, aug:0.2, impacted:false },
+          { id:'imm-6', text:'Disassemble machinery or equipment to remove parts and make repairs.', auto:0.05, aug:0.1, impacted:false },
+          { id:'imm-7', text:'Reassemble equipment after completion of inspections, testing, or repairs.', auto:0.05, aug:0.1, impacted:false },
+          { id:'imm-8', text:'Cut and weld metal to repair broken metal parts, fabricate new parts, or assemble new equipment.', auto:0.05, aug:0.1, impacted:false },
+        ]},
+      { id:'imm-maintenance', label:'Preventive Maintenance', description:'Cleaning, lubricating, adjusting, and verifying equipment operation after service.',
+        tasks: [
+          { id:'imm-9', text:'Clean, lubricate, or adjust parts, equipment, or machinery.', auto:0.05, aug:0.1, impacted:false },
+          { id:'imm-10', text:'Operate newly repaired machinery or equipment to verify the adequacy of repairs.', auto:0.05, aug:0.15, impacted:false },
+        ]},
+      { id:'imm-technical', label:'Technical Reference & Programming', description:'Studying blueprints, reading manuals, and programming computer-controlled machinery.',
+        tasks: [
+          { id:'imm-11', text:'Study blueprints or manufacturers\' manuals to determine correct installation or operation of machinery.', auto:0.25, aug:0.5, impacted:true },
+          { id:'imm-12', text:'Enter codes and instructions to program computer-controlled machinery.', auto:0.3, aug:0.45, impacted:true },
+        ]},
+      { id:'imm-admin', label:'Documentation & Coordination', description:'Recording repairs, ordering parts, assigning schedules, and demonstrating equipment.',
+        tasks: [
+          { id:'imm-13', text:'Record repairs and maintenance performed.', auto:0.55, aug:0.4, impacted:true },
+          { id:'imm-14', text:'Record parts or materials used and order or requisition new parts or materials, as necessary.', auto:0.5, aug:0.45, impacted:true },
+          { id:'imm-15', text:'Demonstrate equipment functions and features to machine operators.', auto:0.1, aug:0.3, impacted:true },
+          { id:'imm-16', text:'Assign schedules to work crews.', auto:0.25, aug:0.4, impacted:true },
+        ]},
+    ],
+  },
+  "Inspectors, Testers, and Samplers": {
+    clusters: [
+      { id:'its-inspection', label:'Inspection & Measurement', description:'Inspecting, testing, and measuring materials and products for conformance to specifications.',
+        tasks: [
+          { id:'its-1', text:'Inspect, test, or measure materials, products, installations, or work for conformance to specifications.', auto:0.2, aug:0.45, impacted:true },
+          { id:'its-2', text:'Measure dimensions of products to verify conformance to specifications, using measuring instruments, such as rulers, calipers, gauges, or micrometers.', auto:0.2, aug:0.35, impacted:true },
+          { id:'its-3', text:'Compare colors, shapes, textures, or grades of products or materials with color charts, templates, or samples to verify conformance to standards.', auto:0.3, aug:0.4, impacted:true },
+          { id:'its-4', text:'Weigh materials, products, containers, or samples to verify packaging weights or ingredient quantities.', auto:0.35, aug:0.3, impacted:true },
+          { id:'its-5', text:'Read dials or meters to verify that equipment is functioning at specified levels.', auto:0.4, aug:0.35, impacted:true },
+          { id:'its-6', text:'Read blueprints, data, manuals, or other materials to determine specifications, inspection and testing procedures, adjustment methods, certification processes, formulas, or measuring instruments required.', auto:0.25, aug:0.5, impacted:true },
+        ]},
+      { id:'its-monitoring', label:'Process Monitoring & Adjustment', description:'Monitoring production operations and making adjustments to maintain quality.',
+        tasks: [
+          { id:'its-7', text:'Monitor production operations or equipment to ensure conformance to specifications, making necessary process or assembly adjustments.', auto:0.2, aug:0.4, impacted:true },
+          { id:'its-8', text:'Monitor machines that automatically measure, sort, or inspect products.', auto:0.3, aug:0.35, impacted:true },
+          { id:'its-9', text:'Make minor adjustments to equipment, such as turning setscrews to calibrate instruments to required tolerances.', auto:0.1, aug:0.2, impacted:false },
+        ]},
+      { id:'its-sampling', label:'Sampling, Sorting & Grading', description:'Collecting samples, sorting products, and grading items by specifications.',
+        tasks: [
+          { id:'its-11', text:'Collect or select samples for testing or for use as models.', auto:0.15, aug:0.2, impacted:false },
+          { id:'its-12', text:'Grade, classify, or sort products according to sizes, weights, colors, or other specifications.', auto:0.3, aug:0.3, impacted:true },
+          { id:'its-15', text:'Discard or reject products, materials, or equipment not meeting specifications.', auto:0.2, aug:0.2, impacted:true },
+        ]},
+      { id:'its-reporting', label:'Data Recording & Reporting', description:'Recording test data, writing reports, computing defect rates, and notifying supervisors.',
+        tasks: [
+          { id:'its-16', text:'Record inspection or test data, such as weights, temperatures, grades, or moisture content, and quantities inspected or graded.', auto:0.55, aug:0.45, impacted:true },
+          { id:'its-17', text:'Write test or inspection reports describing results, recommendations, or needed repairs.', auto:0.4, aug:0.65, impacted:true },
+          { id:'its-18', text:'Analyze test data, making computations as necessary, to determine test results.', auto:0.45, aug:0.6, impacted:true },
+          { id:'its-19', text:'Compute defect percentages or averages, using formulas and calculators.', auto:0.7, aug:0.5, impacted:true },
+          { id:'its-21', text:'Notify supervisors or other personnel of production problems.', auto:0.2, aug:0.3, impacted:true },
+          { id:'its-22', text:'Recommend necessary corrective actions, based on inspection results.', auto:0.15, aug:0.55, impacted:true },
+        ]},
+      { id:'its-equipment', label:'Equipment Maintenance & Compliance', description:'Maintaining and calibrating test equipment and ensuring regulatory compliance.',
+        tasks: [
+          { id:'its-24', text:'Clean, maintain, calibrate, or repair measuring instruments or test equipment, such as dial indicators, fixed gauges, or height gauges.', auto:0.1, aug:0.2, impacted:false },
+          { id:'its-28', text:'Check arriving materials to ensure that they match purchase orders, submitting discrepancy reports as necessary.', auto:0.45, aug:0.4, impacted:true },
+          { id:'its-29', text:'Inspect or test raw materials, parts, or products to determine compliance with environmental standards.', auto:0.2, aug:0.4, impacted:true },
+          { id:'its-30', text:'Interpret legal requirements, provide safety information, or recommend compliance procedures to contractors, craft workers, engineers, or property owners.', auto:0.15, aug:0.5, impacted:true },
+        ]},
+    ],
+  },
+  "Assemblers and Fabricators": {
+    clusters: [
+      { id:'asm-reading', label:'Blueprint Reading & Planning', description:'Interpreting technical documents and planning assembly work.',
+        tasks: [
+          { id:'asm-1', text:'Read and interpret schematic drawings, diagrams, blueprints, specifications, work orders, or reports to determine materials requirements or assembly instructions.', auto:0.15, aug:0.45, impacted:true },
+          { id:'asm-2', text:'Confer with supervisors or engineers to plan or review work activities or to resolve production problems.', auto:0.05, aug:0.35, impacted:true },
+        ]},
+      { id:'asm-assembly', label:'Assembly & Installation', description:'Physically assembling components, wiring, and installing parts.',
+        tasks: [
+          { id:'asm-3', text:'Assemble electrical or electronic systems or support structures and install components, units, subassemblies, wiring, or assembly casings, using rivets, bolts, soldering or micro-welding equipment.', auto:0.15, aug:0.2, impacted:false },
+          { id:'asm-4', text:'Position, align, or adjust workpieces or electrical parts to facilitate wiring or assembly.', auto:0.15, aug:0.15, impacted:false },
+          { id:'asm-6', text:'Fabricate or form parts, coils, or structures according to specifications, using drills, calipers, cutters, or saws.', auto:0.1, aug:0.15, impacted:false },
+        ]},
+      { id:'asm-quality', label:'Quality Control & Testing', description:'Inspecting, testing, and adjusting assembled products for conformance.',
+        tasks: [
+          { id:'asm-7', text:'Inspect or test wiring installations, assemblies, or circuits for resistance factors or for operation, and record results.', auto:0.25, aug:0.4, impacted:true },
+          { id:'asm-8', text:'Adjust, repair, or replace electrical or electronic components to correct defects and to ensure conformance to specifications.', auto:0.1, aug:0.3, impacted:true },
+          { id:'asm-9', text:'Measure and adjust voltages to specified values to determine operational accuracy of instruments.', auto:0.3, aug:0.35, impacted:true },
+        ]},
+      { id:'asm-docs', label:'Documentation & Tracking', description:'Maintaining production records, inventory tags, and waste reports.',
+        tasks: [
+          { id:'asm-10', text:'Complete, review, or maintain production, time, or component waste reports.', auto:0.65, aug:0.5, impacted:true },
+          { id:'asm-11', text:'Mark and tag components so that stock inventory can be tracked and identified.', auto:0.5, aug:0.3, impacted:true },
+        ]},
+      { id:'asm-support', label:'Support & Knowledge Transfer', description:'Cleaning, distributing materials, and training others.',
+        tasks: [
+          { id:'asm-13', text:'Distribute materials, supplies, or subassemblies to work areas.', auto:0.15, aug:0.1, impacted:false },
+          { id:'asm-15', text:'Explain assembly procedures or techniques to other workers.', auto:0.1, aug:0.4, impacted:true },
+          { id:'asm-16', text:'Instruct customers in the installation, repair, or maintenance of products.', auto:0.1, aug:0.45, impacted:true },
+        ]},
+    ],
+  },
+  "Packers and Packagers": {
+    clusters: [
+      { id:'pack-inspect', label:'Quality Inspection & Measurement', description:'Examining products and containers for quality and specification compliance.',
+        tasks: [
+          { id:'pack-1', text:'Examine and inspect containers, materials, or products to ensure that product quality and packing specifications are met.', auto:0.35, aug:0.3, impacted:true },
+          { id:'pack-2', text:'Measure, weigh, and count products and materials.', auto:0.45, aug:0.25, impacted:true },
+        ]},
+      { id:'pack-packing', label:'Packing & Sealing', description:'Placing products into containers and sealing them for shipment.',
+        tasks: [
+          { id:'pack-3', text:'Place or pour products or materials into containers, using hand tools and equipment, or fill containers from spouts or chutes.', auto:0.2, aug:0.1, impacted:true },
+          { id:'pack-4', text:'Seal containers or materials, using glues, fasteners, nails, and hand tools.', auto:0.15, aug:0.1, impacted:false },
+          { id:'pack-5', text:'Assemble, line, and pad cartons, crates, and containers, using hand tools.', auto:0.15, aug:0.1, impacted:false },
+          { id:'pack-6', text:'Load materials and products into package processing equipment.', auto:0.2, aug:0.1, impacted:true },
+        ]},
+      { id:'pack-label', label:'Labeling & Documentation', description:'Marking containers and recording order information.',
+        tasks: [
+          { id:'pack-7', text:'Mark and label containers, container tags, or products, using marking tools.', auto:0.5, aug:0.3, impacted:true },
+          { id:'pack-8', text:'Record product, packaging, and order information on specified forms and records.', auto:0.7, aug:0.5, impacted:true },
+        ]},
+      { id:'pack-material', label:'Material Handling & Transport', description:'Moving, sorting, and transporting products and materials.',
+        tasks: [
+          { id:'pack-9', text:'Obtain, move, and sort products, materials, containers, and orders, using hand tools.', auto:0.15, aug:0.1, impacted:false },
+          { id:'pack-10', text:'Remove completed or defective products or materials, placing them on moving equipment, such as conveyors, or in specified areas.', auto:0.2, aug:0.1, impacted:true },
+        ]},
+    ],
+  },
+  "Maintenance and Repair Workers": {
+    clusters: [
+      { id:'maint-diag', label:'Diagnostics & Inspection', description:'Inspecting, testing, and diagnosing equipment malfunctions.',
+        tasks: [
+          { id:'maint-1', text:'Inspect, operate, or test machinery or equipment to diagnose machine malfunctions.', auto:0.2, aug:0.45, impacted:true },
+          { id:'maint-2', text:'Diagnose mechanical problems and determine how to correct them, checking blueprints, repair manuals, or parts catalogs, as necessary.', auto:0.15, aug:0.55, impacted:true },
+          { id:'maint-3', text:'Inspect used parts to determine changes in dimensional requirements, using rules, calipers, micrometers, or other measuring instruments.', auto:0.25, aug:0.35, impacted:true },
+          { id:'maint-4', text:'Use drones to inspect roofs, gutters, or other hard-to-reach building areas.', auto:0.3, aug:0.4, impacted:true },
+        ]},
+      { id:'maint-repair', label:'Repair & Fabrication', description:'Repairing machines, structures, and fabricating replacement parts.',
+        tasks: [
+          { id:'maint-5', text:'Repair or replace defective equipment parts, using hand tools and power tools, and reassemble equipment.', auto:0.1, aug:0.15, impacted:false },
+          { id:'maint-6', text:'Assemble, install, or repair wiring, electrical or electronic components, pipe systems, plumbing, machinery, or equipment.', auto:0.1, aug:0.2, impacted:false },
+          { id:'maint-7', text:'Dismantle defective machines and equipment and install new or repaired parts.', auto:0.1, aug:0.15, impacted:false },
+          { id:'maint-9', text:'Operate cutting torches or welding equipment to cut or join metal parts.', auto:0.1, aug:0.1, impacted:false },
+        ]},
+      { id:'maint-prevent', label:'Preventive Maintenance', description:'Routine maintenance, cleaning, and lubrication of equipment.',
+        tasks: [
+          { id:'maint-11', text:'Perform routine maintenance such as inspecting drives, motors, and belts, checking fluid levels, replacing filters, or doing other preventive maintenance actions.', auto:0.15, aug:0.3, impacted:true },
+          { id:'maint-12', text:'Clean or lubricate shafts, bearings, gears, or other parts of machinery.', auto:0.1, aug:0.1, impacted:false },
+        ]},
+      { id:'maint-facility', label:'Facility & Grounds', description:'Building maintenance, painting, roofing, groundskeeping, and cleaning.',
+        tasks: [
+          { id:'maint-15', text:'Paint or repair roofs, windows, doors, floors, woodwork, plaster, drywall, or other parts of building structures.', auto:0.05, aug:0.1, impacted:false },
+          { id:'maint-16', text:'Perform general cleaning duties of buildings or properties.', auto:0.1, aug:0.05, impacted:false },
+        ]},
+      { id:'maint-planning', label:'Planning & Administration', description:'Estimating costs, ordering parts, recording work, and training staff.',
+        tasks: [
+          { id:'maint-19', text:'Plan and lay out repair work using diagrams, drawings, blueprints, maintenance manuals, or schematic diagrams.', auto:0.15, aug:0.5, impacted:true },
+          { id:'maint-20', text:'Estimate costs to repair machinery, equipment, or building structures.', auto:0.3, aug:0.55, impacted:true },
+          { id:'maint-21', text:'Order parts, supplies, or equipment from catalogs or suppliers.', auto:0.5, aug:0.4, impacted:true },
+          { id:'maint-22', text:'Record type and cost of maintenance or repair work.', auto:0.65, aug:0.45, impacted:true },
+          { id:'maint-23', text:'Train or manage maintenance personnel or subcontractors.', auto:0.05, aug:0.35, impacted:true },
+        ]},
+    ],
+  },
+  "Transportation Supervisors": {
+    clusters: [
+      { id:'tsup-safety', label:'Safety & Compliance', description:'Monitoring safety procedures, inspecting equipment, and enforcing rules.',
+        tasks: [
+          { id:'tsup-1', text:'Maintain a safe working environment by monitoring safety procedures and equipment.', auto:0.2, aug:0.4, impacted:true },
+          { id:'tsup-2', text:'Inspect equipment for wear and for conformance to specifications.', auto:0.2, aug:0.35, impacted:true },
+          { id:'tsup-3', text:'Check specifications of materials loaded or unloaded against information contained in work orders.', auto:0.4, aug:0.35, impacted:true },
+        ]},
+      { id:'tsup-supervise', label:'Staff Supervision & Development', description:'Directing workers, resolving problems, and managing performance.',
+        tasks: [
+          { id:'tsup-4', text:'Collaborate with workers and managers to solve work-related problems.', auto:0.05, aug:0.35, impacted:true },
+          { id:'tsup-5', text:'Review work throughout the work process and at completion to ensure that it has been performed properly.', auto:0.15, aug:0.35, impacted:true },
+          { id:'tsup-6', text:'Transmit and explain work orders to laborers.', auto:0.25, aug:0.3, impacted:true },
+          { id:'tsup-7', text:'Counsel employees in work-related activities, personal growth, or career development.', auto:0.05, aug:0.35, impacted:true },
+          { id:'tsup-8', text:'Resolve personnel problems, complaints, or formal grievances when possible, or refer them to higher-level supervisors for resolution.', auto:0.05, aug:0.3, impacted:true },
+        ]},
+      { id:'tsup-scheduling', label:'Scheduling & Logistics', description:'Planning work schedules, shipping times, and staffing requirements.',
+        tasks: [
+          { id:'tsup-10', text:'Plan work schedules and assign duties to maintain adequate staffing levels.', auto:0.4, aug:0.5, impacted:true },
+          { id:'tsup-11', text:'Schedule times of shipment and modes of transportation for materials.', auto:0.45, aug:0.45, impacted:true },
+          { id:'tsup-12', text:'Estimate material, time, and staffing requirements for a given project, based on work orders, job specifications, and experience.', auto:0.35, aug:0.5, impacted:true },
+          { id:'tsup-13', text:'Examine freight to determine loading sequences.', auto:0.3, aug:0.35, impacted:true },
+        ]},
+      { id:'tsup-hr', label:'Hiring & Training', description:'Recruiting, evaluating, and training employees.',
+        tasks: [
+          { id:'tsup-14', text:'Participate in the hiring process by reviewing credentials, conducting interviews, or making hiring recommendations.', auto:0.15, aug:0.45, impacted:true },
+          { id:'tsup-15', text:'Assess training needs of staff and arrange for or provide appropriate instruction.', auto:0.15, aug:0.5, impacted:true },
+          { id:'tsup-16', text:'Evaluate employee performance and prepare performance appraisals.', auto:0.2, aug:0.5, impacted:true },
+        ]},
+      { id:'tsup-admin', label:'Records & Administration', description:'Maintaining records, reporting, budgeting, and inventory.',
+        tasks: [
+          { id:'tsup-19', text:'Prepare and maintain work records and reports of information such as employee time and wages, daily receipts, or inspection results.', auto:0.6, aug:0.5, impacted:true },
+          { id:'tsup-20', text:'Inform designated employees or departments of items loaded or problems encountered.', auto:0.35, aug:0.3, impacted:true },
+          { id:'tsup-21', text:'Inventory supplies and requisition or purchase additional items as necessary.', auto:0.45, aug:0.35, impacted:true },
+          { id:'tsup-23', text:'Provide assistance in balancing books, tracking, monitoring budgets, or developing reports or procedures.', auto:0.55, aug:0.5, impacted:true },
+        ]},
+    ],
+  },
+  "Shipping & Receiving Clerks": {
+    clusters: [
+      { id:'ship-verify', label:'Verification & Inspection', description:'Examining shipments and comparing with records for accuracy.',
+        tasks: [
+          { id:'ship-1', text:'Examine shipment contents and compare with records, such as manifests, invoices, or orders, to verify accuracy.', auto:0.4, aug:0.4, impacted:true },
+          { id:'ship-2', text:'Confer or correspond with establishment representatives to rectify problems, such as damages, shortages, or nonconformance to specifications.', auto:0.1, aug:0.35, impacted:true },
+        ]},
+      { id:'ship-docs', label:'Documentation & Record-Keeping', description:'Preparing shipping documents and recording shipment data.',
+        tasks: [
+          { id:'ship-3', text:'Prepare documents, such as work orders, bills of lading, or shipping orders, to route materials.', auto:0.55, aug:0.45, impacted:true },
+          { id:'ship-4', text:'Record shipment data, such as weight, charges, space availability, damages, or discrepancies, for reporting, accounting, or recordkeeping purposes.', auto:0.65, aug:0.45, impacted:true },
+          { id:'ship-5', text:'Compute amounts, such as space available, shipping, storage, or demurrage charges, using computer or price list.', auto:0.7, aug:0.4, impacted:true },
+        ]},
+      { id:'ship-logistics', label:'Shipping Logistics', description:'Determining shipping methods, contacting carriers, and routing.',
+        tasks: [
+          { id:'ship-6', text:'Determine shipping methods, routes, or rates for materials to be shipped.', auto:0.5, aug:0.45, impacted:true },
+          { id:'ship-7', text:'Contact carrier representatives to make arrangements or to issue instructions for shipping and delivery of materials.', auto:0.3, aug:0.35, impacted:true },
+          { id:'ship-8', text:'Compare shipping routes or methods to determine which have the least environmental impact.', auto:0.55, aug:0.5, impacted:true },
+        ]},
+      { id:'ship-physical', label:'Physical Handling & Packing', description:'Packing, labeling, and delivering materials within the facility.',
+        tasks: [
+          { id:'ship-9', text:'Pack, seal, label, or affix postage to prepare materials for shipping, using hand tools, power tools, or postage meter.', auto:0.15, aug:0.1, impacted:false },
+          { id:'ship-10', text:'Deliver or route materials to departments using handtruck, conveyor, or sorting bins.', auto:0.15, aug:0.1, impacted:false },
+        ]},
+      { id:'ship-inventory', label:'Inventory Management', description:'Requisitioning and storing shipping materials and supplies.',
+        tasks: [
+          { id:'ship-11', text:'Requisition and store shipping materials and supplies to maintain inventory of stock.', auto:0.4, aug:0.35, impacted:true },
+        ]},
+    ],
+  },
+  "Customer Service Representatives": {
+    clusters: [
+      { id:'csr-inquiry', label:'Customer Inquiry & Communication', description:'Interacting with customers to provide information and take orders.',
+        tasks: [
+          { id:'csr-1', text:'Confer with customers by telephone or in person to provide information about products or services, take or enter orders, cancel accounts, or obtain details of complaints.', auto:0.3, aug:0.55, impacted:true },
+          { id:'csr-2', text:'Contact customers to respond to inquiries or to notify them of claim investigation results or any planned adjustments.', auto:0.35, aug:0.5, impacted:true },
+          { id:'csr-3', text:'Solicit sales of new or additional services or products.', auto:0.2, aug:0.45, impacted:true },
+        ]},
+      { id:'csr-resolve', label:'Complaint Resolution', description:'Investigating and resolving customer complaints and billing issues.',
+        tasks: [
+          { id:'csr-4', text:'Resolve customers\' service or billing complaints by performing activities such as exchanging merchandise, refunding money, or adjusting bills.', auto:0.25, aug:0.45, impacted:true },
+          { id:'csr-5', text:'Obtain and examine all relevant information to assess validity of complaints and to determine possible causes.', auto:0.2, aug:0.55, impacted:true },
+          { id:'csr-6', text:'Check to ensure that appropriate changes were made to resolve customers\' problems.', auto:0.35, aug:0.4, impacted:true },
+          { id:'csr-7', text:'Refer unresolved customer grievances to designated departments for further investigation.', auto:0.4, aug:0.3, impacted:true },
+        ]},
+      { id:'csr-records', label:'Record-Keeping & Documentation', description:'Maintaining records of interactions, transactions, and contracts.',
+        tasks: [
+          { id:'csr-8', text:'Keep records of customer interactions or transactions, recording details of inquiries, complaints, or comments, as well as actions taken.', auto:0.6, aug:0.5, impacted:true },
+          { id:'csr-9', text:'Complete contract forms, prepare change of address records, or issue service discontinuance orders, using computers.', auto:0.65, aug:0.4, impacted:true },
+        ]},
+      { id:'csr-billing', label:'Billing & Payments', description:'Determining charges, collecting payments, and handling merchandise disputes.',
+        tasks: [
+          { id:'csr-10', text:'Determine charges for services requested, collect deposits or payments, or arrange for billing.', auto:0.45, aug:0.35, impacted:true },
+          { id:'csr-11', text:'Compare disputed merchandise with original requisitions and information from invoices and prepare invoices for returned goods.', auto:0.4, aug:0.4, impacted:true },
+        ]},
+      { id:'csr-improve', label:'Policy Review & Process Improvement', description:'Reviewing policies and recommending service improvements.',
+        tasks: [
+          { id:'csr-12', text:'Review insurance policy terms to determine whether a particular loss is covered by insurance.', auto:0.35, aug:0.55, impacted:true },
+          { id:'csr-13', text:'Recommend improvements in products, packaging, shipping, service, or billing methods and procedures to prevent future problems.', auto:0.1, aug:0.55, impacted:true },
+        ]},
+    ],
+  },
+  "Customer Service Managers": {
+    clusters: [
+      { id:'csm-strategy', label:'Sales Strategy & Direction', description:'Directing sales activities and setting organizational goals.',
+        tasks: [
+          { id:'csm-1', text:'Direct and coordinate activities involving sales of manufactured products, services, commodities, or other subjects of sale.', auto:0.1, aug:0.4, impacted:true },
+          { id:'csm-2', text:'Monitor customer preferences to determine focus of sales efforts.', auto:0.35, aug:0.6, impacted:true },
+          { id:'csm-3', text:'Establish and implement policies, goals, objectives, or procedures for the sales department.', auto:0.1, aug:0.45, impacted:true },
+        ]},
+      { id:'csm-people', label:'Staff Management & Development', description:'Supervising, hiring, training, and evaluating sales staff.',
+        tasks: [
+          { id:'csm-5', text:'Oversee regional and local sales managers and their staffs.', auto:0.05, aug:0.3, impacted:true },
+          { id:'csm-6', text:'Plan and direct staffing, training, and performance evaluations to develop and control sales and service programs.', auto:0.15, aug:0.5, impacted:true },
+          { id:'csm-7', text:'Coach staff on sales tactics and customer engagement strategies.', auto:0.1, aug:0.5, impacted:true },
+          { id:'csm-8', text:'Establish and monitor staff sales goals.', auto:0.3, aug:0.5, impacted:true },
+        ]},
+      { id:'csm-customer', label:'Customer Relations', description:'Resolving customer complaints and advising on products.',
+        tasks: [
+          { id:'csm-9', text:'Resolve customer complaints regarding sales and service.', auto:0.15, aug:0.45, impacted:true },
+          { id:'csm-10', text:'Advise customers on equipment needs, types of products to purchase, and services available.', auto:0.1, aug:0.5, impacted:true },
+          { id:'csm-12', text:'Advise dealers and distributors on policies and operating procedures to ensure functional effectiveness of business.', auto:0.1, aug:0.4, impacted:true },
+        ]},
+      { id:'csm-finance', label:'Financial Planning & Analysis', description:'Budgeting, pricing, and analyzing operational performance.',
+        tasks: [
+          { id:'csm-13', text:'Prepare budgets and approve budget expenditures.', auto:0.3, aug:0.55, impacted:true },
+          { id:'csm-14', text:'Review operational records and reports to project sales and determine profitability.', auto:0.4, aug:0.6, impacted:true },
+          { id:'csm-15', text:'Determine price schedules and discount rates.', auto:0.35, aug:0.5, impacted:true },
+          { id:'csm-16', text:'Assess marketing potential of new and existing store locations, considering statistics and expenditures.', auto:0.3, aug:0.55, impacted:true },
+        ]},
+      { id:'csm-ops', label:'Operations & Coordination', description:'Coordinating across departments, managing advertising and distribution.',
+        tasks: [
+          { id:'csm-17', text:'Confer with potential customers regarding equipment needs and advise customers on types of equipment to purchase.', auto:0.1, aug:0.4, impacted:true },
+          { id:'csm-18', text:'Direct clerical staff engaged in maintaining records of export correspondence, bid requests, and credit collections.', auto:0.3, aug:0.4, impacted:true },
+          { id:'csm-19', text:'Confer with department heads to plan advertising services and to secure information on equipment and customer specifications.', auto:0.1, aug:0.4, impacted:true },
+        ]},
+    ],
+  },
+  "Retail Salespersons": {
+    clusters: [
+      { id:'ret-customer', label:'Customer Engagement', description:'Greeting customers and understanding their needs.',
+        tasks: [
+          { id:'ret-1', text:'Greet customers and ascertain what each customer wants or needs.', auto:0.05, aug:0.2, impacted:false },
+          { id:'ret-2', text:'Recommend, select, and help locate or obtain merchandise based on customer needs and desires.', auto:0.1, aug:0.45, impacted:true },
+          { id:'ret-4', text:'Describe merchandise and explain use, operation, and care of merchandise to customers.', auto:0.15, aug:0.45, impacted:true },
+        ]},
+      { id:'ret-transactions', label:'Sales Transactions', description:'Processing payments, returns, and preparing sales documents.',
+        tasks: [
+          { id:'ret-6', text:'Compute sales prices, total purchases, and receive and process cash or credit payment.', auto:0.6, aug:0.3, impacted:true },
+          { id:'ret-8', text:'Exchange merchandise for customers and accept returns.', auto:0.2, aug:0.2, impacted:true },
+          { id:'ret-9', text:'Prepare sales slips or sales contracts.', auto:0.6, aug:0.35, impacted:true },
+          { id:'ret-10', text:'Open and close cash registers, performing tasks such as counting money, separating charge slips, coupons, and vouchers, balancing cash drawers, and making deposits.', auto:0.45, aug:0.3, impacted:true },
+        ]},
+      { id:'ret-knowledge', label:'Product Knowledge & Promotions', description:'Staying current on sales, policies, and merchandise information.',
+        tasks: [
+          { id:'ret-12', text:'Maintain knowledge of current sales and promotions, policies regarding payment and exchanges, and security practices.', auto:0.2, aug:0.5, impacted:true },
+          { id:'ret-13', text:'Answer questions regarding the store and its merchandise.', auto:0.25, aug:0.5, impacted:true },
+          { id:'ret-14', text:'Place special orders or call other stores to find desired items.', auto:0.4, aug:0.35, impacted:true },
+        ]},
+      { id:'ret-merch', label:'Merchandising & Inventory', description:'Stocking, displaying, and tracking inventory.',
+        tasks: [
+          { id:'ret-16', text:'Ticket, arrange, and display merchandise to promote sales.', auto:0.15, aug:0.2, impacted:false },
+          { id:'ret-17', text:'Inventory stock and requisition new stock.', auto:0.45, aug:0.4, impacted:true },
+          { id:'ret-19', text:'Maintain records related to sales.', auto:0.6, aug:0.4, impacted:true },
+        ]},
+      { id:'ret-specialty', label:'Specialty Services', description:'Estimating costs, trade-ins, repairs, and rentals.',
+        tasks: [
+          { id:'ret-20', text:'Estimate and quote trade-in allowances.', auto:0.3, aug:0.45, impacted:true },
+          { id:'ret-21', text:'Estimate quantity and cost of merchandise required, such as paint or floor covering.', auto:0.35, aug:0.45, impacted:true },
+          { id:'ret-24', text:'Watch for and recognize security risks and thefts, and know how to prevent or handle these situations.', auto:0.2, aug:0.35, impacted:true },
+        ]},
+    ],
+  },
+  "First-Line Supervisors of Retail Sales Workers": {
+    clusters: [
+      { id:'rsup-customer', label:'Customer Service & Sales', description:'Assisting customers and ensuring satisfactory service quality.',
+        tasks: [
+          { id:'rsup-1', text:'Provide customer service by greeting and assisting customers and responding to customer inquiries and complaints.', auto:0.1, aug:0.35, impacted:true },
+          { id:'rsup-2', text:'Monitor sales activities to ensure that customers receive satisfactory service and quality goods.', auto:0.15, aug:0.4, impacted:true },
+          { id:'rsup-3', text:'Instruct staff on how to handle difficult and complicated sales.', auto:0.1, aug:0.45, impacted:true },
+          { id:'rsup-4', text:'Confer with company officials to develop methods and procedures to increase sales, expand markets, and promote business.', auto:0.1, aug:0.5, impacted:true },
+        ]},
+      { id:'rsup-staff', label:'Staff Management', description:'Supervising, scheduling, hiring, and evaluating employees.',
+        tasks: [
+          { id:'rsup-5', text:'Direct and supervise employees engaged in sales, inventory-taking, reconciling cash receipts, or in performing services for customers.', auto:0.1, aug:0.3, impacted:true },
+          { id:'rsup-6', text:'Assign employees to specific duties.', auto:0.3, aug:0.35, impacted:true },
+          { id:'rsup-7', text:'Plan and prepare work schedules and keep records of employees\' work schedules and time cards.', auto:0.55, aug:0.45, impacted:true },
+          { id:'rsup-8', text:'Hire, train, and evaluate personnel in sales or marketing establishments, promoting or firing workers when appropriate.', auto:0.1, aug:0.45, impacted:true },
+          { id:'rsup-10', text:'Enforce safety, health, and security rules.', auto:0.1, aug:0.3, impacted:true },
+        ]},
+      { id:'rsup-merch', label:'Merchandising & Pricing', description:'Managing product displays, pricing, and advertising campaigns.',
+        tasks: [
+          { id:'rsup-11', text:'Examine merchandise to ensure that it is correctly priced and displayed and that it functions as advertised.', auto:0.25, aug:0.35, impacted:true },
+          { id:'rsup-12', text:'Formulate pricing policies for merchandise, according to profitability requirements.', auto:0.2, aug:0.55, impacted:true },
+          { id:'rsup-13', text:'Plan and coordinate advertising campaigns and sales promotions, and prepare merchandise displays and advertising copy.', auto:0.15, aug:0.55, impacted:true },
+          { id:'rsup-14', text:'Estimate consumer demand and determine the types and amounts of goods to be sold.', auto:0.3, aug:0.55, impacted:true },
+        ]},
+      { id:'rsup-inventory', label:'Inventory & Purchasing', description:'Tracking inventory, purchasing stock, and inspecting products.',
+        tasks: [
+          { id:'rsup-15', text:'Inventory stock and reorder when inventory drops to a specified level.', auto:0.5, aug:0.4, impacted:true },
+          { id:'rsup-16', text:'Examine products purchased for resale or received for storage to assess the condition of each product or item.', auto:0.2, aug:0.3, impacted:true },
+        ]},
+      { id:'rsup-admin', label:'Administration & Finance', description:'Record-keeping, budgeting, reporting, and policy management.',
+        tasks: [
+          { id:'rsup-17', text:'Keep records of purchases, sales, and requisitions.', auto:0.6, aug:0.4, impacted:true },
+          { id:'rsup-18', text:'Review inventory and sales records to prepare reports for management and budget departments.', auto:0.55, aug:0.5, impacted:true },
+          { id:'rsup-20', text:'Plan budgets and authorize payments and merchandise returns.', auto:0.3, aug:0.45, impacted:true },
+        ]},
+    ],
+  },
+  "Cashiers": {
+    clusters: [
+      { id:'cash-trans', label:'Transaction Processing', description:'Receiving payments, making change, and processing returns.',
+        tasks: [
+          { id:'cash-1', text:'Receive payment by cash, check, credit cards, vouchers, or automatic debits.', auto:0.55, aug:0.25, impacted:true },
+          { id:'cash-2', text:'Issue receipts, refunds, credits, or change due to customers.', auto:0.5, aug:0.25, impacted:true },
+          { id:'cash-3', text:'Establish or identify prices of goods, services, or admission, and tabulate bills using calculators, cash registers, or optical price scanners.', auto:0.6, aug:0.3, impacted:true },
+          { id:'cash-4', text:'Process merchandise returns and exchanges.', auto:0.3, aug:0.25, impacted:true },
+          { id:'cash-5', text:'Compute and record totals of transactions.', auto:0.7, aug:0.3, impacted:true },
+        ]},
+      { id:'cash-customer', label:'Customer Interaction', description:'Greeting customers, answering questions, and providing assistance.',
+        tasks: [
+          { id:'cash-11', text:'Greet customers entering establishments.', auto:0.1, aug:0.1, impacted:false },
+          { id:'cash-12', text:'Assist customers by providing information and resolving their complaints.', auto:0.15, aug:0.4, impacted:true },
+          { id:'cash-13', text:'Answer customers\' questions, and provide information on procedures or policies.', auto:0.25, aug:0.45, impacted:true },
+          { id:'cash-14', text:'Help customers find the location of products.', auto:0.3, aug:0.35, impacted:true },
+        ]},
+      { id:'cash-reconcile', label:'Cash Management & Reconciliation', description:'Counting drawers, balancing receipts, and maintaining financial records.',
+        tasks: [
+          { id:'cash-18', text:'Calculate total payments received during a time period, and reconcile this with total sales.', auto:0.65, aug:0.4, impacted:true },
+          { id:'cash-19', text:'Count money in cash drawers at the beginning of shifts to ensure that amounts are correct and that there is adequate change.', auto:0.4, aug:0.2, impacted:true },
+          { id:'cash-21', text:'Keep periodic balance sheets of amounts and numbers of transactions.', auto:0.65, aug:0.4, impacted:true },
+          { id:'cash-22', text:'Compile and maintain non-monetary reports and records.', auto:0.6, aug:0.4, impacted:true },
+        ]},
+      { id:'cash-store', label:'Store Support', description:'Stocking shelves, cleaning, bagging, and assisting other departments.',
+        tasks: [
+          { id:'cash-24', text:'Maintain clean and orderly checkout areas and complete other general cleaning duties, such as mopping floors and emptying trash cans.', auto:0.1, aug:0.05, impacted:false },
+          { id:'cash-25', text:'Stock shelves, sort and reshelve returned items, and mark prices on items and shelves.', auto:0.2, aug:0.15, impacted:true },
+          { id:'cash-28', text:'Supervise others and provide on-the-job training.', auto:0.05, aug:0.35, impacted:true },
+        ]},
+    ],
+  },
+  "Receptionists and Information Clerks": {
+    clusters: [
+      { id:'rec-frontdesk', label:'Front Desk & Visitor Management', description:'Greeting visitors, answering phones, and directing people to appropriate contacts.',
+        tasks: [
+          { id:'rec-1', text:'Greet persons entering establishment, determine nature and purpose of visit, and direct or escort them to specific destinations.', auto:0.1, aug:0.15, impacted:false },
+          { id:'rec-2', text:'Operate telephone switchboard to answer, screen, or forward calls, providing information, taking messages, or scheduling appointments.', auto:0.35, aug:0.35, impacted:true },
+          { id:'rec-3', text:'Receive payment and record receipts for services.', auto:0.45, aug:0.25, impacted:true },
+          { id:'rec-4', text:'Schedule appointments and maintain and update appointment calendars.', auto:0.55, aug:0.4, impacted:true },
+        ]},
+      { id:'rec-information', label:'Information & Referral Services', description:'Providing information to callers and visitors, and referring to appropriate departments.',
+        tasks: [
+          { id:'rec-5', text:'Hear and resolve complaints from customers or the public.', auto:0.15, aug:0.35, impacted:true },
+          { id:'rec-6', text:'Provide information about establishment such as location of departments or offices, employees within the organization, or services provided.', auto:0.4, aug:0.4, impacted:true },
+          { id:'rec-7', text:'Transmit information or documents to customers, using computer, mail, or facsimile machine.', auto:0.55, aug:0.3, impacted:true },
+        ]},
+      { id:'rec-admin', label:'Administrative Support', description:'Processing mail, filing, typing, and maintaining office supplies.',
+        tasks: [
+          { id:'rec-8', text:'File and maintain records.', auto:0.6, aug:0.4, impacted:true },
+          { id:'rec-9', text:'Collect, sort, distribute, or prepare mail, messages, or courier deliveries.', auto:0.35, aug:0.2, impacted:true },
+          { id:'rec-10', text:'Process and prepare memos, correspondence, travel vouchers, or other documents.', auto:0.65, aug:0.5, impacted:true },
+          { id:'rec-11', text:'Keep a current record of staff members\' whereabouts and availability.', auto:0.5, aug:0.35, impacted:true },
+          { id:'rec-12', text:'Order and dispense supplies.', auto:0.4, aug:0.25, impacted:true },
+        ]},
+      { id:'rec-security', label:'Access Control & Security', description:'Issuing visitor passes, maintaining security logs, and monitoring building access.',
+        tasks: [
+          { id:'rec-13', text:'Issue visitor passes and look up employees to whom visitors are being referred.', auto:0.35, aug:0.2, impacted:true },
+          { id:'rec-14', text:'Analyze data to determine answers to questions from customers or members of the public.', auto:0.35, aug:0.55, impacted:true },
+        ]},
+    ],
+  },
+  "Security Guards": {
+    clusters: [
+      { id:'sec-monitoring', label:'Monitoring & Surveillance', description:'Patrolling, watching video monitors, and detecting suspicious activity.',
+        tasks: [
+          { id:'sec-1', text:'Monitor and authorize entrance and departure of employees, visitors, and other persons to guard against theft and maintain security of premises.', auto:0.2, aug:0.3, impacted:true },
+          { id:'sec-2', text:'Watch for and report irregularities, such as fire hazards, leaking water pipes, or security doors left unlocked.', auto:0.25, aug:0.35, impacted:true },
+          { id:'sec-3', text:'Circulate among visitors, patrons, or employees to preserve order and protect property.', auto:0.1, aug:0.2, impacted:false },
+          { id:'sec-4', text:'Answer alarms and investigate disturbances.', auto:0.1, aug:0.2, impacted:false },
+          { id:'sec-5', text:'Operate detecting devices to screen individuals and prevent passage of prohibited articles into restricted areas.', auto:0.2, aug:0.25, impacted:true },
+        ]},
+      { id:'sec-access', label:'Access Control & Verification', description:'Checking credentials, issuing passes, and verifying identities.',
+        tasks: [
+          { id:'sec-6', text:'Examine vehicle license plates and observe vehicles left in forbidden areas.', auto:0.3, aug:0.3, impacted:true },
+          { id:'sec-7', text:'Write reports of daily activities and irregularities, such as equipment or property damage, theft, presence of unauthorized persons, or unusual occurrences.', auto:0.45, aug:0.5, impacted:true },
+        ]},
+      { id:'sec-response', label:'Incident Response & Assistance', description:'Responding to emergencies, directing traffic, and assisting persons in distress.',
+        tasks: [
+          { id:'sec-8', text:'Call police or fire departments in cases of emergency, such as fire or presence of unauthorized persons.', auto:0.15, aug:0.2, impacted:false },
+          { id:'sec-9', text:'Escort or drive motor vehicle to transport individuals to specified locations or to provide personal protection.', auto:0.1, aug:0.1, impacted:false },
+          { id:'sec-10', text:'Warn persons of rule infractions or violations, and apprehend or evict violators from premises, using force when necessary.', auto:0.05, aug:0.1, impacted:false },
+          { id:'sec-11', text:'Provide assistance to persons in distress.', auto:0.05, aug:0.15, impacted:false },
+        ]},
+      { id:'sec-reporting', label:'Reporting & Documentation', description:'Writing incident reports, maintaining logs, and recording security activities.',
+        tasks: [
+          { id:'sec-12', text:'Conduct daily inspection of premises to ensure safety standards are maintained.', auto:0.15, aug:0.3, impacted:true },
+          { id:'sec-13', text:'Perform first aid or cardiopulmonary resuscitation (CPR) when required.', auto:0.05, aug:0.1, impacted:false },
+          { id:'sec-14', text:'Maintain environmental monitoring equipment and inspect test results to ensure product quality.', auto:0.3, aug:0.4, impacted:true },
+        ]},
+    ],
+  },
+  "Financial Analysts": {
+    clusters: [
+      { id:'fin-research', label:'Financial Research & Data Analysis', description:'Gathering financial data, studying economic trends, and analyzing company performance.',
+        tasks: [
+          { id:'fin-1', text:'Analyze financial information to produce forecasts of business, industry, and economic conditions for use in making investment decisions.', auto:0.3, aug:0.8, impacted:true },
+          { id:'fin-2', text:'Interpret data on price, yield, stability, future investment-risk trends, economic influences, and other factors affecting investment programs.', auto:0.35, aug:0.75, impacted:true },
+          { id:'fin-3', text:'Monitor developments in the fields of industrial technology, business, finance, and economic theory.', auto:0.3, aug:0.65, impacted:true },
+          { id:'fin-4', text:'Determine the prices at which securities should be syndicated and offered to the public.', auto:0.3, aug:0.6, impacted:true },
+        ]},
+      { id:'fin-modeling', label:'Modeling & Forecasting', description:'Building financial models, projecting earnings, and preparing valuation analyses.',
+        tasks: [
+          { id:'fin-5', text:'Prepare plans of action for investment, using financial analyses.', auto:0.25, aug:0.8, impacted:true },
+          { id:'fin-6', text:'Present oral or written reports on general economic trends, individual corporations, and entire industries.', auto:0.3, aug:0.75, impacted:true },
+          { id:'fin-7', text:'Evaluate and compare the relative quality of various securities in a given industry.', auto:0.3, aug:0.75, impacted:true },
+          { id:'fin-8', text:'Perform securities research using various analytical tools and sources of data.', auto:0.4, aug:0.8, impacted:true },
+        ]},
+      { id:'fin-reporting', label:'Reporting & Communication', description:'Preparing reports, presentations, and briefing clients or management.',
+        tasks: [
+          { id:'fin-9', text:'Draw charts and graphs, using computer spreadsheets, to illustrate technical reports.', auto:0.55, aug:0.65, impacted:true },
+          { id:'fin-10', text:'Document investment criteria for records and review by management.', auto:0.5, aug:0.6, impacted:true },
+          { id:'fin-11', text:'Recommend investments and investment timing to companies, investment firm staff, or the public.', auto:0.2, aug:0.65, impacted:true },
+          { id:'fin-12', text:'Contact brokers and purchase investments for companies, according to company policy.', auto:0.2, aug:0.4, impacted:true },
+        ]},
+      { id:'fin-compliance', label:'Regulatory & Compliance Activities', description:'Assessing investment risk, maintaining legal compliance, and financial record review.',
+        tasks: [
+          { id:'fin-13', text:'Assess the financial status of companies including assets, liabilities, future earnings potential, and management quality.', auto:0.3, aug:0.75, impacted:true },
+          { id:'fin-14', text:'Review SEC filings, annual reports, and prospectuses to evaluate company fundamentals.', auto:0.45, aug:0.7, impacted:true },
+        ]},
+    ],
+  },
+  "Financial Managers": {
+    clusters: [
+      { id:'finmgr-planning', label:'Financial Planning & Budgeting', description:'Developing financial plans, budgets, and long-range forecasts.',
+        tasks: [
+          { id:'finmgr-1', text:'Develop and analyze information to assess the current and future financial status of firms.', auto:0.3, aug:0.75, impacted:true },
+          { id:'finmgr-2', text:'Prepare financial and regulatory reports required by laws, regulations, and boards of directors.', auto:0.45, aug:0.65, impacted:true },
+          { id:'finmgr-3', text:'Establish procedures for custody and control of assets, records, loan collateral, and securities, in order to ensure safekeeping.', auto:0.2, aug:0.55, impacted:true },
+          { id:'finmgr-4', text:'Evaluate data pertaining to costs to plan budgets.', auto:0.4, aug:0.7, impacted:true },
+        ]},
+      { id:'finmgr-reporting', label:'Financial Reporting & Compliance', description:'Preparing financial reports, ensuring regulatory compliance, and overseeing audits.',
+        tasks: [
+          { id:'finmgr-5', text:'Develop and implement policies and procedures for financial reporting.', auto:0.2, aug:0.55, impacted:true },
+          { id:'finmgr-6', text:'Monitor financial activities and details such as reserve levels to ensure that all legal and regulatory requirements are met.', auto:0.35, aug:0.6, impacted:true },
+          { id:'finmgr-7', text:'Review collection reports to determine the status of collections and the amounts of outstanding balances.', auto:0.5, aug:0.55, impacted:true },
+          { id:'finmgr-8', text:'Analyze and classify risks and investments to determine their potential impacts on companies.', auto:0.35, aug:0.75, impacted:true },
+        ]},
+      { id:'finmgr-leadership', label:'Leadership & Coordination', description:'Directing staff, coordinating with executives, and advising management.',
+        tasks: [
+          { id:'finmgr-9', text:'Supervise employees performing financial reporting, accounting, billing, collections, payroll, and budgeting duties.', auto:0.1, aug:0.35, impacted:true },
+          { id:'finmgr-10', text:'Advise management on short-term and long-term financial objectives, policies, and actions.', auto:0.1, aug:0.6, impacted:true },
+          { id:'finmgr-11', text:'Coordinate and direct the financial planning, budgeting, procurement, or investment activities of all or part of an organization.', auto:0.1, aug:0.5, impacted:true },
+        ]},
+      { id:'finmgr-investment', label:'Investment & Capital Management', description:'Managing investments, credit activities, and capital expenditure decisions.',
+        tasks: [
+          { id:'finmgr-12', text:'Manage organizational investments and direct the establishment and maintenance of credit and collection policies.', auto:0.15, aug:0.5, impacted:true },
+          { id:'finmgr-13', text:'Approve and monitor capital expenditures.', auto:0.1, aug:0.45, impacted:true },
+          { id:'finmgr-14', text:'Evaluate financial reporting systems, accounting and collection procedures, and investment activities.', auto:0.3, aug:0.65, impacted:true },
+        ]},
+    ],
+  },
+  "Project Management Specialists": {
+    clusters: [
+      { id:'pm2-planning', label:'Project Planning & Scheduling', description:'Defining scope, developing plans, scheduling activities, and creating timelines.',
+        tasks: [
+          { id:'pm2-1', text:'Prepare project status reports by collecting, analyzing, and summarizing information and trends.', auto:0.45, aug:0.7, impacted:true },
+          { id:'pm2-2', text:'Develop or update project plans, schedules, and work breakdowns for information technology, software development, or other projects.', auto:0.3, aug:0.7, impacted:true },
+          { id:'pm2-3', text:'Schedule and facilitate meetings related to information technology projects.', auto:0.4, aug:0.45, impacted:true },
+          { id:'pm2-4', text:'Identify, review, or select vendors or consultants to meet project needs.', auto:0.2, aug:0.5, impacted:true },
+        ]},
+      { id:'pm2-resources', label:'Resource & Budget Management', description:'Managing project budgets, allocating resources, and tracking costs.',
+        tasks: [
+          { id:'pm2-5', text:'Assign duties or responsibilities to project personnel.', auto:0.2, aug:0.4, impacted:true },
+          { id:'pm2-6', text:'Coordinate recruitment or selection of project personnel.', auto:0.15, aug:0.4, impacted:true },
+          { id:'pm2-7', text:'Monitor or track project milestones and deliverables.', auto:0.4, aug:0.55, impacted:true },
+          { id:'pm2-8', text:'Negotiate with project stakeholders or suppliers to obtain resources or materials.', auto:0.05, aug:0.3, impacted:true },
+        ]},
+      { id:'pm2-risk', label:'Risk & Issue Management', description:'Identifying and mitigating project risks and resolving issues.',
+        tasks: [
+          { id:'pm2-9', text:'Identify and manage project risks, issues, or conflicts.', auto:0.15, aug:0.6, impacted:true },
+          { id:'pm2-10', text:'Assess current or future customer needs and priorities by communicating directly with customers, conducting surveys, or other methods.', auto:0.2, aug:0.6, impacted:true },
+          { id:'pm2-11', text:'Perform risk assessments to develop response strategies.', auto:0.3, aug:0.65, impacted:true },
+        ]},
+      { id:'pm2-communication', label:'Team Coordination & Communication', description:'Coordinating project teams, facilitating communication, and managing stakeholders.',
+        tasks: [
+          { id:'pm2-12', text:'Confer with project personnel to identify and resolve problems.', auto:0.05, aug:0.35, impacted:true },
+          { id:'pm2-13', text:'Direct or coordinate activities of businesses or departments concerned with production, pricing, sales, or distribution of products.', auto:0.1, aug:0.4, impacted:true },
+          { id:'pm2-14', text:'Initiate, review, or approve modifications to project plans.', auto:0.1, aug:0.5, impacted:true },
+        ]},
+    ],
+  },
+  "Purchasing Agents": {
+    clusters: [
+      { id:'purch-sourcing', label:'Procurement & Sourcing', description:'Identifying suppliers, requesting bids, and purchasing goods and services.',
+        tasks: [
+          { id:'purch-1', text:'Purchase the highest quality merchandise at the lowest possible price and in correct amounts.', auto:0.2, aug:0.55, impacted:true },
+          { id:'purch-2', text:'Prepare purchase orders, solicit bid proposals, and review requisitions for goods and services.', auto:0.5, aug:0.55, impacted:true },
+          { id:'purch-3', text:'Locate vendors of materials, equipment or supplies, and interview them to determine product availability and terms of sales.', auto:0.3, aug:0.6, impacted:true },
+          { id:'purch-4', text:'Research and evaluate suppliers based on price, quality, selection, service, support, availability, reliability, production and distribution capabilities, and the supplier\'s reputation and history.', auto:0.35, aug:0.7, impacted:true },
+        ]},
+      { id:'purch-vendor', label:'Vendor Management & Negotiation', description:'Negotiating contracts, managing vendor relationships, and resolving supply issues.',
+        tasks: [
+          { id:'purch-5', text:'Negotiate, renegotiate, and administer contracts with suppliers, vendors, and other representatives.', auto:0.1, aug:0.4, impacted:true },
+          { id:'purch-6', text:'Resolve vendor or contractor grievances and claims against suppliers.', auto:0.1, aug:0.35, impacted:true },
+          { id:'purch-7', text:'Confer with staff, users, and vendors to discuss defective or unacceptable goods or services and determine corrective action.', auto:0.1, aug:0.4, impacted:true },
+        ]},
+      { id:'purch-analysis', label:'Market Research & Cost Analysis', description:'Analyzing price trends, monitoring market conditions, and evaluating trade agreements.',
+        tasks: [
+          { id:'purch-8', text:'Analyze price proposals, financial reports, and other data and information to determine reasonable prices.', auto:0.4, aug:0.7, impacted:true },
+          { id:'purch-9', text:'Monitor shipments to ensure that goods come in on time, and resolve problems related to undelivered goods.', auto:0.3, aug:0.45, impacted:true },
+          { id:'purch-10', text:'Study sales records and inventory levels of current stock to develop strategic purchasing programs.', auto:0.4, aug:0.65, impacted:true },
+        ]},
+      { id:'purch-records', label:'Records, Compliance & Reporting', description:'Maintaining procurement records, preparing reports, and ensuring regulatory compliance.',
+        tasks: [
+          { id:'purch-11', text:'Maintain records of goods ordered and received.', auto:0.6, aug:0.4, impacted:true },
+          { id:'purch-12', text:'Review catalogs, industry periodicals, directories, trade journals, and Internet sites and consult with other departments to locate necessary goods and services.', auto:0.4, aug:0.6, impacted:true },
+          { id:'purch-13', text:'Prepare reports regarding market conditions and merchandise costs.', auto:0.45, aug:0.65, impacted:true },
+        ]},
+    ],
+  },
+  "Sales Managers": {
+    clusters: [
+      { id:'smgr-strategy', label:'Sales Strategy & Planning', description:'Setting sales goals, developing strategies, and overseeing regional operations.',
+        tasks: [
+          { id:'smgr-1', text:'Direct and coordinate activities involving sales of manufactured products, services, commodities, or other subjects of sale.', auto:0.1, aug:0.45, impacted:true },
+          { id:'smgr-2', text:'Determine price schedules and discount rates.', auto:0.3, aug:0.55, impacted:true },
+          { id:'smgr-3', text:'Confer or consult with department heads to plan advertising services and to secure information on equipment and customer specifications.', auto:0.1, aug:0.4, impacted:true },
+          { id:'smgr-4', text:'Identify, develop, or evaluate marketing strategy, based on knowledge of establishment objectives, market characteristics, and cost and markup factors.', auto:0.15, aug:0.65, impacted:true },
+        ]},
+      { id:'smgr-team', label:'Team Management', description:'Directing, training, and evaluating sales staff.',
+        tasks: [
+          { id:'smgr-5', text:'Oversee regional and local sales managers and their staffs.', auto:0.05, aug:0.3, impacted:true },
+          { id:'smgr-6', text:'Plan and direct staffing, training, and performance evaluations to develop and control sales and service programs.', auto:0.15, aug:0.5, impacted:true },
+          { id:'smgr-7', text:'Advise dealers and distributors on policies and operating procedures to ensure functional effectiveness of business.', auto:0.1, aug:0.4, impacted:true },
+        ]},
+      { id:'smgr-performance', label:'Performance Analysis & Reporting', description:'Reviewing sales records, analyzing data, and reporting to executives.',
+        tasks: [
+          { id:'smgr-8', text:'Monitor customer preferences to determine focus of sales efforts.', auto:0.35, aug:0.65, impacted:true },
+          { id:'smgr-9', text:'Review operational records and reports to project sales and determine profitability.', auto:0.4, aug:0.65, impacted:true },
+          { id:'smgr-10', text:'Prepare budgets and approve budget expenditures.', auto:0.3, aug:0.55, impacted:true },
+        ]},
+      { id:'smgr-customer', label:'Customer & Partner Relations', description:'Resolving customer issues, visiting clients, and managing distribution partnerships.',
+        tasks: [
+          { id:'smgr-11', text:'Resolve customer complaints regarding sales and service.', auto:0.15, aug:0.4, impacted:true },
+          { id:'smgr-12', text:'Confer with potential customers regarding equipment needs and advise customers on types of equipment to purchase.', auto:0.1, aug:0.4, impacted:true },
+          { id:'smgr-13', text:'Negotiate contracts with vendors or distributors to manage product distribution, establishing distribution networks or developing distribution strategies.', auto:0.05, aug:0.35, impacted:true },
+        ]},
+    ],
+  },
+  "Sales Representatives": {
+    clusters: [
+      { id:'srep-prospecting', label:'Prospecting & Lead Generation', description:'Contacting prospective customers and generating new business opportunities.',
+        tasks: [
+          { id:'srep-1', text:'Contact new and existing customers to discuss their needs, and to explain how these needs could be met by specific products and services.', auto:0.2, aug:0.5, impacted:true },
+          { id:'srep-2', text:'Identify prospective customers by using business directories, following leads from existing clients, participating in organizations and clubs, and attending trade shows and conferences.', auto:0.4, aug:0.55, impacted:true },
+          { id:'srep-3', text:'Visit establishments to evaluate needs or to promote product or service sales.', auto:0.05, aug:0.3, impacted:true },
+        ]},
+      { id:'srep-presentations', label:'Customer Presentations & Proposals', description:'Demonstrating products, creating quotes, and preparing sales proposals.',
+        tasks: [
+          { id:'srep-4', text:'Answer customers\' questions about products, prices, availability, product uses, and credit terms.', auto:0.25, aug:0.55, impacted:true },
+          { id:'srep-5', text:'Quote prices, credit terms, and other bid specifications.', auto:0.4, aug:0.5, impacted:true },
+          { id:'srep-6', text:'Select the correct products or assist customers in making product selections, based on customers\' needs, product specifications, and applicable regulations.', auto:0.2, aug:0.6, impacted:true },
+          { id:'srep-7', text:'Prepare sales contracts for orders obtained, and submit orders for processing.', auto:0.55, aug:0.45, impacted:true },
+        ]},
+      { id:'srep-relationship', label:'Relationship Management', description:'Maintaining client relationships, resolving issues, and ensuring satisfaction.',
+        tasks: [
+          { id:'srep-8', text:'Resolve customer complaints regarding sales and service.', auto:0.15, aug:0.4, impacted:true },
+          { id:'srep-9', text:'Collaborate with colleagues to exchange information such as selling strategies and marketing information.', auto:0.1, aug:0.4, impacted:true },
+          { id:'srep-10', text:'Monitor market conditions, product innovations, and competitors\' products, prices, and sales.', auto:0.35, aug:0.65, impacted:true },
+        ]},
+      { id:'srep-admin', label:'Order Processing & Reporting', description:'Processing orders, tracking inventory, and preparing sales reports.',
+        tasks: [
+          { id:'srep-11', text:'Process sales or other transactions.', auto:0.55, aug:0.35, impacted:true },
+          { id:'srep-12', text:'Negotiate prices or terms of sales or service agreements.', auto:0.1, aug:0.35, impacted:true },
+          { id:'srep-13', text:'Prepare sales reports and records.', auto:0.55, aug:0.55, impacted:true },
+          { id:'srep-14', text:'Maintain customer records, using automated systems.', auto:0.55, aug:0.4, impacted:true },
+        ]},
+    ],
+  },
+  "Production and Expediting Clerks": {
+    clusters: [
+      { id:'prod-scheduling', label:'Production Scheduling & Planning', description:'Coordinating production schedules, workloads, and material flows.',
+        tasks: [
+          { id:'prod-1', text:'Distribute production schedules or work orders to departments.', auto:0.5, aug:0.4, impacted:true },
+          { id:'prod-2', text:'Confer with department supervisors or other personnel to assess progress and discuss needed changes.', auto:0.1, aug:0.4, impacted:true },
+          { id:'prod-3', text:'Calculate figures such as required amounts of labor or materials, manufacturing costs, or wages, using pricing schedules, adding machines, calculators, or computers.', auto:0.65, aug:0.5, impacted:true },
+          { id:'prod-4', text:'Compile information, such as production rates and progress, materials inventories, materials used, or customer information, so that status reports can be completed.', auto:0.6, aug:0.55, impacted:true },
+        ]},
+      { id:'prod-expediting', label:'Order Tracking & Expediting', description:'Tracking orders, monitoring progress, and following up on delays.',
+        tasks: [
+          { id:'prod-5', text:'Requisition and maintain inventories of materials or supplies necessary to meet production demands.', auto:0.45, aug:0.5, impacted:true },
+          { id:'prod-6', text:'Examine documents, materials, or products and monitor work processes to assess completeness, accuracy, and conformance to standards and specifications.', auto:0.3, aug:0.5, impacted:true },
+          { id:'prod-7', text:'Review documents such as production schedules, work orders, or staffing tables to determine personnel or materials requirements or material priorities.', auto:0.4, aug:0.6, impacted:true },
+        ]},
+      { id:'prod-inventory', label:'Inventory & Materials Coordination', description:'Managing materials, tracking stock levels, and coordinating with suppliers.',
+        tasks: [
+          { id:'prod-8', text:'Maintain files, such as maintenance requests, bills of lading, or correspondence.', auto:0.6, aug:0.4, impacted:true },
+          { id:'prod-9', text:'Issue and distribute parts, supplies, or tools, receiving written acknowledgment of issued items.', auto:0.3, aug:0.25, impacted:true },
+          { id:'prod-10', text:'Arrange for delivery, assembly, or distribution of supplies or parts to expedite flow of materials and meet production schedules.', auto:0.35, aug:0.45, impacted:true },
+        ]},
+      { id:'prod-reporting', label:'Documentation & Reporting', description:'Preparing status reports, recording data, and maintaining production records.',
+        tasks: [
+          { id:'prod-11', text:'Prepare production reports.', auto:0.6, aug:0.5, impacted:true },
+          { id:'prod-12', text:'Record production data, including volume produced, consumption of raw materials, or quality control measures.', auto:0.65, aug:0.45, impacted:true },
+          { id:'prod-13', text:'Establish and implement policies, goals, objectives, and procedures for their department or organization.', auto:0.15, aug:0.45, impacted:true },
+        ]},
+    ],
+  },
 };
 
 const IA_STRUCTURAL_TAGS = [
@@ -3013,6 +3965,42 @@ function renderTransformation(){
   const droppingSkills = rd.skills.filter(s=>droppingNames.has(s.skill));
 
   const emphasis = UC_PRINCIPLE_EMPHASIS[S.uc] || {primary:[], secondary:[]};
+
+  // IA assessment-driven skill derivation
+  const hasIAData = !!IA_ROLES[S.role];
+  const iaCompleted = hasIAData && Object.keys(iaState.clusterAnswers).length > 0;
+
+  if (iaCompleted) {
+    // Compute bucket distribution from user's answers
+    const enriched = iaGetEnrichedClusters(S.role);
+    const bucketCounts = {'human-led':0,'human-in-the-loop':0,'human-on-the-loop':0,'fully-automated':0};
+    let totalImpacted = 0;
+    enriched.filter(c=>c.impactedCount>0).forEach(c=>{
+      if(iaState.clusterAnswers[c.id]){
+        const bucket = iaRouteCluster(iaState.clusterAnswers[c.id], iaState.clusterTags[c.id]||[]);
+        bucketCounts[bucket]++;
+        totalImpacted++;
+      }
+    });
+    const autoRate = totalImpacted > 0 ? (bucketCounts['fully-automated'] + bucketCounts['human-on-the-loop'] * 0.5) / totalImpacted : 0;
+    // Override dropping skills based on IA assessment
+    // High automation rate → skills with Declining label drop, plus Baseline Applied skills
+    // Low automation rate → fewer skills drop, human judgment skills persist/grow
+    if(autoRate >= 0.6){
+      // High automation: standard declining + flag baseline applied skills as at risk
+      // droppingNames already set above; we add extra context but don't expand drop set here
+    } else if(autoRate <= 0.2) {
+      // Low automation (human-led choices): reduce dropping skills — user is keeping humans in
+      droppingNames.clear();
+    }
+    // Attach IA narrative to window for use in header
+    window._iaAutoRate = autoRate;
+    window._iaBucketCounts = bucketCounts;
+    window._iaTotalImpacted = totalImpacted;
+  } else {
+    window._iaAutoRate = null;
+  }
+
   const primaryPrincipleNames = emphasis.primary.map(pid => {
     const p = DESIGN_PRINCIPLES.find(d=>d.id===pid);
     return p ? p.name.replace(/^Principle \d+: /,'') : '';
@@ -3022,8 +4010,15 @@ function renderTransformation(){
   document.getElementById('tx-header-area').innerHTML = `
     <div style="background:var(--purple-bg);border:1px solid #E9D5FF;border-radius:12px;padding:.75rem 1.1rem;margin-bottom:.85rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
       <span style="font-size:13px">⚙️</span>
-      <span style="font-size:12px;color:var(--slate-600);flex:1"><strong style="color:var(--purple)">Design principles applied:</strong> Skill changes below reflect task allocation decisions from Step 4 — particularly <em>${primaryPrincipleNames.join('</em> and <em>')}</em>.</span>
-      <button onclick="goToStep(4)" style="font-size:11px;font-weight:700;color:var(--purple);background:none;border:1.5px solid #C4B5FD;border-radius:8px;padding:4px 10px;cursor:pointer">← Review Principles</button>
+      ${window._iaAutoRate !== null ? `
+        <span style="font-size:12px;color:var(--slate-600);flex:1"><strong style="color:var(--purple)">Based on your task assessment:</strong>
+        ${Math.round(window._iaAutoRate*100)}% of assessed clusters routed toward automation —
+        ${window._iaBucketCounts['human-led']} human-led, ${window._iaBucketCounts['human-in-the-loop']} human-in-the-loop, ${window._iaBucketCounts['human-on-the-loop']} human-on-the-loop, ${window._iaBucketCounts['fully-automated']} fully automated.</span>
+        <button onclick="goToStep(4)" style="font-size:11px;font-weight:700;color:var(--purple);background:none;border:1.5px solid #C4B5FD;border-radius:8px;padding:4px 10px;cursor:pointer">← Review Assessment</button>
+      ` : `
+        <span style="font-size:12px;color:var(--slate-600);flex:1"><strong style="color:var(--purple)">Design principles applied:</strong> Skill changes below reflect task allocation decisions from Step 4 — particularly <em>${primaryPrincipleNames.join('</em> and <em>')}</em>.</span>
+        <button onclick="goToStep(4)" style="font-size:11px;font-weight:700;color:var(--purple);background:none;border:1.5px solid #C4B5FD;border-radius:8px;padding:4px 10px;cursor:pointer">← Review Principles</button>
+      `}
     </div>
     <div class="tx-header">
       <div class="tx-main">
