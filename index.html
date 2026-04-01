@@ -389,12 +389,12 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
     <div class="step-line" id="sl3"></div>
     <button class="step-btn" onclick="goToStep(4)">
       <div class="step-num" id="sn4">4</div>
-      <div class="step-label"><div class="step-name" id="st4">Design Principles</div><div class="step-sel" id="ss4">Human + AI allocation</div></div>
+      <div class="step-label"><div class="step-name" id="st4">Human vs. AI</div><div class="step-sel" id="ss4">Decide what AI should do</div></div>
     </button>
     <div class="step-line" id="sl4"></div>
     <button class="step-btn" onclick="goToStep(5)">
       <div class="step-num" id="sn5">5</div>
-      <div class="step-label"><div class="step-name" id="st5">Skill Transformation</div><div class="step-sel" id="ss5">See what changes</div></div>
+      <div class="step-label"><div class="step-name" id="st5">Skill Changes</div><div class="step-sel" id="ss5">See the impact</div></div>
     </button>
   </div>
 </div>
@@ -403,8 +403,8 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-eyebrow">🤝 Skills-First × AI Transformation</div>
-    <h1>See how <em>AI transforms</em> the skills workers need</h1>
-    <p>Walk five steps to understand how specific AI use cases add, remove, and reshape skill requirements — grounded in Human + AI design principles and real skill taxonomies from the Skills-First Workforce Initiative.</p>
+    <h1>See how <em>AI changes</em> the skills workers need</h1>
+    <p>Walk through five steps to see how AI reshapes different jobs — what skills become more important, what new skills emerge, and what fades away.</p>
   </div>
 </div>
 
@@ -412,7 +412,7 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
 
 <!-- SCREEN 1: CATEGORY -->
 <div class="screen active" id="sc1">
-  <div class="section-hd"><h2>Select a Job Category</h2><p>Four segments covering 30 workforce roles representing 35M+ U.S. workers.</p></div>
+  <div class="section-hd"><h2>Select a Job Category</h2><p>Explore 30 roles across four job categories.</p></div>
   <div class="cat-grid">
     <div class="cat-card" style="--c:#1d5fc0;--cb:#EFF6FF" onclick="selectCat(this,'tech')">
       <div class="cat-icon">💻</div>
@@ -447,7 +447,7 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11L5 7l4-4"/></svg>
     Back to Categories
   </button>
-  <div class="section-hd"><h2>Choose an AI Use Case</h2><p>Select the primary way AI will be introduced. This determines which skills are added, which remain, and which decline.</p></div>
+  <div class="section-hd"><h2>Choose an AI Use Case</h2><p>Pick how AI will be used in this job. Your choice shapes which skills change.</p></div>
   <div class="uc-grid" id="uc-grid"></div>
 </div>
 
@@ -476,7 +476,7 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
 <div class="screen" id="sc5">
   <button class="back-btn" onclick="goToStep(4)">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11L5 7l4-4"/></svg>
-    Back to Design Principles
+    Back to Human vs. AI
   </button>
   <div id="tx-header-area"></div>
   <div class="legend">
@@ -1548,8 +1548,8 @@ function syncStepper(){
   document.getElementById('ss1').textContent = catObj ? catObj.label : 'Select a domain';
   document.getElementById('ss2').textContent = uc ? uc.name : 'Pick an approach';
   document.getElementById('ss3').textContent = S.role || 'Choose a role';
-  document.getElementById('ss4').textContent = S.role ? 'View principles' : 'Human + AI allocation';
-  document.getElementById('ss5').textContent = S.role ? 'See what changes' : 'Skill changes';
+  document.getElementById('ss4').textContent = S.role ? 'View decisions' : 'Decide what AI should do';
+  document.getElementById('ss5').textContent = S.role ? 'See the impact' : 'See what shifts';
 }
 
 /* ═══════════════════════════════ STEP 1 ═══════════════════════════════ */
@@ -1606,23 +1606,19 @@ function selectRole(name){
 
 /* ═══════════════════════════════ STEP 4: DESIGN PRINCIPLES ═══════════════════════════════ */
 
-// Principles data — synthesized from MIT EPOCH Index (Loaiza & Rigobon 2024), Brynjolfsson et al.
-// "Generative AI at Work" (NBER 2023), Acemoglu "Simple Macroeconomics of AI" (2024),
-// EU AI Act Article 14 (2024), McKinsey Agentic Organization (2025), OECD AI in Workplace (2024),
-// Harvard Centaur model (Saghafian 2024), Stanford HAI, and NIST AI RMF.
 const DESIGN_PRINCIPLES = [
   {
     id:"p1",
     tier:"t1",
     icon:"⚖️",
-    name:"The Stakes–Reversibility Principle",
-    desc:"The primary filter for oversight level is a two-axis test: How large is the harm if AI errs? And can the decision be undone? Irreversible, high-stakes decisions — hiring and firing, significant financial commitments, safety rulings, civil rights determinations — must remain under Full Human Control. AI may surface options and generate analysis, but the final decision requires a named, accountable human who can explain their reasoning. This is codified in EU AI Act Article 14, which mandates human override capability for all High-Risk AI systems, including employment-related uses.",
-    tags:["Full Human Control","Stakes × Reversibility","EU AI Act Article 14","Accountability"],
-    rationale:"EU AI Act Article 14 (2024) + Acemoglu (MIT, 2024): high-consequence automation without human accountability consistently produces worse long-run outcomes and erodes institutional trust.",
+    name:"Stakes and Reversibility",
+    desc:"How big is the downside if AI gets it wrong, and can the decision be undone? When mistakes are costly and can\'t be reversed — like hiring decisions, safety rulings, or major financial commitments — a human must make the final call. AI can surface options and analysis, but the decision stays with a named, accountable person.",
+    tags:["Full Human Control","High Stakes","Accountability"],
+    rationale:"High-consequence decisions without human accountability consistently produce worse outcomes and erode trust.",
     applyRules:{
       default:"Human final authority required",
       highAI:"Human validates AI recommendations",
-      label:"Full Human Control (Level 1)"
+      label:"Full Human Control"
     },
     taskExamples:[
       {task:"Hiring or firing a worker", mode:"full-human", modeLabel:"🔴 Full Human"},
@@ -1636,13 +1632,13 @@ const DESIGN_PRINCIPLES = [
     id:"p2",
     tier:"t2",
     icon:"🧠",
-    name:"The EPOCH Capability Principle",
-    desc:"MIT Sloan's EPOCH Index (Loaiza & Rigobon, 2024–2025) identifies five capability categories where human performance remains categorically superior to AI — and where task demand is growing, not shrinking: Empathy (reading relational and emotional context), Presence (embodied real-time situational awareness), Opinion (value-laden ethical judgment), Creativity (novel synthesis beyond training data), and Hope/Vision/Leadership (long-horizon trust and motivation). Crucially, tasks added to the U.S. economy between 2016–2024 score higher on EPOCH than tasks that disappeared. AI has paradoxically increased the premium on human-signature work. High-EPOCH tasks should be augmented, not automated.",
-    tags:["EPOCH Framework","MIT Sloan 2024","Human-Signature Work","Augmentation over Automation"],
-    rationale:"Loaiza & Rigobon, MIT Sloan (2025): EPOCH task demand rose between 2016–2024 even as AI capabilities expanded — AI and human-signature work are complements, not substitutes.",
+    name:"Uniquely Human Skills",
+    desc:"Some capabilities remain fundamentally human — empathy, real-time situational awareness, ethical judgment, creative problem-solving, and inspirational leadership. Tasks that depend on these skills should be augmented by AI, not replaced. Interestingly, demand for these human-signature skills has actually grown as AI has expanded.",
+    tags:["Human-Signature Work","Augmentation over Automation"],
+    rationale:"Demand for empathy, creativity, and judgment-intensive tasks has risen even as AI capabilities have expanded — they\'re complements, not substitutes.",
     applyRules:{
       default:"AI provides options, human decides",
-      label:"Human-in-the-Loop (Level 2)"
+      label:"Human-in-the-Loop"
     },
     taskExamples:[
       {task:"Resolving a distressed or complex customer situation", mode:"full-human", modeLabel:"🔴 Full Human"},
@@ -1656,13 +1652,13 @@ const DESIGN_PRINCIPLES = [
     id:"p3",
     tier:"t2",
     icon:"♟️",
-    name:"The Centaur Complementarity Principle",
-    desc:"Named after the human-AI chess teams that outperformed both grandmasters and the best chess engines in freestyle tournaments (2005–2008), the Centaur model establishes that the optimal unit of performance is not a human or an AI, but a calibrated team. Each side contributes its comparative advantage: AI handles scale, speed, pattern breadth, and consistency; humans provide contextual depth, ethical judgment, tacit knowledge, and adaptation to novel situations. Per Harvard Data Science Review (Saghafian, 2024) and AAMAS 2025 research, centaur advantages must be deliberately engineered — the human is not just an approver but an active cognitive partner in a bidirectional learning loop. This is the highest-performance variant of Human-in-the-Loop.",
-    tags:["Centaur Model","Human-AI Teaming","Comparative Advantage","Bidirectional Learning"],
-    rationale:"Saghafian (Harvard, 2024) + AAMAS (2025): human-algorithm centaur teams consistently outperform both unaided humans and standalone AI across judgment-intensive domains.",
+    name:"Human-AI Teaming",
+    desc:"The best results come not from humans alone or AI alone, but from calibrated human-AI teams. Each side contributes what it does best: AI handles speed, scale, and pattern recognition; humans bring context, ethical judgment, and adaptation to new situations. This isn\'t just rubber-stamping AI output — the human is an active thinking partner.",
+    tags:["Centaur Model","Comparative Advantage","Collaboration"],
+    rationale:"Human-AI teams consistently outperform both unaided humans and standalone AI across judgment-intensive work.",
     applyRules:{
       default:"Human and AI each contribute their comparative advantage",
-      label:"Human-in-the-Loop / Centaur (Level 2)"
+      label:"Human-in-the-Loop"
     },
     taskExamples:[
       {task:"AI first-pass analysis; human interprets and decides", mode:"human-loop", modeLabel:"🟡 Human-in-Loop"},
@@ -1676,13 +1672,13 @@ const DESIGN_PRINCIPLES = [
     id:"p4",
     tier:"t3",
     icon:"🔁",
-    name:"The Human-on-the-Loop (HOTL) Audit Principle",
-    desc:"For tasks where AI operates autonomously (low stakes, high reversibility, low EPOCH content), a Human-on-the-Loop model is required: AI executes without prior human approval, but a human monitors outputs and can intervene or override. Audit frequency scales with consequence level. This model — distinct from Human-in-the-Loop — allows operational efficiency while preventing silent model drift, proxy bias, and accountability diffusion over time. EU AI Act Article 14 explicitly recognizes 'automation bias' as a design risk, requiring that human overseers be protected from over-reliance on AI outputs even in HOTL configurations.",
-    tags:["Human-on-the-Loop","HOTL","Audit Cadence","Automation Bias","NIST AI RMF"],
-    rationale:"NIST AI RMF (2023) + EU AI Act Article 14 (2024): autonomous AI systems require structured human audit loops to detect drift, bias, and edge-case failures that escape real-time monitoring.",
+    name:"AI Runs, Humans Monitor",
+    desc:"For lower-stakes tasks where AI can operate on its own, a human should still monitor outputs and be able to step in. How often you check depends on how much is at stake. This lets you get the efficiency benefits of automation while catching problems before they compound.",
+    tags:["Human-on-the-Loop","Audit Cadence","Drift Detection"],
+    rationale:"Autonomous AI systems need structured human review to catch drift, bias, and edge-case failures.",
     applyRules:{
       default:"AI acts; human monitors and can override",
-      label:"Human-on-the-Loop (Level 3)"
+      label:"Human-on-the-Loop"
     },
     taskExamples:[
       {task:"Automated computer vision quality inspection", mode:"ai-audit", modeLabel:"🟢 AI + Audit"},
@@ -1696,10 +1692,10 @@ const DESIGN_PRINCIPLES = [
     id:"p5",
     tier:"t2",
     icon:"🌱",
-    name:"The Augmentation-Before-Automation Principle",
-    desc:"Before automating a task, the better question is whether augmenting the human performing it creates more value. Brynjolfsson et al.'s landmark 'Generative AI at Work' study (NBER, 2023) found AI assistance increased worker productivity by 14% — with the largest gains flowing to the least experienced workers, who were elevated to the performance level of senior peers. This 'augmentation dividend' is more valuable than substitution. Acemoglu (MIT, 2024) quantifies the cost of the alternative: pure automation-oriented AI deployment generates just ~0.07% annual productivity growth over 10 years — because automation without human complementarity fails to generate the multiplier that augmentation produces. Every automation decision must include a plan for where the liberated human capacity is redeployed.",
-    tags:["Augmentation Dividend","Brynjolfsson 2023","Acemoglu 2024","Skill Capital","Human Redeployment"],
-    rationale:"Brynjolfsson et al. (NBER 2023): augmentation produced 14% productivity gains; Acemoglu (MIT 2024): automation-only AI generates <0.1% annual TFP growth — the augmentation path creates substantially more value.",
+    name:"Augment Before You Automate",
+    desc:"Before automating a task, ask whether helping the human do it better creates more value. Research shows AI assistance can boost productivity by 14%, with the biggest gains going to less experienced workers who get elevated to senior-level performance. Every automation decision should include a plan for where you redeploy the freed-up human capacity.",
+    tags:["Augmentation First","Productivity Gains","Workforce Redeployment"],
+    rationale:"Augmenting workers produces substantially more value than pure automation, which generates minimal productivity growth on its own.",
     applyRules:{
       default:"Pair each automation with a human redeployment and upskilling plan",
       label:"Augmentation-First Design"
@@ -1716,13 +1712,13 @@ const DESIGN_PRINCIPLES = [
     id:"p6",
     tier:"t4",
     icon:"🤝",
-    name:"The Accountability Anchoring Principle",
-    desc:"As AI systems move toward full autonomy, the greatest governance risk is accountability diffusion — when an AI agent makes a consequential error, no individual human feels responsible because 'the system decided.' McKinsey's Agentic Organization framework (2025) addresses this by establishing that humans must 'define goals, make trade-offs, and steer outcomes' even as AI handles execution. Every AI workflow requires a named human Process Owner with genuine override authority — not nominal oversight. The Global Privacy Assembly's 2025 resolution establishes four necessary conditions for meaningful oversight: (1) the overseer understands AI capabilities and limitations, (2) can intervene and override, (3) is not subject to automation bias, and (4) has genuine — not nominal — authority. Strategic full automation is only appropriate where this accountability chain is airtight and task stakes are genuinely low.",
-    tags:["Accountability Anchoring","AI Process Owner","McKinsey Agentic 2025","Anti-Diffusion","Full Autonomy Criteria"],
-    rationale:"McKinsey (2025) + Global Privacy Assembly (2025): accountability diffusion is the primary reason organizational AI trust has not scaled — only 6% of companies fully trust AI agents for core processes (HBR survey, 2025).",
+    name:"Clear Accountability",
+    desc:"As AI takes on more execution, the biggest risk is that nobody feels responsible when something goes wrong. Every AI workflow needs a named human owner with real authority to override the system — not just nominal oversight. Full automation is only appropriate when this accountability chain is solid and the stakes are genuinely low.",
+    tags:["AI Process Owner","Override Authority","Full Automation Criteria"],
+    rationale:"Accountability gaps are the primary reason organizations haven\'t scaled AI trust — only a small fraction of companies fully trust AI agents for core processes.",
     applyRules:{
       default:"Named human accountable for all AI outputs at every automation level",
-      label:"Strategic Full Automation (Level 4)"
+      label:"AI Autonomous"
     },
     taskExamples:[
       {task:"Real-time price monitoring and alerting", mode:"ai-auto", modeLabel:"🔵 AI Autonomous"},
@@ -2435,12 +2431,12 @@ const ROLE_TASK_ALLOCATIONS = {
 
 // Which principles are most prominent for each use case
 const UC_PRINCIPLE_EMPHASIS = {
-  "ai-copilot":     {primary:["p2","p5"], secondary:["p1","p4"], note:"AI Co-Pilot configurations operate primarily at Level 2 (Human-in-the-Loop). The EPOCH Principle governs: AI amplifies throughput at scale while the human retains judgment authority on interpretation, ethical trade-offs, and high-stakes outputs. Per Brynjolfsson's augmentation research, the productivity dividend flows to workers who direct and validate AI — not those who simply delegate to it."},
-  "predictive-analytics":{primary:["p2","p3"], secondary:["p4","p1"], note:"Predictive Analytics shifts the human role from data gathering to insight stewardship — a fundamentally high-EPOCH activity (Centaur Principle). Routine signal aggregation moves to Level 3–4 autonomy; consequential forecasting decisions (financial, operational) remain HITL. Acemoglu (2024) shows that AI-only data processing without human interpretive judgment fails to generate productivity multipliers."},
-  "process-automation":{primary:["p4","p6"], secondary:["p3","p5"], note:"Intelligent Process Automation moves the highest-volume, rule-governed tasks to Level 3–4 autonomy. The HOTL Audit Principle becomes critical: without structured human review cadences, automated workflows drift silently. The Augmentation-Before-Automation Principle demands parallel workforce upskilling — McKinsey (2025) emphasizes workers must be redeployed to exception handling and system stewardship, not simply displaced."},
-  "ai-customer":    {primary:["p1","p2"], secondary:["p4","p5"], note:"Customer interaction AI operates across the full oversight spectrum. The Stakes–Reversibility Principle governs escalation logic: routine queries route to Level 3–4 autonomy; high-emotion, high-stakes interactions remain Full Human Control. MIT's EPOCH framework is directly relevant — Empathy and Presence are precisely the capabilities AI cannot replicate and that customers most value in difficult moments."},
-  "ai-monitoring":  {primary:["p4","p3"], secondary:["p2","p5"], note:"AI-Augmented Monitoring primarily operates at Level 3 (Human-on-the-Loop). The HOTL Audit Principle is the governing design constraint: AI expands what can be monitored at scale, but human auditors remain the essential backstop for ambiguous anomalies, safety-critical decisions, and edge cases that fall outside the AI's training distribution. EU AI Act Article 14's automation bias provisions are especially relevant in safety monitoring contexts."},
-  "ai-dev":         {primary:["p2","p5"], secondary:["p3","p6"], note:"AI-Assisted Development operates through the Centaur Complementarity Principle: AI code generation handles breadth and boilerplate while developers contribute architectural judgment, security oversight, and responsible AI design — precisely the high-EPOCH capabilities that grow in value as AI handles more execution. The Augmentation-Before-Automation Principle requires paired upskilling: each automation gain (tests, docs, boilerplate) must redirect developer capacity to higher-value design and governance work."},
+  "ai-copilot":     {primary:["p2","p5"], secondary:["p1","p4"], note:"AI Co-Pilots work best when humans stay in the driver\u0027s seat — directing, reviewing, and adding judgment to AI output. The productivity boost comes from workers who actively guide AI, not those who blindly hand off work."},
+  "predictive-analytics":{primary:["p2","p3"], secondary:["p4","p1"], note:"With predictive analytics, AI takes over the data gathering while humans focus on interpreting what the numbers mean and deciding what to do about it. Routine pattern detection can run on its own, but high-stakes forecasting decisions need human judgment."},
+  "process-automation":{primary:["p4","p6"], secondary:["p3","p5"], note:"Process automation moves high-volume, rules-based tasks to AI. But without regular human review, automated workflows can silently drift. Workers shift from doing repetitive tasks to overseeing the systems that do them."},
+  "ai-customer":    {primary:["p1","p2"], secondary:["p4","p5"], note:"Customer-facing AI works across the full spectrum. Simple queries can be fully automated, but high-emotion, complex situations need a real person. Empathy and presence are exactly what AI can\u0027t provide and what customers value most in difficult moments."},
+  "ai-monitoring":  {primary:["p4","p3"], secondary:["p2","p5"], note:"AI monitoring expands what workers can track at scale, but humans remain essential for interpreting ambiguous signals, making safety calls, and handling situations the AI wasn\u0027t trained on."},
+  "ai-dev":         {primary:["p2","p5"], secondary:["p3","p6"], note:"AI development tools handle the breadth and boilerplate — tests, docs, routine code. What grows in value is the work AI can\u0027t do: system design, security review, and knowing when not to use AI."},
 };
 
 /* ═══════════════════ INTERACTIVE ASSESSMENT (cluster-based) ═══════════════════ */
@@ -3448,13 +3444,6 @@ const IA_ROLES = {
   },
 };
 
-const IA_STRUCTURAL_TAGS = [
-  { id:'developmental', label:'Developmental', cls:'dev', description:'Crucial for career progression. Automating may erode the learning pipeline.' },
-  { id:'atrophy-risk', label:'Atrophy Risk', cls:'atrophy', description:'Skill degrades without practice. Oversight may become unreliable over time.' },
-  { id:'relationship-critical', label:'Relationship-Critical', cls:'relation', description:'Value comes from human relationship. Automating destroys relational value.' },
-  { id:'bottleneck', label:'Bottleneck', cls:'bottleneck', description:'Sets ceiling for other tasks. Non-automatable bottleneck limits overall gains.' },
-];
-
 const IA_CORE_QUESTIONS = [
   { id:'codifiability', label:'Codifiability', question:'How clearly can the rules or decision criteria for these tasks be defined?',
     options:[
@@ -3474,16 +3463,32 @@ const IA_CORE_QUESTIONS = [
       {value:'moderate', label:'Moderate stakes', desc:'Errors matter but are manageable'},
       {value:'high', label:'High stakes', desc:'Errors are costly or potentially irreversible'},
     ]},
-  { id:'accountability', label:'Human Accountability', question:'Does a human need to own the final outcome?',
+  { id:'regulatory', label:'Regulatory Constraints', question:'Are there regulatory or legal reasons that limit AI\'s role in these tasks?',
     options:[
-      {value:'no', label:'No requirement', desc:'No specific human needs to own the outcome'},
-      {value:'yes', label:'Yes \u2014 accountability required', desc:'Human must sign off for legal, regulatory, or org reasons'},
+      {value:'none', label:'No regulatory constraints', desc:'No specific rules restrict AI use here'},
+      {value:'some', label:'Some regulations apply', desc:'Industry or internal rules require human review or sign-off'},
+      {value:'heavy', label:'Heavily regulated', desc:'Law or regulation requires human decision-making'},
     ]},
   { id:'expertise', label:'Expertise Level', question:'Are these more expert/skilled tasks or more routine?',
     options:[
       {value:'routine', label:'Routine', desc:'Standard, repetitive, lower-skill'},
       {value:'moderate', label:'Moderate', desc:'Requires experience but not deep expertise'},
       {value:'expert', label:'Expert', desc:'Requires deep expertise, judgment, or rare knowledge'},
+    ]},
+  { id:'developmental', label:'People Development', question:'Is this task important for building skills or developing careers?',
+    options:[
+      {value:'no', label:'Not developmental', desc:'Automating this wouldn\'t affect anyone\'s growth'},
+      {value:'yes', label:'Yes \u2014 important for learning', desc:'People build important skills by doing this work'},
+    ]},
+  { id:'relationship', label:'Human Relationship', question:'Does the value of this task depend on a human relationship or personal connection?',
+    options:[
+      {value:'no', label:'No \u2014 transactional', desc:'The task works fine without a personal connection'},
+      {value:'yes', label:'Yes \u2014 relationship matters', desc:'A human connection is core to the value delivered'},
+    ]},
+  { id:'bottleneck', label:'Pace-Setting', question:'Does this task set the pace or limit other work from progressing?',
+    options:[
+      {value:'no', label:'No \u2014 independent', desc:'Other work can proceed regardless'},
+      {value:'yes', label:'Yes \u2014 it\'s a bottleneck', desc:'Other tasks wait on this one to complete'},
     ]},
 ];
 
@@ -3494,6 +3499,7 @@ const IA_BUCKETS = {
   'fully-automated':    {label:'Fully Automated',      color:'#1E40AF', bg:'#EFF6FF', border:'#BFDBFE', icon:'\uD83D\uDD35', desc:'AI handles end-to-end with no routine human involvement.'},
 };
 
+
 // Maps a cluster to the skills it primarily exercises, using keyword affinity.
 // Returns an array of skill objects from ROLES_DB[roleName].skills.
 function iaSkillAffinity(cluster, roleName) {
@@ -3501,72 +3507,117 @@ function iaSkillAffinity(cluster, roleName) {
   if (!rd.skills.length) return [];
   const text = (cluster.label + ' ' + cluster.description).toLowerCase();
 
-  // Determine which skill categories and keywords match this cluster type
+  // Pattern rules: each entry has a regex test, target skill categories, and keyword filters.
+  // Rules are tested in order; first match wins.
+  const rules = [
+    { test: /driv|vehicle|route|navigation|fleet|dispatch|cdl|truck/,
+      cats: ['Core Role-Specific Skills','Specializations'],
+      kw: ['driv','vehicle','truck','route','fleet','dispatch','van','navigation','defensive','hazmat','transport','endorsement','cargo'] },
+    { test: /load|unload|pack|seal|cargo|secur|palletiz|material.*handl|physical.*handl/,
+      cats: ['Core Role-Specific Skills'],
+      kw: ['load','pack','seal','cargo','pallet','material','freight','secure','handling','sort','label'] },
+    { test: /stock|shelv|merchand|display|pric|retail.*floor/,
+      cats: ['Core Role-Specific Skills','Baseline Applied Skills'],
+      kw: ['stock','shelv','merchand','display','pric','retail','planogram','inventory'] },
+    { test: /cash|register|transaction|payment|checkout|billing|point.*sale|pos|reconcil/,
+      cats: ['Core Role-Specific Skills','Baseline Applied Skills'],
+      kw: ['cash','register','transaction','payment','checkout','billing','pos','reconcil','tender','receipt','money'] },
+    { test: /sale|prospect|lead.*gen|pitch|clos|quota|territory|account.*manag|revenue/,
+      cats: ['Core Role-Specific Skills','Specializations'],
+      kw: ['sales','prospect','lead','pitch','clos','quota','territory','account','revenue','negotiat','crm','pipeline'] },
+    { test: /record|document|admin|log|report|filing|data entry|paperwork|tracking|clerical|bookkeep/,
+      cats: ['Baseline Applied Skills'],
+      kw: ['record','document','report','data','admin','log','filing','tracking','software','system','computer','excel','spreadsheet','database'] },
+    { test: /diagnos|troubleshoot|analyz|assess|evaluat|inspect|detect|audit|quality|test/,
+      cats: ['Core Role-Specific Skills','Specializations'],
+      kw: ['diagnos','troubleshoot','analyz','assess','inspect','test','detect','audit','quality','review','calibrat','root cause'] },
+    { test: /technical|program|blueprint|schemat|engineer|code|software|computing|machining/,
+      cats: ['Core Role-Specific Skills','Specializations'],
+      kw: ['technical','program','blueprint','schemat','engineer','code','software','system','computer','machin','weld','electrical'] },
+    { test: /communicat|stakeholder|customer|client|meeting|present|relation|coordinat|negotiat/,
+      cats: ['Foundational & Leadership Skills','Core Role-Specific Skills'],
+      kw: ['communicat','present','stakeholder','relation','coordinat','partner','client','customer','negotiat','interpersonal','service'] },
+    { test: /monitor|patrol|surveil|watch|check|control|compliance|safety|security/,
+      cats: ['Core Role-Specific Skills','Baseline Applied Skills'],
+      kw: ['monitor','patrol','surveil','check','control','compliance','safety','security','regulat','inspect'] },
+    { test: /plan|schedul|strateg|budget|forecast|organiz|resource|coordinat/,
+      cats: ['Foundational & Leadership Skills','Baseline Applied Skills'],
+      kw: ['plan','schedul','strateg','budget','forecast','organiz','project','resource','coordinat'] },
+    { test: /manag|supervis|lead|direct|oversee|staff|hire|train|personnel|coach/,
+      cats: ['Foundational & Leadership Skills'],
+      kw: ['manag','supervis','lead','direct','train','coach','staff','personnel','hire','develop'] },
+    { test: /repair|fabricat|weld|assembl|install|maintain|fix|mechanical/,
+      cats: ['Core Role-Specific Skills'],
+      kw: ['repair','fabricat','weld','assembl','install','maintain','mechanical','electrical','equipment'] },
+    { test: /sourcing|recruit|search|candidate|talent|hiring|applicant/,
+      cats: ['Core Role-Specific Skills'],
+      kw: ['recruit','sourcing','hire','talent','candidate','applicant'] },
+    { test: /inventory|stock|warehouse|logistics|ship|transport|fulfil|distribut/,
+      cats: ['Core Role-Specific Skills','Baseline Applied Skills'],
+      kw: ['inventory','stock','warehouse','logistics','ship','transport','supply','order','fulfil','distribut'] },
+    { test: /clean|custod|janitor|grounds|facilit|sanit/,
+      cats: ['Core Role-Specific Skills'],
+      kw: ['clean','custod','floor','sanit','facilit','grounds','maintenance'] },
+    { test: /front.*desk|visitor|reception|greet|phone|call/,
+      cats: ['Baseline Applied Skills','Core Role-Specific Skills'],
+      kw: ['phone','call','visitor','greet','reception','schedul','appointment','front desk'] },
+    { test: /financ|account|budget|invest|capital|audit.*financ|tax|payroll/,
+      cats: ['Core Role-Specific Skills','Specializations'],
+      kw: ['financ','account','budget','invest','capital','audit','tax','payroll','reconcil','ledger','gaap'] },
+    { test: /model|algorithm|machine.*learn|statistic|forecast|predict/,
+      cats: ['Core Role-Specific Skills','Specializations'],
+      kw: ['model','algorithm','machine learn','statistic','forecast','predict','python','r','sql','tensorflow','data'] },
+  ];
+
   let targetCats = [];
   let keywords = [];
-
-  if (/record|document|admin|log|report|filing|data entry|paperwork|tracking|clerical|bookkeep/.test(text)) {
-    targetCats = ['Baseline Applied Skills'];
-    keywords = ['record','document','report','data','admin','log','filing','tracking','software','system','computer','management system','excel','spreadsheet','database'];
-  } else if (/diagnos|troubleshoot|analyz|assess|evaluat|inspect|detect|audit|quality|test/.test(text)) {
-    targetCats = ['Core Role-Specific Skills','Specializations'];
-    keywords = ['diagnos','troubleshoot','analyz','assess','inspect','test','detect','audit','quality','review','calibrat','root cause'];
-  } else if (/technical|program|blueprint|schemat|engineer|code|software|computing|machining|fabricat/.test(text)) {
-    targetCats = ['Core Role-Specific Skills','Specializations'];
-    keywords = ['technical','program','blueprint','schemat','engineer','code','software','system','computer','machin','fabricat','weld','electrical'];
-  } else if (/communicat|stakeholder|customer|client|meeting|present|relation|coordinat|negotiat/.test(text)) {
-    targetCats = ['Foundational & Leadership Skills','Core Role-Specific Skills'];
-    keywords = ['communicat','present','stakeholder','relation','coordinat','partner','client','customer','negotiat','interpersonal'];
-  } else if (/monitor|patrol|surveil|watch|check|control|compliance|safety|security/.test(text)) {
+  let matched = false;
+  for (const rule of rules) {
+    if (rule.test.test(text)) {
+      targetCats = rule.cats;
+      keywords = rule.kw;
+      matched = true;
+      break;
+    }
+  }
+  if (!matched) {
+    // Default: match by skill name similarity to cluster text
     targetCats = ['Core Role-Specific Skills','Baseline Applied Skills'];
-    keywords = ['monitor','patrol','surveil','check','control','compliance','safety','security','regulat'];
-  } else if (/plan|schedul|strateg|budget|forecast|organiz|resource/.test(text)) {
-    targetCats = ['Foundational & Leadership Skills','Baseline Applied Skills'];
-    keywords = ['plan','schedul','strateg','budget','forecast','organiz','project','resource'];
-  } else if (/manag|supervis|lead|direct|oversee|staff|hire|train|personnel|coach/.test(text)) {
-    targetCats = ['Foundational & Leadership Skills'];
-    keywords = ['manag','supervis','lead','direct','train','coach','staff','personnel','hire','develop'];
-  } else if (/repair|fabricat|weld|assembl|install|maintain|fix|mechanical/.test(text)) {
-    targetCats = ['Core Role-Specific Skills'];
-    keywords = ['repair','fabricat','weld','assembl','install','maintain','mechanical','electrical','equipment'];
-  } else if (/sourcing|recruit|search|candidate|talent|hiring/.test(text)) {
-    targetCats = ['Core Role-Specific Skills'];
-    keywords = ['recruit','sourcing','hire','talent','candidate','applicant'];
-  } else if (/inventory|stock|warehouse|logistics|ship|transport/.test(text)) {
-    targetCats = ['Core Role-Specific Skills','Baseline Applied Skills'];
-    keywords = ['inventory','stock','warehouse','logistics','ship','transport','supply','order'];
-  } else {
-    targetCats = ['Baseline Applied Skills','Core Role-Specific Skills'];
-    keywords = [];
+    keywords = text.split(/\s+/).filter(w => w.length > 4);
   }
 
   let candidates = rd.skills.filter(s => targetCats.includes(s.cat));
   if (keywords.length > 0) {
-    const matched = candidates.filter(s => keywords.some(kw => s.skill.toLowerCase().includes(kw)));
-    if (matched.length > 0) candidates = matched;
+    const kwMatched = candidates.filter(s => keywords.some(kw => s.skill.toLowerCase().includes(kw)));
+    // Only use keyword-matched skills; if no keywords match any skill names,
+    // return empty — don't fall back to unrelated category skills
+    candidates = kwMatched;
   }
   // Cap at 3 skills per cluster to avoid over-marking
   return candidates.slice(0, 3);
 }
 
-function iaRouteCluster(answers, tags) {
-  const {codifiability, verifiability, stakes, accountability} = answers;
-  const isDev = tags?.includes('developmental');
-  const isAtrophy = tags?.includes('atrophy-risk');
-  if(codifiability==='not') return 'human-led';
-  if(codifiability==='partial'){ return isDev ? 'human-led' : 'human-in-the-loop'; }
-  if(verifiability==='no' && stakes==='high') return 'human-led';
-  if(verifiability==='no') return 'human-in-the-loop';
-  if(accountability==='yes') return 'human-in-the-loop';
-  if(stakes==='high') return 'human-in-the-loop';
-  if(isDev){ return stakes==='moderate' ? 'human-in-the-loop' : 'human-on-the-loop'; }
-  if(stakes==='moderate') return 'human-on-the-loop';
-  if(isAtrophy) return 'human-on-the-loop';
-  return 'fully-automated';
+function iaRouteCluster(answers) {
+  const {codifiability, verifiability, stakes, regulatory, expertise, developmental, relationship, bottleneck} = answers;
+  const reasons = [];
+
+  if(codifiability==='not') { return {bucket:'human-led', reasons:['Tasks that rely on tacit knowledge or intuition can\'t be reliably handed to AI']}; }
+  if(codifiability==='partial' && developmental==='yes') { return {bucket:'human-led', reasons:['Partially codifiable tasks that build important skills should stay human-led to protect career development']}; }
+  if(codifiability==='partial') { return {bucket:'human-in-the-loop', reasons:['These tasks can be partially specified but still require human judgment for the parts that can\'t']}; }
+  if(regulatory==='heavy') { return {bucket:'human-led', reasons:['Regulations require a human decision-maker for these tasks']}; }
+  if(verifiability==='no' && stakes==='high') { return {bucket:'human-led', reasons:['When you can\'t easily verify AI output and the stakes are high, humans need to stay in control']}; }
+  if(verifiability==='no') { return {bucket:'human-in-the-loop', reasons:['AI output is hard to verify, so a human needs to actively participate and validate']}; }
+  if(relationship==='yes') { return {bucket:'human-in-the-loop', reasons:['The value of this work depends on human connection \u2014 AI can assist but shouldn\'t replace the person']}; }
+  if(regulatory==='some') { return {bucket:'human-in-the-loop', reasons:['Regulations require human review or sign-off on these tasks']}; }
+  if(stakes==='high') { return {bucket:'human-in-the-loop', reasons:['The cost of errors is too high for AI to operate without active human involvement']}; }
+  if(developmental==='yes') { return {bucket: stakes==='moderate' ? 'human-in-the-loop' : 'human-on-the-loop', reasons:['These tasks build important skills \u2014 keeping humans involved preserves the learning pipeline']}; }
+  if(bottleneck==='yes') { return {bucket:'human-on-the-loop', reasons:['This task sets the pace for other work \u2014 human monitoring ensures bottlenecks are caught quickly']}; }
+  if(stakes==='moderate') { return {bucket:'human-on-the-loop', reasons:['Moderate stakes \u2014 AI can handle execution but a human should monitor and be ready to step in']}; }
+  return {bucket:'fully-automated', reasons:['Low stakes, clearly defined, and easy to verify \u2014 safe for full automation']};
 }
 
 // Interactive assessment state
-let iaState = { subStep:'tags', clusterTags:{}, clusterAnswers:{}, qIdx:0 };
+let iaState = { subStep:'questions', clusterAnswers:{}, qIdx:0 };
 
 function iaGetEnrichedClusters(roleName) {
   const rd = IA_ROLES[roleName];
@@ -3592,9 +3643,9 @@ function renderDesignPrinciples(){
   document.getElementById('dp-header-area').innerHTML = `
     <div class="dp-header">
       <div class="dp-header-main">
-        <div class="dp-header-eyebrow">⚙️ Step 4 of 5 · Human + AI Job Design Framework</div>
+        <div class="dp-header-eyebrow">⚙️ Step 4 of 5 · Deciding What AI Should Do</div>
         <div class="dp-header-title">Applying Design Principles to ${S.role}</div>
-        <div class="dp-header-sub">Six evidence-based principles — drawn from MIT EPOCH Index, Brynjolfsson's augmentation research, EU AI Act Article 14, McKinsey's Agentic Organization framework, and the HITL/HOTL/OFTL oversight taxonomy — govern how tasks within this role are allocated between human workers and AI systems. These allocation decisions directly determine the skill transformation shown in Step 5.</div>
+        <div class="dp-header-sub">Six practical principles help decide which tasks AI should handle, which need human judgment, and which work best as a team effort. These decisions directly shape the skill changes you'll see in Step 5.</div>
       </div>
       <div class="dp-meta">
         <div class="dp-header-meta">
@@ -3609,12 +3660,12 @@ function renderDesignPrinciples(){
 
   // Tier legend
   document.getElementById('dp-principles-area').innerHTML = `
-    <div class="section-hd"><h2>Human + AI Allocation Framework</h2><p style="max-width:700px">${emphasis.note || 'Six evidence-based principles guide how tasks are split between human workers and AI systems — shaping the resulting skill transformation.'}</p></div>
+    <div class="section-hd"><h2>Human + AI Allocation Framework</h2><p style="max-width:700px">${emphasis.note || 'Six practical principles for deciding which tasks AI should handle and which need human judgment.'}</p></div>
     <div class="dp-tier-legend">
-      <div class="dp-tier-pill t1"><div class="dp-tier-dot t1"></div>🔴 Level 1 · Full Human Control</div>
-      <div class="dp-tier-pill t2"><div class="dp-tier-dot t2"></div>🟡 Level 2 · Human-in-the-Loop (HITL)</div>
-      <div class="dp-tier-pill t3"><div class="dp-tier-dot t3"></div>🟢 Level 3 · Human-on-the-Loop (HOTL)</div>
-      <div class="dp-tier-pill t4"><div class="dp-tier-dot t4"></div>🔵 Level 4 · AI Autonomous (OFTL)</div>
+      <div class="dp-tier-pill t1"><div class="dp-tier-dot t1"></div>Full Human Control</div>
+      <div class="dp-tier-pill t2"><div class="dp-tier-dot t2"></div>Human-in-the-Loop</div>
+      <div class="dp-tier-pill t3"><div class="dp-tier-dot t3"></div>Human-on-the-Loop</div>
+      <div class="dp-tier-pill t4"><div class="dp-tier-dot t4"></div>AI Autonomous</div>
     </div>
     <div class="dp-grid">
       ${DESIGN_PRINCIPLES.map((p, idx) => {
@@ -3671,8 +3722,8 @@ function renderDesignPrinciples(){
     <button class="dp-proceed" onclick="goToStep(5)">
       <div class="dp-proceed-left">
         <div class="dp-proceed-label">Next: Step 5 of 5</div>
-        <div class="dp-proceed-title">See how these principles reshape the ${S.role} skill profile →</div>
-        <div class="dp-proceed-sub">The skill transformation you'll see reflects the task allocation decisions above.</div>
+        <div class="dp-proceed-title">See how these choices change ${S.role}'s skills →</div>
+        <div class="dp-proceed-sub">The skill changes you'll see reflect the task allocation decisions above.</div>
       </div>
       <div class="dp-proceed-arrow">→</div>
     </button>
@@ -3691,9 +3742,9 @@ function renderInteractiveAssessment() {
   document.getElementById('dp-header-area').innerHTML = `
     <div class="dp-header">
       <div class="dp-header-main">
-        <div class="dp-header-eyebrow">⚙️ Step 4 of 5 · AI Transformation Assessment</div>
+        <div class="dp-header-eyebrow">⚙️ Step 4 of 5 · Deciding What AI Should Do</div>
         <div class="dp-header-title">Interactive Task Assessment: ${S.role}</div>
-        <div class="dp-header-sub">Tasks are grouped into ${clusters.length} functional clusters. Tag each cluster with structural properties, then answer questions to determine the optimal human–AI allocation for each group of tasks.</div>
+        <div class="dp-header-sub">Tasks are grouped into ${clusters.length} functional areas. Answer a few questions about each one to figure out how much AI involvement makes sense.</div>
       </div>
       <div class="dp-meta">
         <div class="dp-header-meta">
@@ -3708,18 +3759,15 @@ function renderInteractiveAssessment() {
 
   // Sub-step tabs
   const subSteps = [
-    {id:'tags', label:'1. Structural Tagging'},
-    {id:'questions', label:'2. Question Tree'},
-    {id:'synthesis', label:'3. Synthesis'},
+    {id:'questions', label:'1. Questions'},
+    {id:'synthesis', label:'2. Results'},
   ];
 
   const tabsHtml = `<div class="ia-substeps">${subSteps.map(ss =>
     `<button class="ia-substep ${iaState.subStep===ss.id?'active':''}" onclick="iaGoSubStep('${ss.id}')">${ss.label}</button>`
   ).join('')}</div>`;
 
-  if(iaState.subStep === 'tags') {
-    document.getElementById('dp-principles-area').innerHTML = tabsHtml + iaRenderTags(clusters);
-  } else if(iaState.subStep === 'questions') {
+  if(iaState.subStep === 'questions') {
     document.getElementById('dp-principles-area').innerHTML = tabsHtml + iaRenderQuestions(clusters);
   } else {
     document.getElementById('dp-principles-area').innerHTML = tabsHtml + iaRenderSynthesis(clusters);
@@ -3741,11 +3789,11 @@ function renderInteractiveAssessment() {
       </div>
       <div class="dp-proceed-arrow">→</div>
     </button>` : iaState.subStep !== 'synthesis' ? `
-    <button class="dp-proceed" onclick="iaGoSubStep('${iaState.subStep==='tags'?'questions':'synthesis'}')">
+    <button class="dp-proceed" onclick="iaGoSubStep('synthesis')">
       <div class="dp-proceed-left">
         <div class="dp-proceed-label">Continue</div>
-        <div class="dp-proceed-title">${iaState.subStep==='tags' ? 'Proceed to Question Tree →' : 'View Synthesis →'}</div>
-        <div class="dp-proceed-sub">${iaState.subStep==='tags' ? 'Answer questions for each cluster to determine allocation.' : `${assessed}/${total} clusters assessed.`}</div>
+        <div class="dp-proceed-title">View Results →</div>
+        <div class="dp-proceed-sub">${assessed}/${total} task groups assessed.</div>
       </div>
       <div class="dp-proceed-arrow">→</div>
     </button>` : '';
@@ -3756,62 +3804,8 @@ function iaGoSubStep(id) {
   renderInteractiveAssessment();
 }
 
-/* ── Tags sub-step ── */
-function iaRenderTags(clusters) {
-  const sorted = [...clusters].sort((a,b) => b.avgAuto - a.avgAuto);
-  let html = `<div class="section-hd"><h2>Structural Tagging</h2><p style="max-width:700px">Tag each functional cluster with structural properties. These tags carry forward as constraints in the question tree and surface as flags in the synthesis.</p></div>`;
-
-  // Tag legend
-  html += `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">${IA_STRUCTURAL_TAGS.map(t =>
-    `<span class="ia-tag-btn on-${t.cls}" style="cursor:help" title="${t.description}">${t.label}</span>`
-  ).join('')}</div>`;
-
-  html += sorted.map((c, idx) => {
-    const tags = iaState.clusterTags[c.id] || [];
-    const isOpen = iaState._openCluster === c.id;
-    return `
-    <div class="ia-cluster ${isOpen?'open':''}" style="animation-delay:${idx*0.05}s">
-      <div class="ia-cluster-head" onclick="iaToggleCluster('${c.id}')">
-        <div class="ia-cluster-info">
-          <div class="ia-cluster-label">${c.label}</div>
-          <div class="ia-cluster-desc">${c.description}</div>
-          <div class="ia-cluster-meta">
-            <span class="ia-cluster-badge">${c.impactedCount}/${c.totalCount} tasks impacted</span>
-            <span class="ia-bar-wrap">Auto <span class="ia-bar"><span class="ia-bar-fill" style="width:${c.avgAuto*100}%;background:#EF4444"></span></span> ${Math.round(c.avgAuto*100)}%</span>
-            <span class="ia-bar-wrap">Aug <span class="ia-bar"><span class="ia-bar-fill" style="width:${c.avgAug*100}%;background:var(--navy)"></span></span> ${Math.round(c.avgAug*100)}%</span>
-            ${tags.map(t => {const tag=IA_STRUCTURAL_TAGS.find(s=>s.id===t); return tag?`<span class="ia-tag-btn on-${tag.cls}" style="font-size:10px;padding:2px 8px">${tag.label}</span>`:''}).join('')}
-          </div>
-        </div>
-        <span class="ia-chevron">▾</span>
-      </div>
-      ${isOpen ? `<div class="ia-cluster-body">
-        <div style="margin-bottom:10px"><span style="font-size:11px;font-weight:700;color:var(--slate-400);text-transform:uppercase;letter-spacing:.06em">Structural Tags</span></div>
-        <div class="ia-tag-row">
-          ${IA_STRUCTURAL_TAGS.map(t => {
-            const on = tags.includes(t.id);
-            return `<button class="ia-tag-btn ${on?'on-'+t.cls:''}" onclick="iaToggleTag('${c.id}','${t.id}')" title="${t.description}">${t.label}</button>`;
-          }).join('')}
-        </div>
-        <div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:var(--slate-400);text-transform:uppercase;letter-spacing:.06em">Tasks</span></div>
-        ${c.tasks.map(t => `<div class="ia-task ${t.impacted?'':'not-impacted'}">
-          <span style="flex:1">${t.text}</span>
-          ${t.impacted ? `<span class="ia-task-scores">${Math.round(t.auto*100)}% / ${Math.round(t.aug*100)}%</span>` : `<span class="ia-task-scores" style="font-style:italic">Not impacted</span>`}
-        </div>`).join('')}
-      </div>` : ''}
-    </div>`;
-  }).join('');
-
-  return html;
-}
-
 function iaToggleCluster(id) {
   iaState._openCluster = iaState._openCluster === id ? null : id;
-  renderInteractiveAssessment();
-}
-
-function iaToggleTag(clusterId, tagId) {
-  const tags = iaState.clusterTags[clusterId] || [];
-  iaState.clusterTags[clusterId] = tags.includes(tagId) ? tags.filter(t=>t!==tagId) : [...tags, tagId];
   renderInteractiveAssessment();
 }
 
@@ -3823,16 +3817,16 @@ function iaRenderQuestions(clusters) {
   if(!cluster) return '<p>No assessable clusters.</p>';
 
   const answers = iaState.clusterAnswers[cluster.id] || {};
-  const tags = iaState.clusterTags[cluster.id] || [];
   const allAnswered = IA_CORE_QUESTIONS.every(q => answers[q.id]);
-  const bucket = allAnswered ? iaRouteCluster(answers, tags) : null;
+  const bucketResult = allAnswered ? iaRouteCluster(answers) : null;
+  const bucket = bucketResult?.bucket;
 
   const assessed = assessable.filter(c => {
     const a = iaState.clusterAnswers[c.id]||{};
     return IA_CORE_QUESTIONS.every(q => a[q.id]);
   }).length;
 
-  let html = `<div class="section-hd"><h2>Task-Level Question Tree</h2><p style="max-width:700px">Answer questions for each cluster. Answers apply to all impacted tasks in the cluster.</p></div>`;
+  let html = `<div class="section-hd"><h2>Question Tree</h2><p style="max-width:700px">Answer a few questions about each task group to determine the right level of AI involvement.</p></div>`;
 
   // Progress
   html += `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
@@ -3854,7 +3848,6 @@ function iaRenderQuestions(clusters) {
     <div style="display:flex;gap:8px;margin-top:4px;align-items:center">
       <span class="ia-bar-wrap">Auto ${Math.round(cluster.avgAuto*100)}%</span>
       <span class="ia-bar-wrap">Aug ${Math.round(cluster.avgAug*100)}%</span>
-      ${tags.length ? `<span style="font-size:11px;color:var(--amber)">Tags: ${tags.join(', ')}</span>` : ''}
     </div>
     <div class="ia-q-cluster-tasks" onclick="this.nextElementSibling.classList.toggle('open')">▸ View ${cluster.impactedCount} tasks in this cluster</div>
     <div class="ia-q-tasklist">${cluster.tasks.filter(t=>t.impacted).map(t=>`• ${t.text}`).join('<br>')}</div>
@@ -3877,6 +3870,7 @@ function iaRenderQuestions(clusters) {
       <div>
         <div class="ia-bucket-label" style="color:${b.color}">${b.icon} ${b.label}</div>
         <div class="ia-bucket-desc">${b.desc} All ${cluster.impactedCount} tasks in this cluster receive this assignment.</div>
+        <div style="margin-top:6px;font-size:11px;color:${b.color};font-style:italic"><strong>Why:</strong> ${bucketResult.reasons[0]}</div>
       </div>
     </div>`;
   }
@@ -3885,7 +3879,7 @@ function iaRenderQuestions(clusters) {
   html += `<div class="ia-dots">${assessable.map((c,i) => {
     const a = iaState.clusterAnswers[c.id]||{};
     const done = IA_CORE_QUESTIONS.every(q => a[q.id]);
-    const bk = done ? iaRouteCluster(a, iaState.clusterTags[c.id]||[]) : null;
+    const bk = done ? iaRouteCluster(a)?.bucket : null;
     const bkData = bk ? IA_BUCKETS[bk] : null;
     return `<button class="ia-dot ${i===idx?'current':''}" onclick="iaQNav(${i - idx})" title="${c.label}"
       style="${bkData ? `background:${bkData.bg};color:${bkData.color};border-color:${bkData.border}` : ''}">${i+1}</button>`;
@@ -3913,10 +3907,10 @@ function iaRenderSynthesis(clusters) {
 
   for(const c of clusters) {
     const answers = iaState.clusterAnswers[c.id]||{};
-    const tags = iaState.clusterTags[c.id]||[];
     const allAnswered = IA_CORE_QUESTIONS.every(q => answers[q.id]);
     if(!allAnswered) continue;
-    const bucket = iaRouteCluster(answers, tags);
+    const result = iaRouteCluster(answers);
+    const bucket = result.bucket;
     for(const t of c.tasks) {
       if(!t.impacted) continue;
       bucketMap[bucket].push({...t, clusterId:c.id, clusterLabel:c.label});
@@ -3964,16 +3958,16 @@ function iaRenderSynthesis(clusters) {
   const flags = [];
   for(const c of clusters) {
     const answers = iaState.clusterAnswers[c.id]||{};
-    const tags = iaState.clusterTags[c.id]||[];
     const allAnswered = IA_CORE_QUESTIONS.every(q => answers[q.id]);
     if(!allAnswered) continue;
-    const bucket = iaRouteCluster(answers, tags);
-    if(tags.includes('developmental') && (bucket==='fully-automated'||bucket==='human-on-the-loop'))
-      flags.push({type:'warn', text:`"${c.label}" is tagged as developmental but routed to ${IA_BUCKETS[bucket].label}. Automating may erode the learning pipeline.`});
-    if(tags.includes('atrophy-risk') && (bucket==='human-on-the-loop'||bucket==='human-in-the-loop'))
-      flags.push({type:'caution', text:`"${c.label}" has atrophy risk in a ${IA_BUCKETS[bucket].label} configuration. Human oversight may degrade over time.`});
-    if(tags.includes('relationship-critical') && bucket==='fully-automated')
-      flags.push({type:'warn', text:`"${c.label}" is relationship-critical but routed to fully automated. This may destroy relational value.`});
+    const result = iaRouteCluster(answers);
+    const bucket = result.bucket;
+    if(answers.developmental==='yes' && (bucket==='fully-automated'||bucket==='human-on-the-loop'))
+      flags.push({type:'warn', text:`"${c.label}" builds important skills but is routed to ${IA_BUCKETS[bucket].label}. This could erode the learning pipeline for workers developing in this area.`});
+    if(answers.relationship==='yes' && bucket==='fully-automated')
+      flags.push({type:'warn', text:`"${c.label}" depends on human relationships but is set to fully automated. Automating this could destroy the relational value.`});
+    if(answers.bottleneck==='yes' && bucket==='fully-automated')
+      flags.push({type:'caution', text:`"${c.label}" is a pace-setting bottleneck set to full automation. Monitor closely \u2014 if the AI stalls, downstream work stops.`});
   }
   if(flags.length > 0) {
     html += `<div class="section-hd" style="margin-top:16px"><h2 style="font-size:15px">Flags & Considerations</h2></div>`;
@@ -4012,10 +4006,7 @@ function renderTransformation(){
 
   // Determine drop status: skill is "dropping" if label=Declining Skill, or if use-case overrides it
   const dropOverrides = (uc.dropOverride||{})[S.role]||[];
-  const droppingNames = new Set([
-    ...rd.skills.filter(s=>s.label==="Declining Skill").map(s=>s.skill),
-    ...dropOverrides,
-  ]);
+  const droppingNames = new Set([...dropOverrides]);
 
   const emphasis = UC_PRINCIPLE_EMPHASIS[S.uc] || {primary:[], secondary:[]};
 
@@ -4032,7 +4023,7 @@ function renderTransformation(){
     enriched.filter(c => c.impactedCount > 0).forEach(c => {
       const answers = iaState.clusterAnswers[c.id];
       if (!answers) return;
-      const bucket = iaRouteCluster(answers, iaState.clusterTags[c.id] || []);
+      const bucket = iaRouteCluster(answers)?.bucket;
       const affectedSkills = iaSkillAffinity(c, S.role);
       bucketCounts[bucket]++;
       totalImpacted++;
@@ -4076,8 +4067,8 @@ function renderTransformation(){
         ${window._iaBucketCounts['human-led']} human-led, ${window._iaBucketCounts['human-in-the-loop']} human-in-the-loop, ${window._iaBucketCounts['human-on-the-loop']} human-on-the-loop, ${window._iaBucketCounts['fully-automated']} fully automated.</span>
         <button onclick="goToStep(4)" style="font-size:11px;font-weight:700;color:var(--purple);background:none;border:1.5px solid #C4B5FD;border-radius:8px;padding:4px 10px;cursor:pointer">← Review Assessment</button>
       ` : `
-        <span style="font-size:12px;color:var(--slate-600);flex:1"><strong style="color:var(--purple)">Design principles applied:</strong> Skill changes below reflect task allocation decisions from Step 4 — particularly <em>${primaryPrincipleNames.join('</em> and <em>')}</em>.</span>
-        <button onclick="goToStep(4)" style="font-size:11px;font-weight:700;color:var(--purple);background:none;border:1.5px solid #C4B5FD;border-radius:8px;padding:4px 10px;cursor:pointer">← Review Principles</button>
+        <span style="font-size:12px;color:var(--slate-600);flex:1"><strong style="color:var(--purple)">How we got here:</strong> Skill changes below reflect the human vs. AI decisions from Step 4 — particularly <em>${primaryPrincipleNames.join('</em> and <em>')}</em>.</span>
+        <button onclick="goToStep(4)" style="font-size:11px;font-weight:700;color:var(--purple);background:none;border:1.5px solid #C4B5FD;border-radius:8px;padding:4px 10px;cursor:pointer">← Review Decisions</button>
       `}
     </div>
     <div class="tx-header">
