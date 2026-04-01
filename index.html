@@ -3843,14 +3843,14 @@ function iaRenderQuestions(clusters) {
 
   // Cluster context
   html += `<div class="ia-q-cluster-ctx">
-    <div class="ia-q-cluster-name">${cluster.label} <span class="ia-cluster-badge">${cluster.impactedCount} tasks</span></div>
+    <div class="ia-q-cluster-name">${cluster.label} <span class="ia-cluster-badge">${cluster.totalCount} tasks</span>${cluster.totalCount - cluster.impactedCount > 0 ? ` <span style="font-size:10px;color:var(--slate-400);font-weight:400">${cluster.totalCount - cluster.impactedCount} not AI-impacted</span>` : ''}</div>
     <div class="ia-q-cluster-desc">${cluster.description}</div>
     <div style="display:flex;gap:8px;margin-top:4px;align-items:center">
       <span class="ia-bar-wrap">Auto ${Math.round(cluster.avgAuto*100)}%</span>
       <span class="ia-bar-wrap">Aug ${Math.round(cluster.avgAug*100)}%</span>
     </div>
-    <div class="ia-q-cluster-tasks" onclick="this.nextElementSibling.classList.toggle('open')">▸ View ${cluster.impactedCount} tasks in this cluster</div>
-    <div class="ia-q-tasklist">${cluster.tasks.filter(t=>t.impacted).map(t=>`• ${t.text}`).join('<br>')}</div>
+    <div class="ia-q-cluster-tasks" onclick="this.nextElementSibling.classList.toggle('open')">▸ View all ${cluster.totalCount} tasks in this cluster</div>
+    <div class="ia-q-tasklist">${cluster.tasks.map(t=> t.impacted ? `• ${t.text}` : `• <span style="text-decoration:line-through;color:var(--slate-400)">${t.text}</span> <span style="font-size:10px;color:var(--slate-400);font-style:italic">— not AI-impacted</span>`).join('<br>')}</div>
   </div>`;
 
   // Questions
@@ -3905,6 +3905,7 @@ function iaRenderSynthesis(clusters) {
   const bucketMap = {'human-led':[], 'human-in-the-loop':[], 'human-on-the-loop':[], 'fully-automated':[]};
   const assessable = clusters.filter(c => c.impactedCount > 0);
 
+  const notImpactedTasks = [];
   for(const c of clusters) {
     const answers = iaState.clusterAnswers[c.id]||{};
     const allAnswered = IA_CORE_QUESTIONS.every(q => answers[q.id]);
@@ -3912,7 +3913,7 @@ function iaRenderSynthesis(clusters) {
     const result = iaRouteCluster(answers);
     const bucket = result.bucket;
     for(const t of c.tasks) {
-      if(!t.impacted) continue;
+      if(!t.impacted) { notImpactedTasks.push({...t, clusterId:c.id, clusterLabel:c.label}); continue; }
       bucketMap[bucket].push({...t, clusterId:c.id, clusterLabel:c.label});
     }
   }
@@ -3949,6 +3950,21 @@ function iaRenderSynthesis(clusters) {
       ${Object.values(byCluster).map(g => `
         <div class="ia-bucket-card-cluster">${g.label}</div>
         ${g.tasks.map(t => `<div class="ia-bucket-card-task">${t.text}</div>`).join('')}
+      `).join('')}
+    </div>`;
+  }
+  if(notImpactedTasks.length > 0) {
+    const niByCluster = {};
+    notImpactedTasks.forEach(t => {
+      if(!niByCluster[t.clusterId]) niByCluster[t.clusterId] = {label:t.clusterLabel, tasks:[]};
+      niByCluster[t.clusterId].tasks.push(t);
+    });
+    html += `<div class="ia-bucket-card" style="border-left-color:var(--slate-300)">
+      <div class="ia-bucket-card-title" style="color:var(--slate-500)">Not AI-Impacted <span class="ia-badge-count">${notImpactedTasks.length} tasks</span></div>
+      <div class="ia-bucket-card-desc">These tasks require physical presence, in-person interaction, or other qualities that AI cannot replicate. They remain unchanged.</div>
+      ${Object.values(niByCluster).map(g => `
+        <div class="ia-bucket-card-cluster">${g.label}</div>
+        ${g.tasks.map(t => `<div class="ia-bucket-card-task" style="color:var(--slate-400);text-decoration:line-through">${t.text}</div>`).join('')}
       `).join('')}
     </div>`;
   }
