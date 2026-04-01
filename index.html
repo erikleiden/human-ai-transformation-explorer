@@ -3780,7 +3780,9 @@ function renderInteractiveAssessment() {
   }).length;
   const total = clusters.filter(c => c.impactedCount > 0).length;
 
-  document.getElementById('dp-nav-area').innerHTML = iaState.subStep === 'synthesis' && assessed > 0 ? `
+  let navHtml = '';
+  if (iaState.subStep === 'synthesis' && assessed > 0) {
+    navHtml = `
     <button class="dp-proceed" onclick="goToStep(5)">
       <div class="dp-proceed-left">
         <div class="dp-proceed-label">Next: Step 5 of 5</div>
@@ -3788,15 +3790,39 @@ function renderInteractiveAssessment() {
         <div class="dp-proceed-sub">${assessed}/${total} clusters assessed. The skill transformation reflects your task allocation decisions.</div>
       </div>
       <div class="dp-proceed-arrow">→</div>
-    </button>` : iaState.subStep !== 'synthesis' ? `
-    <button class="dp-proceed" onclick="iaGoSubStep('synthesis')">
-      <div class="dp-proceed-left">
-        <div class="dp-proceed-label">Continue</div>
-        <div class="dp-proceed-title">View Results →</div>
-        <div class="dp-proceed-sub">${assessed}/${total} task groups assessed.</div>
-      </div>
-      <div class="dp-proceed-arrow">→</div>
-    </button>` : '';
+    </button>`;
+  } else if (iaState.subStep === 'questions') {
+    if (assessed < total) {
+      // Find next unanswered cluster index
+      const assessable = clusters.filter(c => c.impactedCount > 0).sort((a,b) => b.avgAuto - a.avgAuto);
+      let nextIdx = -1;
+      for (let i = 0; i < assessable.length; i++) {
+        const a = iaState.clusterAnswers[assessable[i].id]||{};
+        if (!IA_CORE_QUESTIONS.every(q => a[q.id])) { nextIdx = i; break; }
+      }
+      const jumpTo = nextIdx >= 0 ? nextIdx : iaState.qIdx + 1;
+      navHtml = `
+      <button class="dp-proceed" onclick="iaState.qIdx=${jumpTo};renderInteractiveAssessment();">
+        <div class="dp-proceed-left">
+          <div class="dp-proceed-label">${assessed}/${total} task groups assessed</div>
+          <div class="dp-proceed-title">Next Task Group →</div>
+          <div class="dp-proceed-sub">Answer questions for the remaining groups to continue.</div>
+        </div>
+        <div class="dp-proceed-arrow">→</div>
+      </button>`;
+    } else {
+      navHtml = `
+      <button class="dp-proceed" onclick="iaGoSubStep('synthesis')">
+        <div class="dp-proceed-left">
+          <div class="dp-proceed-label">All ${total} task groups assessed</div>
+          <div class="dp-proceed-title">View Results →</div>
+          <div class="dp-proceed-sub">See how your decisions map tasks across automation levels.</div>
+        </div>
+        <div class="dp-proceed-arrow">→</div>
+      </button>`;
+    }
+  }
+  document.getElementById('dp-nav-area').innerHTML = navHtml;
 }
 
 function iaGoSubStep(id) {
