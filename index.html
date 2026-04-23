@@ -186,6 +186,65 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
 .insight-body{flex:1}
 .insight-title{font-size:14px;font-weight:700;margin-bottom:.5rem}
 .insight-text{font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.65}
+.insight-text strong{color:#FFE49C;font-weight:700}
+.insight-text em{color:rgba(255,255,255,.85);font-style:italic}
+
+/* DELTA TABLE — Step 4 */
+.delta-stat-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:1.1rem}
+.delta-stat{background:#fff;border:1px solid var(--slate-200);border-radius:10px;padding:.75rem .9rem;display:flex;flex-direction:column;align-items:flex-start;gap:3px;transition:all .15s}
+.delta-stat:hover{border-color:var(--slate-300);transform:translateY(-1px)}
+.delta-stat-num{font-size:24px;font-weight:800;line-height:1}
+.delta-stat-label{font-size:10.5px;font-weight:700;color:var(--slate-500);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.delta-stat-sub{font-size:10px;color:var(--slate-400);font-weight:500;line-height:1.3;margin-top:1px}
+@media(max-width:780px){.delta-stat-row{grid-template-columns:repeat(2,1fr)}}
+
+.delta-helper{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:.6rem .85rem;background:#FAFBFC;border:1px solid var(--slate-200);border-radius:9px;margin-bottom:1rem;font-size:11.5px;color:var(--slate-600)}
+.delta-helper-strong{color:var(--slate-800);font-weight:700;margin-right:6px}
+.delta-helper-pill{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:11px;font-size:10.5px;font-weight:700;line-height:1.4}
+.delta-helper-spacer{flex:1}
+.delta-helper-hint{color:var(--slate-400);font-style:italic;font-size:10.5px}
+
+.delta-cat{margin:0 0 .35rem;display:flex;align-items:center;gap:8px;padding:.5rem .15rem .35rem}
+.delta-cat-bar{width:4px;height:18px;border-radius:2px;flex-shrink:0}
+.delta-cat-name{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--slate-700)}
+.delta-cat-hint{font-size:10.5px;font-weight:500;color:var(--slate-400);font-style:italic;letter-spacing:0;text-transform:none;margin-left:6px}
+.delta-cat-section{margin-bottom:1.25rem}
+.delta-cat-section:last-child{margin-bottom:0}
+
+.delta-row{display:flex;align-items:center;gap:.75rem;padding:.55rem .8rem;border-radius:8px;background:#fff;border:1px solid var(--slate-200);margin-bottom:5px;position:relative;cursor:default;transition:all .15s}
+.delta-row:hover{border-color:var(--slate-400);box-shadow:0 2px 8px rgba(0,0,0,.06);z-index:5}
+.delta-row.is-new{background:linear-gradient(90deg,#F8F4FF 0,#fff 60%);border-color:#DDD6FE}
+.delta-skill-block{flex:1;display:flex;flex-direction:column;gap:1px;min-width:0}
+.delta-skill{font-size:13px;font-weight:600;color:var(--slate-800);line-height:1.3}
+.delta-cluster{font-size:10.5px;color:var(--slate-400);font-weight:500;line-height:1.3}
+.delta-cluster-arrow{color:var(--slate-300);margin:0 4px}
+.delta-cluster-bucket{font-weight:600;color:var(--slate-500)}
+
+.delta-outcome{font-size:10.5px;font-weight:800;padding:4px 11px;border-radius:14px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;gap:5px}
+.delta-outcome::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.delta-outcome.retain{background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0}
+.delta-outcome.deepen{background:#ECFDF5;color:#047857;border:1px solid #6EE7B7}
+.delta-outcome.transform{background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA}
+.delta-outcome.downgrade{background:#FEF3C7;color:#92400E;border:1px solid #FCD34D}
+.delta-outcome.exit{background:#FEF2F2;color:#991B1B;border:1px solid #FECACA}
+.delta-outcome.new{background:#F3E8FF;color:#5B21B6;border:1px solid #DDD6FE}
+
+.delta-tip{position:absolute;bottom:calc(100% + 8px);left:0;right:0;background:#1E293B;color:#fff;font-size:11.5px;line-height:1.55;padding:.7rem .9rem;border-radius:8px;opacity:0;visibility:hidden;transition:opacity .18s,transform .18s;z-index:50;pointer-events:none;font-weight:400;transform:translateY(4px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.delta-tip::after{content:'';position:absolute;top:100%;left:1.2rem;border:6px solid transparent;border-top-color:#1E293B}
+.delta-row:hover .delta-tip{opacity:1;visibility:visible;transform:translateY(0)}
+.delta-tip strong{color:#FCD34D;font-weight:700}
+.delta-tip em{color:#A5F3FC;font-style:normal;font-weight:600}
+
+.delta-banner{background:var(--purple-bg);border:1px solid #E9D5FF;border-radius:12px;padding:.85rem 1.1rem;margin-bottom:.95rem;display:flex;align-items:center;gap:.85rem;flex-wrap:wrap}
+.delta-banner-icon{font-size:18px;flex-shrink:0}
+.delta-banner-text{font-size:12.5px;color:var(--slate-700);flex:1;line-height:1.5}
+.delta-banner-text strong{color:var(--purple)}
+.delta-banner-btn{font-size:11px;font-weight:700;color:var(--purple);background:none;border:1.5px solid #C4B5FD;border-radius:8px;padding:5px 12px;cursor:pointer}
+
+.delta-context{background:#fff;border:1px solid var(--slate-200);border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:1.1rem;display:flex;gap:1.1rem;flex-wrap:wrap;align-items:flex-start}
+.delta-context-main{flex:1;min-width:230px}
+.delta-context-role{font-size:1.3rem;font-weight:800;letter-spacing:-.025em;margin-bottom:.25rem;color:var(--slate-800)}
+.delta-context-sub{font-size:12px;color:var(--slate-400);margin-bottom:.5rem}
 
 /* no-skills empty state */
 .empty-note{font-size:12px;color:var(--slate-400);padding:.5rem .25rem;font-style:italic}
@@ -379,22 +438,17 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
     <div class="step-line" id="sl1"></div>
     <button class="step-btn" onclick="goToStep(2)">
       <div class="step-num" id="sn2">2</div>
-      <div class="step-label"><div class="step-name" id="st2">AI Use Case</div><div class="step-sel" id="ss2">Pick an approach</div></div>
+      <div class="step-label"><div class="step-name" id="st2">Specific Role</div><div class="step-sel" id="ss2">Choose a role</div></div>
     </button>
     <div class="step-line" id="sl2"></div>
     <button class="step-btn" onclick="goToStep(3)">
       <div class="step-num" id="sn3">3</div>
-      <div class="step-label"><div class="step-name" id="st3">Specific Role</div><div class="step-sel" id="ss3">Choose a role</div></div>
+      <div class="step-label"><div class="step-name" id="st3">Human vs. AI</div><div class="step-sel" id="ss3">Decide what AI should do</div></div>
     </button>
     <div class="step-line" id="sl3"></div>
     <button class="step-btn" onclick="goToStep(4)">
       <div class="step-num" id="sn4">4</div>
-      <div class="step-label"><div class="step-name" id="st4">Human vs. AI</div><div class="step-sel" id="ss4">Decide what AI should do</div></div>
-    </button>
-    <div class="step-line" id="sl4"></div>
-    <button class="step-btn" onclick="goToStep(5)">
-      <div class="step-num" id="sn5">5</div>
-      <div class="step-label"><div class="step-name" id="st5">Skill Changes</div><div class="step-sel" id="ss5">See the impact</div></div>
+      <div class="step-label"><div class="step-name" id="st4">Skill Changes</div><div class="step-sel" id="ss4">See the impact</div></div>
     </button>
   </div>
 </div>
@@ -404,7 +458,7 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
   <div class="hero-inner">
     <div class="hero-eyebrow">🤝 Skills-First × AI Transformation</div>
     <h1>See how <em>AI changes</em> the skills workers need</h1>
-    <p>Walk through five steps to see how AI reshapes different jobs — what skills become more important, what new skills emerge, and what fades away.</p>
+    <p>Walk through four steps to see how AI reshapes different jobs — what skills become more important, what new skills emerge, and what fades away.</p>
   </div>
 </div>
 
@@ -441,29 +495,19 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
   </div>
 </div>
 
-<!-- SCREEN 2: USE CASE -->
+<!-- SCREEN 2: ROLE -->
 <div class="screen" id="sc2">
   <button class="back-btn" onclick="goToStep(1)">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11L5 7l4-4"/></svg>
     Back to Categories
   </button>
-  <div class="section-hd"><h2>Choose an AI Use Case</h2><p>Pick how AI will be used in this job. Your choice shapes which skills change.</p></div>
-  <div class="uc-grid" id="uc-grid"></div>
-</div>
-
-<!-- SCREEN 3: ROLE -->
-<div class="screen" id="sc3">
-  <button class="back-btn" onclick="goToStep(2)">
-    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11L5 7l4-4"/></svg>
-    Back to AI Use Cases
-  </button>
   <div class="section-hd"><h2 id="role-hd">Select a Specific Role</h2><p id="role-sub">Choose a role to see how its skills transform.</p></div>
   <div class="role-grid" id="role-grid"></div>
 </div>
 
-<!-- SCREEN 4: DESIGN PRINCIPLES -->
-<div class="screen" id="sc4">
-  <button class="back-btn" onclick="goToStep(3)">
+<!-- SCREEN 3: DESIGN PRINCIPLES -->
+<div class="screen" id="sc3">
+  <button class="back-btn" onclick="goToStep(2)">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11L5 7l4-4"/></svg>
     Back to Roles
   </button>
@@ -472,18 +516,13 @@ main{flex:1;max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;width:100%}
   <div id="dp-nav-area"></div>
 </div>
 
-<!-- SCREEN 5: TRANSFORMATION -->
-<div class="screen" id="sc5">
-  <button class="back-btn" onclick="goToStep(4)">
+<!-- SCREEN 4: TRANSFORMATION -->
+<div class="screen" id="sc4">
+  <button class="back-btn" onclick="goToStep(3)">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11L5 7l4-4"/></svg>
     Back to Human vs. AI
   </button>
   <div id="tx-header-area"></div>
-  <div class="legend">
-    <div class="leg-item"><div class="leg-dot" style="background:var(--purple)"></div>New AI Skill Added</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--amber)"></div>Existing Skill Remains</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--rose)"></div>Skill Likely to Decline</div>
-  </div>
   <div class="tx-panels" id="tx-panels"></div>
   <div id="tx-insight"></div>
 </div>
@@ -1520,10 +1559,9 @@ function trendBadge(label){
 function goHome(){ S={step:1,cat:null,uc:null,role:null}; show(1); syncStepper(); }
 function goToStep(n){
   if(n===1){S.step=1;show(1);}
-  else if(n===2&&S.cat){S.step=2;renderUCs();show(2);}
-  else if(n===3&&S.uc){S.step=3;renderRoles();show(3);}
-  else if(n===4&&S.role){S.step=4;renderDesignPrinciples();show(4);}
-  else if(n===5&&S.role){S.step=5;renderTransformation();show(5);}
+  else if(n===2&&S.cat){S.step=2;renderRoles();show(2);}
+  else if(n===3&&S.role){S.step=3;renderDesignPrinciples();show(3);}
+  else if(n===4&&S.role){S.step=4;renderTransformation();show(4);}
   syncStepper();
 }
 function show(n){
@@ -1531,25 +1569,24 @@ function show(n){
   document.getElementById('sc'+n).classList.add('active');
 }
 function syncStepper(){
-  const steps=[1,2,3,4,5];
+  const steps=[1,2,3,4];
   steps.forEach(i=>{
     const num=document.getElementById('sn'+i);
     const title=document.getElementById('st'+i);
+    if(!num||!title) return;
     num.className='step-num';title.className='step-name';
     if(i<S.step){num.classList.add('done');title.classList.add('done');}
     else if(i===S.step){num.classList.add('active');title.classList.add('active');}
   });
-  [1,2,3,4].forEach(i=>{
+  [1,2,3].forEach(i=>{
     const l=document.getElementById('sl'+i);
-    l.className='step-line'+(i<S.step?' done':'');
+    if(l) l.className='step-line'+(i<S.step?' done':'');
   });
   const catObj = S.cat ? CATS[S.cat] : null;
-  const uc = S.uc ? USE_CASES.find(u=>u.id===S.uc) : null;
   document.getElementById('ss1').textContent = catObj ? catObj.label : 'Select a domain';
-  document.getElementById('ss2').textContent = uc ? uc.name : 'Pick an approach';
-  document.getElementById('ss3').textContent = S.role || 'Choose a role';
-  document.getElementById('ss4').textContent = S.role ? 'View decisions' : 'Decide what AI should do';
-  document.getElementById('ss5').textContent = S.role ? 'See the impact' : 'See what shifts';
+  document.getElementById('ss2').textContent = S.role || 'Choose a role';
+  document.getElementById('ss3').textContent = S.role ? 'View decisions' : 'Decide what AI should do';
+  document.getElementById('ss4').textContent = S.role ? 'See the impact' : 'See what shifts';
 }
 
 /* ═══════════════════════════════ STEP 1 ═══════════════════════════════ */
@@ -1557,38 +1594,16 @@ function selectCat(el, id){
   document.querySelectorAll('.cat-card').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
   S.cat=id;
-  setTimeout(()=>{ S.step=2; renderUCs(); show(2); syncStepper(); },160);
+  // Default use case is preserved internally — it's no longer surfaced as a step
+  S.uc = (USE_CASES.filter(u=>u.for.includes(id))[0]||{}).id || 'ai-copilot';
+  setTimeout(()=>{ S.step=2; renderRoles(); show(2); syncStepper(); },160);
 }
 
 /* ═══════════════════════════════ STEP 2 ═══════════════════════════════ */
-function renderUCs(){
-  const available = USE_CASES.filter(u=>u.for.includes(S.cat));
-  document.getElementById('uc-grid').innerHTML = available.map(u=>`
-    <div class="uc-card${S.uc===u.id?' sel':''}" onclick="selectUC('${u.id}')">
-      <div class="uc-top">
-        <div class="uc-icon">${u.icon}</div>
-        <div>
-          <div class="uc-name">${u.name}</div>
-          <span class="uc-badge ${u.badge}">${u.badgeLabel}</span>
-        </div>
-      </div>
-      <div class="uc-desc">${u.desc}</div>
-      <div class="uc-tags">${u.tags.map(t=>`<span class="uc-tag">${t}</span>`).join('')}</div>
-    </div>
-  `).join('');
-}
-function selectUC(id){
-  S.uc=id;
-  document.querySelectorAll('.uc-card').forEach(c=>c.classList.remove('sel'));
-  event.currentTarget.classList.add('sel');
-  setTimeout(()=>{ S.step=3; renderRoles(); show(3); syncStepper(); },160);
-}
-
-/* ═══════════════════════════════ STEP 3 ═══════════════════════════════ */
 function renderRoles(){
   const cat = CATS[S.cat];
   document.getElementById('role-hd').textContent = `Select a Role in ${cat.label}`;
-  document.getElementById('role-sub').textContent = `${cat.roles.length} roles from the Skills-First Workforce Initiative. Select one to see how "${USE_CASES.find(u=>u.id===S.uc).name}" transforms its skill profile.`;
+  document.getElementById('role-sub').textContent = `${cat.roles.length} roles from the Skills-First Workforce Initiative. Choose one to walk through the Human + AI redesign for that role.`;
   document.getElementById('role-grid').innerHTML = cat.roles.map(r=>{
     const rd = ROLES_DB[r]||{icon:'👤',workers:'',cat:''};
     return `<div class="role-card" onclick="selectRole('${r.replace(/'/g,"\\'")}')">
@@ -1599,9 +1614,9 @@ function renderRoles(){
   }).join('');
 }
 function selectRole(name){
-  S.role=name; S.step=4;
+  S.role=name; S.step=3;
   renderDesignPrinciples();
-  show(4); syncStepper();
+  show(3); syncStepper();
 }
 
 /* ═══════════════════════════════ STEP 4: DESIGN PRINCIPLES ═══════════════════════════════ */
@@ -3643,14 +3658,14 @@ function renderDesignPrinciples(){
   document.getElementById('dp-header-area').innerHTML = `
     <div class="dp-header">
       <div class="dp-header-main">
-        <div class="dp-header-eyebrow">⚙️ Step 4 of 5 · Deciding What AI Should Do</div>
+        <div class="dp-header-eyebrow">⚙️ Step 3 of 4 · Deciding What AI Should Do</div>
         <div class="dp-header-title">Applying Design Principles to ${S.role}</div>
-        <div class="dp-header-sub">Six practical principles help decide which tasks AI should handle, which need human judgment, and which work best as a team effort. These decisions directly shape the skill changes you'll see in Step 5.</div>
+        <div class="dp-header-sub">Six practical principles help decide which tasks AI should handle, which need human judgment, and which work best as a team effort. These decisions directly shape the skill changes you'll see in Step 4.</div>
       </div>
       <div class="dp-meta">
         <div class="dp-header-meta">
-          <div class="dp-meta-row">AI Use Case</div>
-          <div class="dp-meta-val">${uc.icon} ${uc.name}</div>
+          <div class="dp-meta-row">Role</div>
+          <div class="dp-meta-val" style="font-size:13px">${S.role}</div>
           <div style="margin-top:.6rem" class="dp-meta-row">Category</div>
           <div class="dp-meta-val" style="font-size:12px">${cat.label}</div>
         </div>
@@ -3719,9 +3734,9 @@ function renderDesignPrinciples(){
 
   // Proceed button
   document.getElementById('dp-nav-area').innerHTML = `
-    <button class="dp-proceed" onclick="goToStep(5)">
+    <button class="dp-proceed" onclick="goToStep(4)">
       <div class="dp-proceed-left">
-        <div class="dp-proceed-label">Next: Step 5 of 5</div>
+        <div class="dp-proceed-label">Next: Step 4 of 4</div>
         <div class="dp-proceed-title">See how these choices change ${S.role}'s skills →</div>
         <div class="dp-proceed-sub">The skill changes you'll see reflect the task allocation decisions above.</div>
       </div>
@@ -3742,14 +3757,14 @@ function renderInteractiveAssessment() {
   document.getElementById('dp-header-area').innerHTML = `
     <div class="dp-header">
       <div class="dp-header-main">
-        <div class="dp-header-eyebrow">⚙️ Step 4 of 5 · Deciding What AI Should Do</div>
+        <div class="dp-header-eyebrow">⚙️ Step 3 of 4 · Deciding What AI Should Do</div>
         <div class="dp-header-title">Interactive Task Assessment: ${S.role}</div>
         <div class="dp-header-sub">Tasks are grouped into ${clusters.length} functional areas. Answer a few questions about each one to figure out how much AI involvement makes sense.</div>
       </div>
       <div class="dp-meta">
         <div class="dp-header-meta">
-          <div class="dp-meta-row">AI Use Case</div>
-          <div class="dp-meta-val">${uc.icon} ${uc.name}</div>
+          <div class="dp-meta-row">Role</div>
+          <div class="dp-meta-val" style="font-size:13px">${rd.icon||''} ${S.role}</div>
           <div style="margin-top:.6rem" class="dp-meta-row">Category</div>
           <div class="dp-meta-val" style="font-size:12px">${cat.label}</div>
         </div>
@@ -3783,9 +3798,9 @@ function renderInteractiveAssessment() {
   let navHtml = '';
   if (iaState.subStep === 'synthesis' && assessed > 0) {
     navHtml = `
-    <button class="dp-proceed" onclick="goToStep(5)">
+    <button class="dp-proceed" onclick="goToStep(4)">
       <div class="dp-proceed-left">
-        <div class="dp-proceed-label">Next: Step 5 of 5</div>
+        <div class="dp-proceed-label">Next: Step 4 of 4</div>
         <div class="dp-proceed-title">See how these allocations reshape the ${S.role} skill profile →</div>
         <div class="dp-proceed-sub">${assessed}/${total} clusters assessed. The skill transformation reflects your task allocation decisions.</div>
       </div>
@@ -4037,350 +4052,412 @@ function iaRenderSynthesis(clusters) {
   return html;
 }
 
-/* ═══════════════════════════════ STEP 5: TRANSFORMATION ═══════════════════════════════ */
+/* ═══════════════════════════════ STEP 4: SKILL TRANSFORMATION ═══════════════════════════════ */
+
+// =====================================================================
+// SKILL DELTA ENGINE — deterministic rules from task allocation to skill change
+// =====================================================================
+// Five-category skill structure → outcome:
+//
+//   BASE RULE (every skill, regardless of category):
+//     Human-Led      → Retain
+//     Human-in-Loop  → Transform   (raise proficiency, add validation)
+//     Human-on-Loop  → Downgrade   (lower proficiency / less frequent)
+//     Fully Automated→ Exit
+//
+//   CATEGORY MODIFIER (applied after base):
+//     Foundational              : ratchet — only Retain/Transform allowed
+//     Core Role-Specific        : one notch more durable than base
+//     Baseline Applied          : base rule as-is
+//     Spec — Tools (AI-native)  : one notch more durable
+//     Spec — Tools (transactional): one notch less durable
+//     Spec — Domain & Expertise : ratchet — only Retain/Transform
+//
+//   TRANSITION ADDITIONS (new skills, once per role):
+//     Any cluster H-i-t-L → adds "AI Output Evaluation" (Foundational)
+//     Any cluster H-on-t-L → adds "Exception Triage" (Core Role-Specific)
+//     Any cluster Fully Automated → adds "Outcome Monitoring" (Spec — Tools)
+
+const OUTCOME_ORDER = ['exit','downgrade','transform','retain','deepen'];
+const BUCKET_TO_BASE = {
+  'human-led':'retain',
+  'human-in-the-loop':'transform',
+  'human-on-the-loop':'downgrade',
+  'fully-automated':'exit'
+};
+const BUCKET_LABELS = {
+  'human-led': 'Human-Led',
+  'human-in-the-loop': 'Human-in-the-Loop',
+  'human-on-the-loop': 'Human-on-the-Loop',
+  'fully-automated': 'Fully Automated'
+};
+const OUTCOME_PLAIN = {
+  'retain': 'Retain', 'deepen': 'Deepen', 'transform': 'Transform',
+  'downgrade': 'Downgrade', 'exit': 'Exit'
+};
+const CAT_PLAIN_NAME = {
+  'foundational': 'Foundational',
+  'core': 'Core Role-Specific',
+  'baseline': 'Baseline Applied',
+  'spec-tools-ai': 'AI-Native Tool',
+  'spec-tools-transactional': 'Transactional Tool',
+  'spec-domain': 'Domain & Expertise'
+};
+
+function classifySpecialization(skillName) {
+  const s = skillName.toLowerCase();
+  if (/multilingual|language|economics|finance|account|policy|regulat|tax|legal|domain|industry|expertise|sales|selling|negotiation|consulting|audit|compliance|insurance|claim/.test(s)) {
+    return 'spec-domain';
+  }
+  if (/customer relationship|crm|salesforce|analytics platform|data platform|forecasting tool|predictive|machine learning|cloud/.test(s)) {
+    return 'spec-tools-ai';
+  }
+  if (/cash register|register|order delivery|merchandise exchange|issuing refund|refund|credit card|point of sale|pos|payment process/.test(s)) {
+    return 'spec-tools-transactional';
+  }
+  return 'spec-tools-transactional';
+}
+
+function deltaCategoryOf(skill) {
+  const cat = skill.cat || skill.category || '';
+  if (/Foundational/i.test(cat)) return 'foundational';
+  if (/Core Role/i.test(cat)) return 'core';
+  if (/Baseline/i.test(cat)) return 'baseline';
+  if (/Specialization/i.test(cat)) return classifySpecialization(skill.skill);
+  return 'baseline';
+}
+
+function applyModifier(baseOutcome, deltaCat) {
+  const idx = OUTCOME_ORDER.indexOf(baseOutcome);
+  let newIdx = idx;
+  switch (deltaCat) {
+    case 'foundational':
+    case 'spec-domain':
+      newIdx = Math.max(idx, OUTCOME_ORDER.indexOf('transform'));
+      break;
+    case 'core':
+    case 'spec-tools-ai':
+      newIdx = Math.min(OUTCOME_ORDER.length-1, idx + 1);
+      break;
+    case 'spec-tools-transactional':
+      newIdx = Math.max(0, idx - 1);
+      break;
+    case 'baseline':
+    default:
+      newIdx = idx;
+  }
+  return OUTCOME_ORDER[newIdx];
+}
+
+// Hand-curated cluster mappings for high-priority roles.
+// Other roles fall back to iaSkillAffinity for assignment.
+const SKILL_CLUSTER_MAP = {
+  "Customer Service Representatives": {
+    "Communication": "csr-inquiry",
+    "Prioritization": "csr-resolve",
+    "Call Center Experience": "csr-inquiry",
+    "Customer Inquiries": "csr-inquiry",
+    "Customer Success Management": "csr-improve",
+    "Customer Support": "csr-resolve",
+    "Inbound Calls": "csr-inquiry",
+    "Order Fulfillment": "csr-billing",
+    "Billing": "csr-billing",
+    "Cash Handling": "csr-billing",
+    "Clerical Works": "csr-records",
+    "Data Entry": "csr-records",
+    "Invoicing": "csr-billing",
+    "Order Entry": "csr-records",
+    "Scheduling": "csr-records",
+    "Cash Register": "csr-billing",
+    "Customer Relationship Management": "csr-resolve",
+    "Issuing Refunds": "csr-resolve",
+    "Merchandise Exchanges": "csr-billing",
+    "Multilingualism": "csr-inquiry",
+    "Order Delivery": "csr-billing",
+    "Sales": "csr-inquiry",
+    "Selling Techniques": "csr-inquiry",
+  }
+};
+
+function getSkillClusterAssignment(roleName, skill, clusters) {
+  const curated = SKILL_CLUSTER_MAP[roleName];
+  if (curated && curated[skill.skill]) return curated[skill.skill];
+  for (const c of clusters) {
+    const affected = iaSkillAffinity(c, roleName);
+    if (affected.some(s => s.skill === skill.skill)) return c.id;
+  }
+  return clusters[0]?.id || null;
+}
+
+function explainOutcome(skill, deltaCat, clusterLabel, bucket, finalOutcome) {
+  const bucketTxt = BUCKET_LABELS[bucket] || 'Human-Led';
+  const skillName = skill.skill;
+  if (deltaCat === 'foundational') {
+    return finalOutcome === 'transform'
+      ? `<strong>${skillName}</strong> is foundational — these never go away. With AI handling routine work, the human's <em>${skillName.toLowerCase()}</em> applies to harder situations.`
+      : `<strong>${skillName}</strong> is foundational — stays human, often grows in value as AI takes the routine work.`;
+  }
+  if (deltaCat === 'spec-domain') {
+    return `<strong>${skillName}</strong> is domain expertise — what the human <em>knows</em> that AI can't fake. AI may surface information, but the expert still makes the call.`;
+  }
+  if (deltaCat === 'core') {
+    return `<strong>${skillName}</strong> defines what this role is <em>for</em>. With "${clusterLabel}" routed to <strong>${bucketTxt}</strong>, the skill stays — but the work gets harder (only the cases AI can't handle reach the human).`;
+  }
+  if (deltaCat === 'baseline') {
+    if (finalOutcome === 'exit') {
+      return `<strong>${skillName}</strong> is execution work AI handles end-to-end. Because "${clusterLabel}" is fully automated, this skill exits the profile.`;
+    }
+    if (finalOutcome === 'downgrade') {
+      return `<strong>${skillName}</strong> is execution work AI handles well. With "${clusterLabel}" routed to <strong>${bucketTxt}</strong>, this skill is needed less often — humans review or set parameters instead.`;
+    }
+    return `<strong>${skillName}</strong> is execution work. Because "${clusterLabel}" stays <strong>${bucketTxt}</strong>, the skill stays unchanged.`;
+  }
+  if (deltaCat === 'spec-tools-ai') {
+    return `<strong>${skillName}</strong> is an AI-native system — it gets <em>more</em> powerful when AI is added. As "${clusterLabel}" moves to <strong>${bucketTxt}</strong>, fluency with this tool matters more, not less.`;
+  }
+  if (deltaCat === 'spec-tools-transactional') {
+    if (finalOutcome === 'exit' || finalOutcome === 'downgrade') {
+      return `<strong>${skillName}</strong> is a transactional tool — exactly the kind of execution AI replaces. With "${clusterLabel}" routed to <strong>${bucketTxt}</strong>, this skill ${finalOutcome === 'exit' ? 'exits the profile' : 'is needed less often'}.`;
+    }
+  }
+  return `<strong>${skillName}</strong> sits in <em>${CAT_PLAIN_NAME[deltaCat]}</em>. "${clusterLabel}" is routed to <strong>${bucketTxt}</strong>, which means: <strong>${OUTCOME_PLAIN[finalOutcome]}</strong>.`;
+}
+
+function computeSkillDelta(roleName, clusterMap) {
+  const rd = ROLES_DB[roleName] || {skills:[]};
+  const clusterById = {};
+  clusterMap.forEach(cm => { clusterById[cm.cluster.id] = cm; });
+
+  const deltas = [];
+  rd.skills.forEach(skill => {
+    const deltaCat = deltaCategoryOf(skill);
+    const clusterId = getSkillClusterAssignment(roleName, skill, clusterMap.map(cm => cm.cluster));
+    const cm = clusterById[clusterId];
+    if (!cm) {
+      deltas.push({skill, deltaCat, clusterId:null, clusterLabel:'unassessed cluster', bucket:'human-led', baseOutcome:'retain', finalOutcome: applyModifier('retain', deltaCat)});
+      return;
+    }
+    const baseOutcome = BUCKET_TO_BASE[cm.bucket];
+    const finalOutcome = applyModifier(baseOutcome, deltaCat);
+    deltas.push({
+      skill, deltaCat,
+      clusterId, clusterLabel: cm.cluster.label,
+      bucket: cm.bucket, baseOutcome, finalOutcome
+    });
+  });
+
+  const buckets = new Set(clusterMap.map(cm => cm.bucket));
+  const newSkills = [];
+  if (buckets.has('human-in-the-loop')) {
+    newSkills.push({
+      skill: 'AI Output Evaluation',
+      deltaCat: 'foundational',
+      reason: 'Added because at least one task cluster is routed to <strong>Human-in-the-Loop</strong> — the human reviews AI output and needs to judge whether it\u2019s good enough to ship.',
+    });
+  }
+  if (buckets.has('human-on-the-loop')) {
+    newSkills.push({
+      skill: 'Exception Triage',
+      deltaCat: 'core',
+      reason: 'Added because at least one task cluster is routed to <strong>Human-on-the-Loop</strong> — humans handle the exceptions AI flags but can\u2019t resolve.',
+    });
+  }
+  if (buckets.has('fully-automated')) {
+    newSkills.push({
+      skill: 'Outcome Monitoring & KPI Oversight',
+      deltaCat: 'spec-tools-ai',
+      reason: 'Added because at least one task cluster is <strong>fully automated</strong> — humans need to set parameters, watch aggregate outcomes, and detect drift.',
+    });
+  }
+  return { deltas, newSkills };
+}
+
 function renderTransformation(){
-  const rd = ROLES_DB[S.role]||{icon:'👤',workers:'',skills:[]};
-  const uc = USE_CASES.find(u=>u.id===S.uc);
+  const rd = ROLES_DB[S.role]||{icon:'\ud83d\udc64',workers:'',skills:[]};
   const cat = CATS[S.cat];
 
-  // Skills added by this AI use case for this role
-  const added = (uc.addedSkills[S.role]||[]);
-
-  // Determine drop status: skill is "dropping" if label=Declining Skill, or if use-case overrides it
-  const dropOverrides = (uc.dropOverride||{})[S.role]||[];
-  const droppingNames = new Set([...dropOverrides]);
-
-  const emphasis = UC_PRINCIPLE_EMPHASIS[S.uc] || {primary:[], secondary:[]};
-
-  // IA assessment-driven skill derivation — must run BEFORE keptSkills/droppingSkills are computed
-  const transformingSkills = new Set();
-  const iaClusterMap = [];
+  // Build cluster map from IA assessment (or default heuristic if unrun)
   const hasIAData = !!IA_ROLES[S.role];
   const iaCompleted = hasIAData && Object.keys(iaState.clusterAnswers).length > 0;
+  let activeClusterMap = [];
 
   if (iaCompleted) {
     const enriched = iaGetEnrichedClusters(S.role);
-    const bucketCounts = {'human-led':0,'human-in-the-loop':0,'human-on-the-loop':0,'fully-automated':0};
-    let totalImpacted = 0;
     enriched.filter(c => c.impactedCount > 0).forEach(c => {
       const answers = iaState.clusterAnswers[c.id];
       if (!answers) return;
-      const bucket = iaRouteCluster(answers)?.bucket;
-      const affectedSkills = iaSkillAffinity(c, S.role);
-      bucketCounts[bucket]++;
-      totalImpacted++;
-      iaClusterMap.push({cluster:c, bucket, affectedSkills});
-      if (bucket === 'fully-automated') {
-        // Skills primarily exercised by fully-automated clusters decline
-        affectedSkills.forEach(s => droppingNames.add(s.skill));
-      } else if (bucket === 'human-on-the-loop' || bucket === 'human-in-the-loop') {
-        // Skills transform in character — human still involved but role changes
-        affectedSkills.forEach(s => { if (!droppingNames.has(s.skill)) transformingSkills.add(s.skill); });
-      }
-      // human-led: skills persist unchanged or grow — no modification needed
+      const route = iaRouteCluster(answers);
+      const bucket = route?.bucket || 'human-led';
+      activeClusterMap.push({ cluster:c, bucket });
     });
-    const autoRate = totalImpacted > 0 ? (bucketCounts['fully-automated'] + bucketCounts['human-on-the-loop']*0.5) / totalImpacted : 0;
-    window._iaAutoRate = autoRate;
-    window._iaBucketCounts = bucketCounts;
-    window._iaTotalImpacted = totalImpacted;
-    window._iaClusterMap = iaClusterMap;
-  } else {
-    window._iaAutoRate = null;
-    window._iaClusterMap = [];
+  } else if (hasIAData) {
+    // No assessment done — synthesize a default allocation from auto/aug scores
+    const enriched = iaGetEnrichedClusters(S.role).filter(c => c.impactedCount > 0);
+    enriched.forEach(c => {
+      let bucket = 'human-led';
+      if (c.avgAuto > 0.55) bucket = 'fully-automated';
+      else if (c.avgAuto > 0.4) bucket = 'human-on-the-loop';
+      else if (c.avgAuto > 0.2 || c.avgAug > 0.4) bucket = 'human-in-the-loop';
+      activeClusterMap.push({ cluster:c, bucket });
+    });
   }
 
-  // Computed after IA block so droppingNames and transformingSkills are fully populated
-  const keptSkills      = rd.skills.filter(s => !droppingNames.has(s.skill) && !transformingSkills.has(s.skill));
-  const droppingSkills  = rd.skills.filter(s => droppingNames.has(s.skill));
-  const transformingList = rd.skills.filter(s => transformingSkills.has(s.skill));
+  const { deltas, newSkills } = computeSkillDelta(S.role, activeClusterMap);
 
-  const primaryPrincipleNames = emphasis.primary.map(pid => {
-    const p = DESIGN_PRINCIPLES.find(d=>d.id===pid);
-    return p ? p.name.replace(/^Principle \d+: /,'') : '';
-  }).filter(Boolean);
+  const dispBuckets = {'human-led':0,'human-in-the-loop':0,'human-on-the-loop':0,'fully-automated':0};
+  activeClusterMap.forEach(cm => { dispBuckets[cm.bucket] = (dispBuckets[cm.bucket]||0) + 1; });
 
-  // Header stats
+  const outcomeCounts = {retain:0,deepen:0,transform:0,downgrade:0,exit:0};
+  deltas.forEach(d => { outcomeCounts[d.finalOutcome]++; });
+  const retainTotal = outcomeCounts.retain + outcomeCounts.deepen;
+
+  // ===== Header banner + role context =====
   document.getElementById('tx-header-area').innerHTML = `
-    <div style="background:var(--purple-bg);border:1px solid #E9D5FF;border-radius:12px;padding:.75rem 1.1rem;margin-bottom:.85rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
-      <span style="font-size:13px">⚙️</span>
-      ${window._iaAutoRate !== null ? `
-        <span style="font-size:12px;color:var(--slate-600);flex:1"><strong style="color:var(--purple)">Based on your task assessment:</strong>
-        ${Math.round(window._iaAutoRate*100)}% of assessed clusters routed toward automation —
-        ${window._iaBucketCounts['human-led']} human-led, ${window._iaBucketCounts['human-in-the-loop']} human-in-the-loop, ${window._iaBucketCounts['human-on-the-loop']} human-on-the-loop, ${window._iaBucketCounts['fully-automated']} fully automated.</span>
-        <button onclick="goToStep(4)" style="font-size:11px;font-weight:700;color:var(--purple);background:none;border:1.5px solid #C4B5FD;border-radius:8px;padding:4px 10px;cursor:pointer">← Review Assessment</button>
+    <div class="delta-banner">
+      <span class="delta-banner-icon">\u2699\ufe0f</span>
+      ${iaCompleted ? `
+        <span class="delta-banner-text"><strong>Based on your task assessment:</strong>
+        ${dispBuckets['human-led']} human-led \u00b7
+        ${dispBuckets['human-in-the-loop']} human-in-the-loop \u00b7
+        ${dispBuckets['human-on-the-loop']} human-on-the-loop \u00b7
+        ${dispBuckets['fully-automated']} fully automated.</span>
+        <button class="delta-banner-btn" onclick="goToStep(3)">\u2190 Review Assessment</button>
       ` : `
-        <span style="font-size:12px;color:var(--slate-600);flex:1"><strong style="color:var(--purple)">How we got here:</strong> Skill changes below reflect the human vs. AI decisions from Step 4 — particularly <em>${primaryPrincipleNames.join('</em> and <em>')}</em>.</span>
-        <button onclick="goToStep(4)" style="font-size:11px;font-weight:700;color:var(--purple);background:none;border:1.5px solid #C4B5FD;border-radius:8px;padding:4px 10px;cursor:pointer">← Review Decisions</button>
+        <span class="delta-banner-text"><strong>Default allocations applied.</strong> Run the Step 3 assessment to refine these for your specific context.</span>
+        <button class="delta-banner-btn" onclick="goToStep(3)">Run Assessment</button>
       `}
     </div>
-    <div class="tx-header">
-      <div class="tx-main">
-        <div class="tx-role">${S.role}</div>
-        <div class="tx-sub">${cat.label} · ${rd.workers}</div>
-        <div class="tx-chips">
-          <span class="tx-chip add">+${added.length} New AI Skills Added</span>
-          <span class="tx-chip keep">${keptSkills.length} Skills Remain</span>
-          ${transformingList.length ? `<span class="tx-chip" style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA">${transformingList.length} Skills Transforming</span>` : ''}
-          <span class="tx-chip drop">${droppingSkills.length} Skills Declining</span>
-        </div>
+    <div class="delta-context">
+      <div class="delta-context-main">
+        <div class="delta-context-role">${rd.icon||''} ${S.role}</div>
+        <div class="delta-context-sub">${cat.label} \u00b7 ${rd.workers}</div>
       </div>
-      <div class="tx-ai-box">
-        <div class="tx-ai-label">AI Use Case Applied</div>
-        <div class="tx-ai-name">${uc.icon} ${uc.name}</div>
-        <div class="tx-ai-desc">${uc.desc.slice(0,115)}…</div>
+    </div>
+    <div class="delta-stat-row">
+      <div class="delta-stat" style="border-color:#BBF7D0">
+        <div class="delta-stat-num" style="color:#15803D">${retainTotal}</div>
+        <div class="delta-stat-label">Retain / Deepen</div>
+        <div class="delta-stat-sub">stays in profile</div>
       </div>
+      <div class="delta-stat" style="border-color:#FED7AA">
+        <div class="delta-stat-num" style="color:#C2410C">${outcomeCounts.transform}</div>
+        <div class="delta-stat-label">Transform</div>
+        <div class="delta-stat-sub">same name, harder slice</div>
+      </div>
+      <div class="delta-stat" style="border-color:#FCD34D">
+        <div class="delta-stat-num" style="color:#92400E">${outcomeCounts.downgrade}</div>
+        <div class="delta-stat-label">Downgrade</div>
+        <div class="delta-stat-sub">needed less often</div>
+      </div>
+      <div class="delta-stat" style="border-color:#FECACA">
+        <div class="delta-stat-num" style="color:#991B1B">${outcomeCounts.exit}</div>
+        <div class="delta-stat-label">Exit</div>
+        <div class="delta-stat-sub">leaves the profile</div>
+      </div>
+      <div class="delta-stat" style="border-color:#DDD6FE">
+        <div class="delta-stat-num" style="color:#5B21B6">+${newSkills.length}</div>
+        <div class="delta-stat-label">New</div>
+        <div class="delta-stat-sub">added by transitions</div>
+      </div>
+    </div>
+    <div class="delta-helper">
+      <span class="delta-helper-strong">Read the table:</span>
+      <span>each skill\u2019s outcome is set by which task cluster it most supports and where that cluster was routed.</span>
+      <span class="delta-helper-spacer"></span>
+      <span class="delta-helper-hint">Hover any row to see why \u2192</span>
     </div>
   `;
 
-  // Group by category
-  function groupByCat(skillList){
-    const groups = {};
-    skillList.forEach(s=>{
-      const c = s.cat||s.category||"Other";
-      if(!groups[c]) groups[c]=[];
-      groups[c].push(s);
-    });
-    return groups;
-  }
+  // ===== Render the skill delta table grouped by category =====
+  const CAT_DISPLAY = [
+    { key:'foundational',              name:'Foundational & Leadership',           hint:'cross-role human capabilities \u2014 never go away, often deepen', barColor:'#10B981' },
+    { key:'core',                      name:'Core Role-Specific',                  hint:'what this role exists to do \u2014 survives, transforms in nature',     barColor:'#F59E0B' },
+    { key:'spec-domain',               name:'Specialization \u2014 Domain & Expertise', hint:'subject knowledge AI can\u2019t fake',                            barColor:'#8B5CF6' },
+    { key:'spec-tools-ai',             name:'Specialization \u2014 AI-Native Tools',    hint:'systems that get more powerful with AI',                          barColor:'#3B82F6' },
+    { key:'spec-tools-transactional',  name:'Specialization \u2014 Transactional Tools',hint:'execution tools AI replaces',                                     barColor:'#06B6D4' },
+    { key:'baseline',                  name:'Baseline Applied',                    hint:'codifiable execution \u2014 first to be absorbed by AI',               barColor:'#EF4444' },
+  ];
 
-  function renderSkillRow(s, stateClass, showTrend=false){
-    const trend = showTrend && s.label ? trendBadge(s.label) : '';
-    return `<div class="sk ${stateClass}">
-      <div class="sk-dot ${stateClass}"></div>
-      <div class="sk-name">${s.skill}${trend}</div>
+  function renderDeltaRow(d) {
+    const tip = explainOutcome(d.skill, d.deltaCat, d.clusterLabel, d.bucket, d.finalOutcome);
+    const sub = d.clusterLabel && d.clusterLabel !== 'unassessed cluster'
+      ? `<div class="delta-cluster">via <strong style="color:var(--slate-500)">${d.clusterLabel}</strong> <span class="delta-cluster-arrow">\u2192</span> <span class="delta-cluster-bucket">${BUCKET_LABELS[d.bucket]}</span></div>`
+      : '';
+    return `<div class="delta-row">
+      <div class="delta-skill-block">
+        <div class="delta-skill">${d.skill.skill}</div>
+        ${sub}
+      </div>
+      <div class="delta-outcome ${d.finalOutcome}">${OUTCOME_PLAIN[d.finalOutcome]}</div>
+      <div class="delta-tip">${tip}</div>
     </div>`;
   }
 
-  function renderGrouped(skillList, stateClass, showTrend=false){
-    const groups = groupByCat(skillList);
-    const catOrder = [
-      "Foundational & Leadership Skills",
-      "Baseline Applied Skills",
-      "Core Role-Specific Skills",
-      "Specializations","Specialization"
-    ];
-    const allCats = [...new Set([...catOrder.filter(c=>groups[c]), ...Object.keys(groups)])];
-    return allCats.map(c=>{
-      if(!groups[c]) return '';
-      return `<div class="cat-group">
-        <div class="cat-label">${c}</div>
-        ${groups[c].map(s=>renderSkillRow(s,stateClass,showTrend)).join('')}
-      </div>`;
-    }).join('');
+  function renderNewSkillRow(ns) {
+    return `<div class="delta-row is-new">
+      <div class="delta-skill-block">
+        <div class="delta-skill">${ns.skill}</div>
+        <div class="delta-cluster">added because at least one cluster moved to a new posture</div>
+      </div>
+      <div class="delta-outcome new">+ New</div>
+      <div class="delta-tip">${ns.reason}</div>
+    </div>`;
   }
 
-  // LEFT panel: current skills — show kept + dropping separately
-  const leftHtml = `
-    ${keptSkills.length ? renderGrouped(keptSkills,'kept',true) : '<div class="empty-note">No retained skills</div>'}
-    ${transformingList.length ? `
-      <div style="margin-top:.75rem;padding-top:.5rem;border-top:1px dashed #FED7AA">
-        <div style="font-size:11px;font-weight:700;color:#C2410C;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem;">
-          ↔ Skills Transforming in Character
-        </div>
-        <div style="font-size:11px;color:var(--slate-500);margin-bottom:.4rem;">These skills remain — but shift from execution to oversight, validation, or AI-assisted judgment.</div>
-        ${transformingList.map(s=>`<div class="sk kept" style="border-left:3px solid #FB923C;padding-left:.5rem">
-          <div class="sk-dot" style="background:#FB923C"></div>
-          <div class="sk-name">${s.skill} <span style="font-size:10px;font-weight:600;color:#C2410C;background:#FFF7ED;border:1px solid #FED7AA;border-radius:4px;padding:1px 5px;margin-left:4px">Transforming</span></div>
-        </div>`).join('')}
-      </div>
-    ` : ''}
-    ${droppingSkills.length ? `
-      <div style="margin-top:.75rem;padding-top:.5rem;border-top:1px dashed var(--slate-200)">
-        <div style="font-size:11px;font-weight:700;color:var(--rose);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem;">
-          ↓ Skills Declining Due to AI
-        </div>
-        ${droppingSkills.map(s=>renderSkillRow(s,'dropping')).join('')}
-      </div>
-    ` : ''}
-  `;
-
-  // RIGHT panel: stays + new additions
-  const rightHtml = `
-    ${keptSkills.length ? renderGrouped(keptSkills,'kept-r',true) : ''}
-    ${added.length ? `
-      <div style="margin-top:.75rem;padding-top:.5rem;border-top:1px dashed #E9D5FF">
-        <div style="font-size:11px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem;">
-          ✦ New Skills Introduced by AI
-        </div>
-        ${renderGrouped(added,'new-skill')}
-      </div>
-    ` : '<div class="empty-note">No new AI skills mapped for this use case + role combination yet.</div>'}
-  `;
+  let deltaHtml = '';
+  CAT_DISPLAY.forEach(cd => {
+    const items = deltas.filter(d => d.deltaCat === cd.key);
+    const newItems = newSkills.filter(ns => ns.deltaCat === cd.key);
+    if (items.length === 0 && newItems.length === 0) return;
+    deltaHtml += `<div class="delta-cat-section">
+      <div class="delta-cat">
+        <div class="delta-cat-bar" style="background:${cd.barColor}"></div>
+        <div class="delta-cat-name">${cd.name}</div>
+        <div class="delta-cat-hint">${cd.hint}</div>
+      </div>`;
+    items.forEach(d => { deltaHtml += renderDeltaRow(d); });
+    newItems.forEach(ns => { deltaHtml += renderNewSkillRow(ns); });
+    deltaHtml += `</div>`;
+  });
 
   document.getElementById('tx-panels').innerHTML = `
-    <div class="panel">
-      <div class="panel-head">
-        <span class="panel-title">Current Skill Profile</span>
-        <span class="panel-count" style="background:var(--slate-100);color:var(--slate-600)">${rd.skills.length} skills</span>
-      </div>
-      <div class="panel-body">${leftHtml}</div>
-    </div>
-    <div class="panel">
-      <div class="panel-head">
-        <span class="panel-title">Transformed Skill Profile</span>
-        <span class="panel-count" style="background:var(--purple-bg);color:var(--purple)">${keptSkills.length + added.length} skills</span>
-      </div>
-      <div class="panel-body">${rightHtml}</div>
-    </div>
+    <div style="grid-column:1 / -1">${deltaHtml}</div>
   `;
+  // Restore single-column layout (override grid)
+  document.getElementById('tx-panels').style.display = 'block';
 
-  // Role + use-case specific insights — plain language, no dead-link pills
-  const ROLE_INSIGHTS = {
-"Software Developers":{
-  "ai-copilot":"For software developers, AI co-pilots like GitHub Copilot and Cursor are already changing how code gets written. The shift isn't about writing less code — it's about spending less time on boilerplate and more time on design decisions, code review, and system thinking. Developers who know how to prompt well, validate AI output critically, and catch subtle bugs the AI misses will consistently outperform those who either ignore these tools or over-trust them.",
-  "ai-dev":"AI-assisted development is the most transformative use case for this role. Routine tasks — unit tests, documentation, repetitive API integrations — are automating rapidly. What grows in value is the work AI can't do: designing systems that scale, making architectural trade-offs, reviewing AI-generated code for security flaws, and deciding when not to use AI. The new premium skill is knowing how to orchestrate AI tools effectively without losing engineering judgment.",
-  "ai-copilot-default":"AI tools are reshaping how developers work, not eliminating the role. The most valuable skills are shifting toward directing AI, validating its output, and contributing the architectural judgment and domain context that AI tools lack.",
-},
-"Data Scientists":{
-  "predictive-analytics":"Data scientists are moving from building models to governing them. The work of cleaning data, running standard model training runs, and generating routine reports is increasingly automated. What remains distinctly human is the interpretive work: deciding which signals actually matter, explaining model outputs to stakeholders in ways that drive decisions, and knowing when a model's output shouldn't be trusted. The title may stay the same — but the job is becoming more about judgment and communication than computation.",
-  "ai-dev":"With AutoML and AI-assisted coding, a lot of the mechanical work in data science — feature engineering, hyperparameter tuning, code scaffolding — is automating. The role is shifting toward higher-level orchestration: choosing the right modeling approach, evaluating outputs critically, governing model behavior in production, and translating findings into action. Skills in LLM integration and foundation model fine-tuning are becoming core, not optional.",
-  "ai-copilot":"AI co-pilots accelerate the exploratory and documentation phases of data science work significantly. Writing analysis code, generating report narratives, and summarizing findings are all faster with AI assistance. The premium is shifting to the interpretive layer — being the person who can look at an AI-generated analysis and know whether the conclusion is actually valid, or whether the model is missing something important the data doesn't capture.",
-},
-"Cybersecurity Analysts":{
-  "ai-monitoring":"Cybersecurity analysts are gaining a powerful force multiplier: AI systems that can monitor networks continuously, detect anomalies at machine speed, and triage alerts before a human ever sees them. The human role shifts from watching dashboards to investigating the cases that AI escalates — the ambiguous, high-stakes incidents where context, creativity, and judgment matter. The risk is alert fatigue becoming automation complacency; staying sharp on active investigation skills is essential.",
-  "ai-dev":"For cybersecurity analysts working in development environments, AI is both a tool and a new attack surface. AI can generate security test cases and scan code for vulnerabilities at scale. But it also creates new threats — AI-generated phishing content, adversarial inputs, and vulnerable AI-generated code that passes human review. The most important new skill is understanding how AI systems can be attacked, not just how they can be used.",
-  "ai-copilot":"AI co-pilots reduce the documentation and reporting overhead that pulls analysts away from active threat work. Incident reports, policy documentation, and compliance summaries can be drafted by AI and reviewed by humans. That frees time for the adversarial thinking — red-teaming, threat modeling, and the creative reasoning that no AI system currently matches.",
-},
-"Product Managers":{
-  "ai-copilot":"AI co-pilots are most useful for product managers in the high-volume, lower-judgment work: drafting PRDs, summarizing user research, generating competitive landscape overviews. What they can't replace is the judgment layer — deciding what to build, why it matters, and how to align a cross-functional team around a direction. PMs who use AI well will produce more output; PMs who use it wisely will produce better decisions.",
-  "ai-dev":"As AI takes on more execution work in engineering teams, the product manager's role as the bridge between customer needs and technical capability becomes more important, not less. PMs need to understand AI capabilities well enough to set credible requirements, evaluate AI feature proposals critically, and lead ethically on questions about what AI products should and shouldn't do.",
-},
-"Customer Service Representatives":{
-  "ai-customer":"A lot of what customer service reps handle today — answering routine questions, looking up order status, processing standard refunds — can now be handled by AI chatbots faster and at lower cost. What's left for human reps is the harder, more human work: calming an angry customer, navigating an unusual situation that doesn't fit the script, or handling something sensitive where empathy matters more than efficiency. That shift is real, and it means the skills that matter most are changing — away from script-following, toward judgment and emotional intelligence.",
-  "ai-copilot":"AI tools are helping reps handle more cases with better consistency — surfacing relevant knowledge base articles, drafting response suggestions, flagging sentiment. But the rep is still the one deciding what to say and how to say it. The skill that grows in value is knowing when to follow the AI's suggestion and when to go off-script because the situation calls for something different.",
-  "process-automation":"Automation is taking over the most repetitive parts of this role — data entry, standard inquiry responses, appointment scheduling. The job isn't disappearing, but it's changing. The reps who stay most valuable are those who handle the exceptions: the complaints automation can't resolve, the customers who are upset enough to need a real person, and the edge cases that require human judgment to navigate.",
-},
-"Customer Service Managers":{
-  "ai-customer":"AI is reshaping the customer service floor in ways that change what managers actually manage. When AI handles routine volume, the cases that escalate to human reps are harder and more emotionally charged — which means coaching and quality oversight become more demanding, not easier. Managers need to develop their teams' judgment and empathy skills, not just their process compliance.",
-  "ai-copilot":"With AI handling reporting and performance dashboards automatically, managers can spend less time pulling together data and more time acting on it — coaching reps, improving processes, and designing better customer experiences. The skill shift is from data compilation to data interpretation and team development.",
-  "process-automation":"Automated scheduling, performance tracking, and routine reporting free up significant managerial time. The question is what that time gets redirected to. The managers who thrive are those who use it to improve team quality, handle escalated customer issues personally, and drive continuous improvement — not those who simply absorb the freed time passively.",
-},
-"Financial Analysts":{
-  "predictive-analytics":"Financial analysts who built their careers on Excel modeling and report compilation are facing the most direct pressure from AI. Routine quantitative work — data aggregation, standard reports, variance analysis — is automating rapidly. What stays human is the interpretive layer: understanding what the numbers actually mean in the context of a business, communicating a clear point of view to decision-makers, and knowing when to be skeptical of a model's output. The analyst role is shifting from data processor to insight advisor.",
-  "ai-copilot":"AI co-pilots accelerate the mechanical parts of financial analysis significantly — pulling data, structuring models, drafting summaries. The value-add shifts to the judgment the AI can't provide: investment thesis development, qualitative assessment of management teams and competitive dynamics, and the credibility to defend a recommendation in front of skeptical stakeholders.",
-},
-"Financial Managers":{
-  "predictive-analytics":"Predictive analytics gives financial managers better visibility into what's coming — cash flow risks, budget variances, market shifts — before they become problems. But the decisions that matter most still require human judgment: how much risk to take, how to allocate capital across competing priorities, and how to communicate financial reality to leaders who may not want to hear it. AI makes managers better-informed; it doesn't make the hard calls for them.",
-  "ai-copilot":"AI co-pilots handle the bulk of routine financial reporting, reconciliation, and compliance monitoring — tasks that once consumed significant analyst and manager time. The payoff is that financial managers can focus on the higher-value work: strategic financial planning, stakeholder relationships, and the judgment calls that require experience and accountability rather than computation.",
-  "process-automation":"Automating reconciliation, close processes, and standard reporting frees the finance team from significant mechanical work. The risk is that managers lose touch with the underlying data when they stop working through it manually. The managers who stay sharp are those who use the freed time to develop sharper analytical judgment — not just to sign off on automated outputs.",
-},
-"Human Resources Specialists":{
-  "ai-copilot":"HR specialists using AI co-pilots can move through administrative tasks — drafting job descriptions, generating onboarding materials, summarizing engagement survey data — much faster. The work that stays fully human is the work that matters most: navigating a difficult employee relations situation, having a hard conversation about performance, and making the judgment call that a policy technically permits but common sense says is wrong.",
-  "predictive-analytics":"People analytics is giving HR specialists visibility into workforce trends they couldn't see before — attrition risk, engagement dips, pay equity gaps. The challenge is that this data is only useful if the HR professional knows what to do with it. The new premium skill is translating workforce data into clear recommendations for managers and leaders — and having the credibility to make those recommendations stick.",
-  "process-automation":"Payroll, benefits administration, and applicant tracking are increasingly automated, which is mostly good news for HR specialists — it means less time on data entry and more time on the relational work that's hard to automate. The risk is over-relying on automated hiring screening tools that can reflect historical bias. Human review of AI-generated candidate rankings remains essential.",
-},
-"Project Management Specialists":{
-  "ai-copilot":"AI co-pilots can generate project plans, draft status reports, and flag schedule risks automatically — tasks that used to consume significant PM time. What that frees up is time for the work that actually drives project success: stakeholder alignment, resolving conflicts that block progress, and making judgment calls when the plan meets reality. The PMs who get more value from AI tools are those who use that freed time on harder human problems, not those who just produce more documentation.",
-  "predictive-analytics":"Predictive project analytics can surface schedule risks and budget variances earlier than any human reviewing a Gantt chart would catch them. But risk identification is only half the job. The PM still has to decide what to do about a risk — which trade-offs to make, which stakeholders to bring in, and how to communicate difficult news in a way that moves the project forward rather than triggering panic.",
-},
-"Sales Managers":{
-  "ai-copilot":"AI tools give sales managers better pipeline visibility, faster reporting, and deeper analytics on what's working across the team. The core of the job — coaching individual reps, building relationships with key accounts, and making judgment calls about where to invest time — stays human. The managers who benefit most from AI are those who use the data to have better coaching conversations, not those who use it to replace them.",
-  "predictive-analytics":"Predictive analytics changes the rhythm of sales management. Instead of finding out at the end of the quarter that a deal fell through, managers can see the signals earlier and intervene. But the intervention itself is still human work — understanding why a rep is struggling, what the customer really needs, and how to course-correct in a way that strengthens rather than undermines the relationship.",
-},
-"Sales Representatives":{
-  "ai-copilot":"AI tools are taking over the prep work that used to consume sales reps' time — researching prospects, logging CRM notes, drafting follow-up emails. That's mostly good news: reps can spend more time actually selling. The skills that matter most are shifting from information gathering to relationship building and consultative judgment — understanding what a prospect actually needs and finding creative ways to solve their problem, which AI can surface data about but can't do for you.",
-  "ai-customer":"AI-powered personalization is changing customer expectations. Buyers are getting more relevant outreach, which raises the bar for every sales interaction. The reps who stand out are those who add genuine value in conversations — asking better questions, listening more carefully, and bringing insight that the prospect couldn't have generated on their own. AI can help prepare for that conversation, but it can't have it.",
-  "predictive-analytics":"Propensity scoring and predictive outreach sequencing are making sales efforts more efficient — reps spend less time on cold leads and more on prospects who actually have a need. The judgment call that remains human is what to do when you're in front of that prospect. Data can tell you who to call; it can't tell you what to say when they push back.",
-},
-"Purchasing Agents":{
-  "ai-copilot":"AI tools help purchasing agents move through the administrative weight of the job faster — tracking orders, monitoring supplier performance, generating RFQ summaries. The judgment work stays human: evaluating a supplier's reliability beyond what the data shows, negotiating in a way that protects the relationship as well as the price, and knowing when a contract risk is worth taking. AI can surface more information; the agent still has to know what to do with it.",
-  "predictive-analytics":"Demand forecasting AI helps purchasing agents get ahead of supply needs before they become emergencies. But the forecast is only as useful as the agent's ability to act on it — knowing which suppliers can flex up quickly, which lead times are more variable than the system thinks, and when to carry extra buffer stock despite the optimization model saying otherwise.",
-},
-"Production and Expediting Clerks":{
-  "process-automation":"Production scheduling and work order routing are increasingly automated, which reduces the administrative burden on clerks significantly. What stays human is the exception-handling layer: when a supplier is late, a machine goes down, or a priority order needs to jump the queue, a human still has to figure out what to do. That judgment work — coordinating across departments under pressure — is what the role is evolving toward.",
-  "ai-copilot":"AI tools can track production progress, flag delays, and generate status reports automatically. The clerk's value shifts from tracking things to acting on them — contacting the right people when something is off, making calls about what gets expedited, and keeping the production floor moving when the plan meets reality.",
-},
-"Industrial Machinery Mechanics":{
-  "ai-monitoring":"Predictive maintenance AI is changing when mechanics show up to fix things. Instead of responding after a breakdown, they're receiving alerts about bearing wear, vibration anomalies, or temperature drift before failure occurs. The physical repair work stays fully human — the diagnostic starting point just gets better. Mechanics who learn to work with these systems and trust the data (while knowing its limits) will consistently prevent more downtime than those who ignore it.",
-  "predictive-analytics":"The shift from reactive to predictive maintenance fundamentally changes the job. Mechanics spend less time on emergency breakdowns and more time on planned, condition-based work. That's better for equipment uptime, safer for workers, and — done right — more satisfying than always being in crisis mode. The new skill is reading sensor data and IoT dashboards alongside physical inspection cues.",
-},
-"Inspectors, Testers, and Samplers":{
-  "ai-monitoring":"Computer vision systems can now scan products for defects faster and more consistently than the human eye for many standard quality checks. That doesn't eliminate the inspector's role — it changes it. Inspectors shift from performing repetitive visual checks to overseeing AI systems, validating their calibration, and handling the ambiguous cases the AI flags but can't confidently classify. The judgment work — deciding whether a borderline defect is acceptable — stays human.",
-  "process-automation":"Automated measurement and testing equipment handles an increasing share of routine inspection tasks. The inspector's role shifts toward setting up and maintaining these systems, interpreting results in context, and making the final call on anything that falls outside normal parameters. The skill that matters most is knowing when to trust the automated output and when something needs a closer look.",
-},
-"Maintenance and Repair Workers":{
-  "ai-monitoring":"IoT sensors and building management systems are giving maintenance workers earlier warning of problems — flagging an HVAC issue before it becomes a failure, or detecting unusual energy consumption before anyone notices. The physical repair work stays the same; the information going into the decision about what to fix first gets better. Workers who learn to read these systems add significant value through better-prioritized maintenance.",
-  "ai-copilot":"AI can help with work order documentation, parts lookup, and repair history retrieval — reducing the administrative overhead on maintenance workers. The hands-on diagnostic and repair work stays fully human. The combination of faster information access and physical skill creates more capacity to keep facilities running well.",
-},
-"Assemblers and Fabricators":{
-  "process-automation":"Automation is taking over the most repetitive assembly tasks — especially those that are high-volume, physically simple, and geometrically consistent. What stays human is the work that requires adaptation: handling variation in materials, troubleshooting when something doesn't fit as expected, and responding to the edge cases that automated systems flag as errors but can't resolve themselves. The role is shifting from execution to oversight and exception-handling.",
-  "ai-monitoring":"Computer vision quality systems are faster and more consistent at spotting standard defects than human visual inspection on a fast-moving line. Assemblers working alongside these systems shift toward responding to what the system flags — investigating the root cause of recurring defects, adjusting processes, and handling anything the automated check is uncertain about.",
-},
-"Packers and Packagers":{
-  "process-automation":"Automated packing lines handle high-volume, uniform packaging tasks more consistently than manual work. The job for workers alongside these systems shifts toward oversight, troubleshooting jams, handling non-standard items, and responding when the automated system flags a problem it can't resolve. Workers who understand how the equipment works — not just how to operate it — are most valuable when things go wrong.",
-  "ai-monitoring":"Vision-based inspection systems are increasingly used to check labeling, fill levels, and packaging integrity automatically. Workers shift from doing the visual check to monitoring whether the automated check is working correctly and handling the items it flags as uncertain. That requires a different kind of attention — systems thinking rather than repetitive inspection.",
-},
-"Laborers and Material Movers":{
-  "process-automation":"Autonomous mobile robots and conveyor systems are handling an increasing share of material movement in warehouses and distribution centers. The tasks that remain human-led are those that require physical adaptability — handling irregular items, navigating unpredictable environments, and responding to exceptions the automation can't process. Workers alongside these systems need to understand how to collaborate with the robots, not just work around them.",
-  "ai-monitoring":"Wearable safety devices and zone-monitoring AI are improving safety on the floor by flagging hazardous conditions and near-miss events automatically. Workers benefit from the earlier warning but still need to respond correctly — the AI can alert, but the human has to act. The most important safety skills are unchanged; the information arriving before the hazard becomes an incident is new.",
-},
-"Stockers and Order Fillers":{
-  "process-automation":"Automated inventory systems and pick-assist devices are significantly speeding up order fulfillment in high-volume warehouses. Workers using these systems shift from memorizing locations and managing lists manually to following system-guided picks and focusing on accuracy and speed. The tasks that stay human are those requiring physical judgment — handling damaged goods, dealing with items the system can't identify, and resolving discrepancies.",
-  "ai-monitoring":"RFID and smart shelf systems give real-time inventory visibility that changes how stockers work. Rather than scheduled cycle counts, issues surface as they happen. Workers respond to live alerts rather than discovered-after-the-fact discrepancies. That requires different habits — checking the system proactively and responding quickly to flags rather than working from a static task list.",
-  "ai-copilot":"AI co-pilots help stockers manage reorder requests and track out-of-stock items automatically, reducing the administrative tracking work. The physical stocking and order-filling work remains hands-on. The combination means workers can focus more attention on floor-level quality and customer assistance rather than inventory administration.",
-},
-"Shipping & Receiving Clerks":{
-  "process-automation":"Documentation — bills of lading, shipping manifests, invoices — is increasingly generated and processed automatically. The clerk's role shifts from paperwork execution to exception handling: resolving discrepancies between what was ordered, what arrived, and what the system recorded. That requires more careful attention to detail on the cases that fall through the cracks, not less.",
-  "ai-monitoring":"Automated verification systems can check inbound shipments against manifests faster than manual review. Clerks shift toward overseeing these systems, handling the exceptions they flag, and making the judgment calls about what to accept, reject, or escalate. Physical inspection of damaged goods and the negotiation with carriers to resolve transit problems stays human.",
-},
-"Transportation, Storage, and Distribution Managers":{
-  "predictive-analytics":"Predictive analytics is giving distribution managers visibility into demand patterns and supply chain disruptions before they hit operations. The value isn't in the data itself — it's in what managers do with it. Decisions about inventory positioning, carrier relationships, and contingency planning still require the judgment that comes from experience and organizational context that no system fully captures.",
-  "ai-monitoring":"AI fleet and facility monitoring systems can track asset location, condition, and utilization continuously. Managers shift from periodic check-ins to exception-based oversight — responding to what the system surfaces rather than reviewing everything manually. The decisions that matter most — safety compliance, significant resource allocation, and personnel matters — remain firmly under human authority.",
-  "process-automation":"Automated shipment tracking, reporting, and scheduling reduce the administrative overhead on distribution management significantly. The time that frees up is most valuable when redirected to continuous improvement work — identifying why exceptions keep recurring, strengthening supplier relationships, and coaching operations staff — rather than absorbed by additional administrative tasks.",
-},
-"Transportation Supervisors":{
-  "predictive-analytics":"Route optimization and driver performance analytics give transportation supervisors better data to work with. But managing drivers is still about relationships, trust, and knowing your team — knowing which driver can handle a difficult delivery and which one needs more support on a tough route. The data tells you what happened; the supervisor still has to know why, and what to do about it.",
-  "ai-monitoring":"Real-time fleet monitoring changes how supervisors stay on top of operations. Rather than waiting for drivers to check in or problems to surface through complaints, issues appear as they happen. The supervisor's role shifts from reactive troubleshooting to proactive intervention — catching problems earlier and responding faster. Safety decisions and personnel matters still require direct human judgment.",
-},
-"Truck Drivers":{
-  "ai-monitoring":"AI navigation, telematics, and driver-assist systems are becoming standard equipment in commercial trucking. These tools help drivers stay safer — lane departure warnings, following distance alerts, fatigue detection — and more efficient, with optimized routing and fuel usage guidance. But the driving itself, and every safety-critical decision on the road, remains the driver's responsibility. Understanding how to work with these systems — not just tolerate them — is becoming a core part of the job.",
-  "process-automation":"The administrative side of trucking — logging hours, tracking loads, processing paperwork at pickup and delivery — is increasingly automated through electronic logging devices and digital freight platforms. That reduces the paperwork burden but raises the bar on digital literacy. Drivers who are comfortable working with these systems spend less time on administration and more time on what matters: safe, on-time delivery.",
-  "predictive-analytics":"Predictive routing and load matching tools are changing how drivers interact with dispatch. Instead of waiting for instructions, drivers increasingly see AI-generated suggestions for routes, loads, and timing. The driver still makes the final call — knowing a route has construction the system didn't account for, or that a receiver's dock is notorious for delays — and that local, experiential knowledge remains genuinely valuable.",
-  "ai-copilot":"AI co-pilots in trucking are mostly about logistics support: ELD management, fuel optimization recommendations, route adjustments based on real-time traffic and weather. The physical act of driving — and every judgment call that comes with it — stays fully with the driver. The tools are most useful to drivers who engage with them actively rather than treating them as background noise.",
-},
-"Cashiers":{
-  "process-automation":"Self-checkout and automated payment systems are handling an increasing share of routine transactions. The cashier role is shifting away from transaction processing and toward the parts of the job automation handles least well: helping customers who are confused or frustrated, managing exceptions at self-checkout kiosks, and providing the basic human presence that a kiosk can't replicate. The role isn't gone — but it's changing.",
-  "ai-customer":"AI-powered recommendation and loyalty systems are giving cashiers real-time prompts about relevant offers or follow-up purchases for each customer. That changes the interaction from pure transaction processing to something slightly more consultative. The skill that matters is knowing how to make that feel helpful rather than pushy — which is a human judgment call the AI can't make.",
-  "ai-copilot":"AI tools are automating the most transactional parts of the checkout process — payment processing, receipt generation, inventory updates. What remains distinctly human is the customer interaction layer: greeting people, handling complaints, making someone who just waited too long in line feel good about coming back.",
-},
-"Retail Salespersons":{
-  "ai-customer":"AI recommendation engines and inventory lookup tools are giving retail salespersons better information about what a customer might want before they even ask. The physical presence, product demonstration, and relationship building that converts a browser into a buyer — that stays human. The most effective salespeople are those who use the AI-surfaced information to have more informed conversations, not those who simply hand the customer a tablet.",
-  "ai-copilot":"AI tools handle the lookup and inventory work that used to require salesperson time — checking whether a size is in the back, finding the right product code, logging a special order. That frees up attention for the customer in front of you. The skill shift is toward deeper product knowledge and consultative selling, since the transactional tasks are increasingly handled automatically.",
-  "process-automation":"Payment processing, inventory management, and records keeping are increasingly automated in retail. Salespersons who focus on the human-facing work — product expertise, customer engagement, and handling situations the system flags as exceptions — remain valuable in ways that automation doesn't replace.",
-},
-"Security Guards":{
-  "ai-monitoring":"AI video analytics and access control systems extend what security guards can monitor without increasing headcount. The role is shifting from patrolling and watching to interpreting alerts and responding to incidents the AI has flagged. That changes the job's rhythm significantly — less walking the floor, more active attention when something is flagged. The judgment calls that matter most — whether to intervene, when to call law enforcement, how to de-escalate a situation — remain fully human.",
-  "ai-copilot":"AI tools handle the incident logging and reporting work that once consumed significant guard time. That frees up time and attention for active observation and response. The most important security skills — situational awareness, calm judgment under pressure, and de-escalation — are as relevant as ever.",
-},
-"First-Line Supervisors of Retail Sales Workers":{
-  "ai-customer":"AI customer analytics and inventory systems are giving retail supervisors better real-time visibility into what's happening on the floor. The core supervision work — coaching staff, resolving customer escalations, making judgment calls about floor coverage and priorities — stays human. Supervisors who use the data to have better conversations with their teams get more value from it than those who just use it for reporting.",
-  "process-automation":"Automated scheduling, inventory replenishment, and performance reporting reduce the administrative overhead of retail supervision. The time freed up is most valuable when invested in the people side of the job — training staff, handling difficult customer situations personally, and building the team cohesion that drives consistent service quality.",
-  "ai-copilot":"AI tools handle scheduling optimization and inventory alerts automatically, surfacing what needs attention rather than requiring the supervisor to manually check everything. That creates space for more coaching, more floor presence, and more attention to the customer experience — which is where supervisors can actually make a difference.",
-},
-  };
+  // ===== Dynamic insight regenerated from allocations =====
+  const total = deltas.length || 1;
+  const exitPct = Math.round((outcomeCounts.exit / total) * 100);
+  const transformPct = Math.round((outcomeCounts.transform / total) * 100);
+  const retainPct = Math.round((retainTotal / total) * 100);
 
-  // Get the insight: first try role+uc, fall back to uc-generic, fall back to default
-  function getRoleInsight(role, uc) {
-    const roleMap = ROLE_INSIGHTS[role];
-    if (roleMap && roleMap[uc]) return roleMap[uc];
-    // generic fallbacks by use case
-    const generic = {
-      "ai-copilot":"AI co-pilot tools are changing the shape of this role — accelerating high-volume, lower-judgment tasks so that workers can spend more time on the work that requires genuine expertise and human connection. The biggest skill shift is learning to direct and validate AI effectively, rather than simply receiving its output.",
-      "predictive-analytics":"Predictive analytics is giving workers in this role better foresight into what's coming. The value is less about having the data and more about knowing what to do with it — translating signals into decisions, and decisions into action, in ways that improve outcomes for the people and operations this role serves.",
-      "process-automation":"Automation is taking the most repetitive, rule-governed tasks in this role and handling them more efficiently than manual processes can. The job is shifting toward exception-handling, oversight, and the adaptive judgment that automation can't replicate — which tends to be the more interesting and durable work.",
-      "ai-customer":"AI is handling a growing share of routine customer interactions, which changes what human workers in this role actually do all day. The interactions that reach a person are increasingly the harder ones — which raises the bar on empathy, judgment, and the ability to handle situations that don't fit a script.",
-      "ai-monitoring":"AI monitoring systems are expanding what workers in this role can see and respond to. The human role is shifting from routine observation to active interpretation — deciding what flagged anomalies actually mean and what to do about them. Safety-critical and high-stakes decisions remain firmly under human judgment.",
-      "ai-dev":"AI development tools are changing the pace and texture of technical work in this role. Routine implementation tasks are automating, raising the value of the design, oversight, and judgment work that remains. Workers who learn to collaborate effectively with AI tools — directing them well and catching their errors — will outperform those who either ignore them or over-rely on them.",
-    };
-    return generic[uc] || "AI is reshaping how this role operates. The skills that grow in value are those that AI cannot replicate — judgment in ambiguous situations, relationships built on trust, and the ability to handle what falls outside the automated system's envelope.";
+  // Find the category with the largest losses
+  const catLoss = {};
+  deltas.forEach(d => {
+    if (d.finalOutcome === 'exit' || d.finalOutcome === 'downgrade') {
+      catLoss[d.deltaCat] = (catLoss[d.deltaCat] || 0) + 1;
+    }
+  });
+  let mostLoss = null, mostLossN = 0;
+  Object.entries(catLoss).forEach(([k,v]) => { if (v > mostLossN) { mostLoss = k; mostLossN = v; }});
+
+  const lines = [];
+  lines.push(`<strong>${retainPct}% of skills retain or deepen</strong>, <strong>${transformPct}% transform</strong> in nature, and <strong>${exitPct}% exit</strong> the profile.`);
+  if (mostLoss) {
+    lines.push(`The biggest losses are concentrated in <em>${CAT_PLAIN_NAME[mostLoss]}</em> \u2014 exactly where AI substitution lands first.`);
+  }
+  if (newSkills.length) {
+    const ns = newSkills.map(n => `<em>${n.skill}</em>`).join(', ');
+    lines.push(`The transitions you chose add ${newSkills.length} new ${newSkills.length===1?'skill':'skills'}: ${ns}.`);
   }
 
   document.getElementById('tx-insight').innerHTML = `
     <div class="insight">
-      <div class="insight-icon">💡</div>
+      <div class="insight-icon">\ud83d\udca1</div>
       <div class="insight-body">
-        <div class="insight-title">What this means for ${S.role}</div>
-        <div class="insight-text">${getRoleInsight(S.role, S.uc)}</div>
+        <div class="insight-title">What this allocation means for ${S.role}</div>
+        <div class="insight-text">${lines.join(' ')}</div>
       </div>
     </div>
   `;
